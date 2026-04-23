@@ -1,0 +1,1662 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Calibra — Calistenia & Coaching</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+  /* ─── VARIABLES ─────────────────────────────────────── */
+  :root {
+    --bg:        #242424;
+    --surface:   #333333;
+    --yellow:    #E8C547;
+    --yellow-soft: #F5DFA0;
+    --text:      #F0EDE6;
+    --muted:     #888888;
+    --accent-dark: #5C4800;
+    --font-display: 'Bebas Neue', sans-serif;
+    --font-sub: 'Barlow Condensed', sans-serif;
+    --font-body: 'Space Grotesk', sans-serif;
+  }
+
+  /* ─── RESET ─────────────────────────────────────────── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 15px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+  a { color: inherit; text-decoration: none; }
+  img { display: block; max-width: 100%; }
+
+  /* ─── NOISE TEXTURE OVERLAY ──────────────────────────── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+    opacity: 0.035;
+    pointer-events: none;
+    z-index: 9999;
+  }
+
+  /* ─── SCROLLBAR ──────────────────────────────────────── */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--yellow); border-radius: 3px; }
+
+  /* ─── NAV ────────────────────────────────────────────── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 5vw;
+    height: 68px;
+    background: rgba(36,36,36,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(232,197,71,0.12);
+    transition: box-shadow 0.3s;
+  }
+  nav.scrolled { box-shadow: 0 4px 32px rgba(0,0,0,0.5); }
+  .nav-logo {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    letter-spacing: 0.08em;
+    color: var(--text);
+  }
+  .nav-logo span { color: var(--yellow); }
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+    font-family: var(--font-sub);
+    font-weight: 600;
+    font-size: 0.85rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  .nav-links a { color: var(--muted); transition: color 0.2s; }
+  .nav-links a:hover { color: var(--yellow); }
+  .nav-cta {
+    background: var(--yellow);
+    color: var(--accent-dark);
+    font-family: var(--font-sub);
+    font-weight: 700;
+    font-size: 0.8rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 10px 22px;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .nav-cta:hover { background: var(--yellow-soft); transform: translateY(-1px); }
+
+  /* hamburger */
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+  .hamburger span { display: block; width: 24px; height: 2px; background: var(--text); transition: 0.3s; }
+  .mobile-menu {
+    display: none;
+    position: fixed;
+    top: 68px; left: 0; right: 0;
+    background: var(--surface);
+    padding: 2rem 5vw;
+    z-index: 99;
+    border-bottom: 2px solid var(--yellow);
+  }
+  .mobile-menu.open { display: flex; flex-direction: column; gap: 1.5rem; }
+  .mobile-menu a {
+    font-family: var(--font-sub);
+    font-weight: 600;
+    font-size: 1.1rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    padding-bottom: 1rem;
+  }
+
+  /* ─── HERO ───────────────────────────────────────────── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 68px 5vw 0;
+    position: relative;
+    overflow: hidden;
+  }
+  /* big background text */
+  .hero-bg-text {
+    position: absolute;
+    bottom: -2vw;
+    left: -1vw;
+    font-family: var(--font-display);
+    font-size: clamp(10rem, 22vw, 22rem);
+    color: rgba(232,197,71,0.04);
+    line-height: 1;
+    pointer-events: none;
+    white-space: nowrap;
+    letter-spacing: -0.02em;
+  }
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    padding: 6rem 0;
+    animation: fadeUp 0.9s ease both;
+  }
+  .tag {
+    display: inline-block;
+    background: var(--yellow);
+    color: var(--accent-dark);
+    font-family: var(--font-sub);
+    font-weight: 700;
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    margin-bottom: 1.4rem;
+  }
+  .hero h1 {
+    font-family: var(--font-display);
+    font-size: clamp(3.5rem, 6.5vw, 7rem);
+    line-height: 0.95;
+    letter-spacing: 0.02em;
+    color: var(--text);
+    margin-bottom: 0.6em;
+  }
+  .hero h1 em { font-style: normal; color: var(--yellow); display: block; }
+  .hero-bar { width: 80px; height: 3px; background: var(--yellow); margin: 1.2rem 0 1.6rem; }
+  .hero p {
+    font-size: 1rem;
+    color: var(--muted);
+    max-width: 440px;
+    line-height: 1.7;
+    margin-bottom: 2.4rem;
+  }
+  .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--yellow);
+    color: var(--accent-dark);
+    font-family: var(--font-sub);
+    font-weight: 700;
+    font-size: 0.88rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 14px 32px;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .btn-primary:hover { background: var(--yellow-soft); transform: translateY(-2px); }
+  .btn-outline {
+    background: transparent;
+    color: var(--text);
+    font-family: var(--font-sub);
+    font-weight: 600;
+    font-size: 0.88rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 13px 32px;
+    border: 1.5px solid var(--muted);
+    cursor: pointer;
+    transition: border-color 0.2s, color 0.2s, transform 0.15s;
+  }
+  .btn-outline:hover { border-color: var(--yellow); color: var(--yellow); transform: translateY(-2px); }
+  .hero-visual {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    padding: 6rem 0 0;
+    animation: fadeUp 0.9s 0.2s ease both;
+  }
+  .hero-card-stack {
+    position: relative;
+    width: min(380px, 42vw);
+    aspect-ratio: 3/4;
+  }
+  .card-bg {
+    position: absolute;
+    inset: 0;
+    background: var(--surface);
+    transform: rotate(4deg) translateX(18px);
+  }
+  .card-main {
+    position: relative;
+    background: var(--surface);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 2rem;
+    overflow: hidden;
+  }
+  .card-main::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--yellow);
+  }
+  .card-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -65%);
+    font-size: clamp(5rem, 10vw, 9rem);
+    opacity: 0.18;
+    line-height: 1;
+  }
+  .card-label {
+    font-family: var(--font-sub);
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--yellow);
+    margin-bottom: 0.4rem;
+  }
+  .card-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 3vw, 2.8rem);
+    color: var(--text);
+    line-height: 1;
+    letter-spacing: 0.03em;
+  }
+  .hero-stats {
+    position: absolute;
+    bottom: -2rem;
+    right: -2rem;
+    background: var(--yellow);
+    padding: 1.2rem 1.5rem;
+  }
+  .hero-stats .num {
+    font-family: var(--font-display);
+    font-size: 2.4rem;
+    color: var(--accent-dark);
+    line-height: 1;
+  }
+  .hero-stats .lbl {
+    font-family: var(--font-sub);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent-dark);
+    margin-top: 2px;
+  }
+
+  /* ─── MARQUEE ────────────────────────────────────────── */
+  .marquee-wrap {
+    background: var(--yellow);
+    overflow: hidden;
+    padding: 0;
+    margin-top: 0;
+  }
+  .marquee-track {
+    display: flex;
+    width: max-content;
+    animation: marquee 24s linear infinite;
+  }
+  .marquee-item {
+    white-space: nowrap;
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent-dark);
+    padding: 12px 40px;
+    display: flex;
+    align-items: center;
+    gap: 40px;
+  }
+  .marquee-dot { width: 6px; height: 6px; background: var(--accent-dark); border-radius: 50%; }
+
+  /* ─── SECTION SHARED ─────────────────────────────────── */
+  section { padding: 6rem 5vw; }
+  .section-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: var(--font-sub);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--yellow);
+    margin-bottom: 1rem;
+  }
+  .section-label::before {
+    content: '';
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--yellow);
+  }
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(2.4rem, 4.5vw, 4.5rem);
+    line-height: 1;
+    letter-spacing: 0.02em;
+    color: var(--text);
+    margin-bottom: 0.5em;
+  }
+  .section-sub {
+    font-size: 0.95rem;
+    color: var(--muted);
+    max-width: 520px;
+    line-height: 1.7;
+  }
+  .divider { width: 60px; height: 3px; background: var(--yellow); margin: 1.2rem 0 2.4rem; }
+
+  /* ─── ABOUT ──────────────────────────────────────────── */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+  .about-img-wrap {
+    position: relative;
+  }
+  .about-img-box {
+    background: var(--surface);
+    aspect-ratio: 4/5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .about-img-box::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      45deg,
+      rgba(232,197,71,0.04) 0,
+      rgba(232,197,71,0.04) 1px,
+      transparent 1px,
+      transparent 18px
+    );
+  }
+  .about-img-box .icon-big { font-size: 9rem; opacity: 0.14; }
+  .about-accent-box {
+    position: absolute;
+    bottom: -1.5rem;
+    right: -1.5rem;
+    background: var(--yellow);
+    padding: 1.5rem 1.8rem;
+  }
+  .about-accent-box .num {
+    font-family: var(--font-display);
+    font-size: 2.8rem;
+    color: var(--accent-dark);
+    line-height: 1;
+  }
+  .about-accent-box .lbl {
+    font-family: var(--font-sub);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent-dark);
+  }
+  .about-text h2 {
+    font-family: var(--font-display);
+    font-size: clamp(2.2rem, 3.5vw, 4rem);
+    line-height: 1;
+    color: var(--text);
+    margin-bottom: 0.6em;
+  }
+  .about-text h2 span { color: var(--yellow); }
+  .about-text p {
+    color: var(--muted);
+    line-height: 1.75;
+    margin-bottom: 1.2rem;
+  }
+  .chips { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 1.8rem; }
+  .chip {
+    font-family: var(--font-sub);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    border: 1.5px solid rgba(232,197,71,0.35);
+    color: var(--yellow-soft);
+    padding: 6px 14px;
+    transition: background 0.2s, color 0.2s;
+  }
+  .chip:hover { background: var(--yellow); color: var(--accent-dark); border-color: var(--yellow); }
+
+  /* ─── SERVICIOS ──────────────────────────────────────── */
+  #servicios { background: var(--surface); }
+  .services-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 3.5rem;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+  }
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5px;
+  }
+  .service-card {
+    background: var(--bg);
+    padding: 2.4rem 2rem;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.3s;
+  }
+  .service-card::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 4px;
+    background: var(--yellow);
+    transform: scaleY(0);
+    transform-origin: bottom;
+    transition: transform 0.35s ease;
+  }
+  .service-card:hover::before { transform: scaleY(1); }
+  .service-card:hover { transform: translateX(4px); }
+  .service-card.featured {
+    background: var(--yellow);
+  }
+  .service-card.featured::before { display: none; }
+  .service-card.featured:hover { transform: translateY(-4px); }
+  .service-num {
+    font-family: var(--font-display);
+    font-size: 3.5rem;
+    color: rgba(232,197,71,0.12);
+    line-height: 1;
+    margin-bottom: 1rem;
+  }
+  .service-card.featured .service-num { color: rgba(92,72,0,0.2); }
+  .service-icon { font-size: 2rem; margin-bottom: 1rem; }
+  .service-card h3 {
+    font-family: var(--font-display);
+    font-size: 1.7rem;
+    letter-spacing: 0.04em;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+  }
+  .service-card.featured h3 { color: var(--accent-dark); }
+  .service-badge {
+    display: inline-block;
+    background: var(--yellow);
+    color: var(--accent-dark);
+    font-family: var(--font-sub);
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    padding: 3px 9px;
+    margin-bottom: 0.8rem;
+  }
+  .service-card.featured .service-badge {
+    background: var(--accent-dark);
+    color: var(--yellow);
+  }
+  .service-card p {
+    font-size: 0.88rem;
+    color: var(--muted);
+    line-height: 1.65;
+    margin-bottom: 1.5rem;
+  }
+  .service-card.featured p { color: rgba(92,72,0,0.75); }
+  .service-list { list-style: none; margin-bottom: 2rem; }
+  .service-list li {
+    font-size: 0.84rem;
+    color: var(--muted);
+    padding: 0.4rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+  .service-card.featured .service-list li { color: rgba(92,72,0,0.8); border-bottom-color: rgba(92,72,0,0.1); }
+  .service-list li::before {
+    content: '—';
+    color: var(--yellow);
+    font-weight: bold;
+  }
+  .service-card.featured .service-list li::before { color: var(--accent-dark); }
+  .service-price {
+    font-family: var(--font-display);
+    font-size: 2.6rem;
+    letter-spacing: 0.02em;
+    color: var(--text);
+    line-height: 1;
+  }
+  .service-price span {
+    font-family: var(--font-sub);
+    font-size: 0.8rem;
+    font-weight: 400;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+  }
+  .service-card.featured .service-price { color: var(--accent-dark); }
+  .service-card.featured .service-price span { color: rgba(92,72,0,0.6); }
+  .service-btn {
+    margin-top: 1.4rem;
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 12px;
+    font-family: var(--font-sub);
+    font-weight: 700;
+    font-size: 0.82rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    border: 1.5px solid var(--yellow);
+    color: var(--yellow);
+    background: transparent;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+  }
+  .service-btn:hover { background: var(--yellow); color: var(--accent-dark); }
+  .service-card.featured .service-btn {
+    background: var(--accent-dark);
+    color: var(--yellow);
+    border-color: var(--accent-dark);
+  }
+  .service-card.featured .service-btn:hover { background: #3d3000; }
+
+  /* ─── EBOOKS ─────────────────────────────────────────── */
+  .ebooks-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: 3rem;
+  }
+  .ebook-card {
+    background: var(--surface);
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s;
+    cursor: pointer;
+  }
+  .ebook-card:hover { transform: translateY(-6px); }
+  .ebook-cover {
+    aspect-ratio: 3/4;
+    background: var(--bg);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 1.6rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .ebook-cover::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(36,36,36,0.9) 35%, transparent);
+  }
+  .ebook-cover-pattern {
+    position: absolute;
+    inset: 0;
+    background:
+      repeating-linear-gradient(
+        0deg,
+        transparent 0,
+        transparent 28px,
+        rgba(232,197,71,0.05) 28px,
+        rgba(232,197,71,0.05) 29px
+      ),
+      repeating-linear-gradient(
+        90deg,
+        transparent 0,
+        transparent 28px,
+        rgba(232,197,71,0.05) 28px,
+        rgba(232,197,71,0.05) 29px
+      );
+  }
+  .ebook-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -55%);
+    font-size: 7rem;
+    opacity: 0.13;
+  }
+  .ebook-cover-bar {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: var(--yellow);
+  }
+  .ebook-cover-content { position: relative; z-index: 2; }
+  .ebook-cover-tag {
+    display: inline-block;
+    background: var(--yellow);
+    color: var(--accent-dark);
+    font-family: var(--font-sub);
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 3px 9px;
+    margin-bottom: 0.6rem;
+  }
+  .ebook-cover-title {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    line-height: 1;
+    letter-spacing: 0.03em;
+    color: var(--text);
+  }
+  .ebook-body { padding: 1.4rem 1.6rem 1.8rem; }
+  .ebook-body p {
+    font-size: 0.85rem;
+    color: var(--muted);
+    line-height: 1.65;
+    margin-bottom: 1.2rem;
+  }
+  .ebook-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .ebook-price {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    color: var(--yellow);
+    line-height: 1;
+  }
+  .ebook-price sub {
+    font-family: var(--font-sub);
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--muted);
+    vertical-align: middle;
+  }
+  .btn-buy {
+    background: var(--yellow);
+    color: var(--accent-dark);
+    font-family: var(--font-sub);
+    font-weight: 700;
+    font-size: 0.78rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 10px 18px;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .btn-buy:hover { background: var(--yellow-soft); transform: translateY(-1px); }
+
+  /* ─── TESTIMONIOS ────────────────────────────────────── */
+  #testimonios { background: var(--surface); }
+  .testi-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+  .testi-card {
+    background: var(--bg);
+    padding: 2rem;
+    border-left: 4px solid var(--yellow);
+    position: relative;
+  }
+  .testi-card::before {
+    content: '"';
+    position: absolute;
+    top: -0.5rem;
+    right: 1.5rem;
+    font-family: var(--font-display);
+    font-size: 8rem;
+    color: rgba(232,197,71,0.07);
+    line-height: 1;
+  }
+  .testi-text {
+    font-size: 0.9rem;
+    color: var(--text);
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+    font-style: italic;
+  }
+  .testi-author { display: flex; align-items: center; gap: 0.9rem; }
+  .testi-avatar {
+    width: 40px; height: 40px;
+    background: var(--surface);
+    border: 2px solid var(--yellow);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.3rem;
+    flex-shrink: 0;
+  }
+  .testi-name {
+    font-family: var(--font-sub);
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text);
+  }
+  .testi-detail {
+    font-size: 0.75rem;
+    color: var(--yellow);
+    margin-top: 1px;
+  }
+  .stars { color: var(--yellow); font-size: 0.85rem; margin-bottom: 0.8rem; }
+
+  /* ─── PROCESO ────────────────────────────────────────── */
+  .process-steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    margin-top: 3.5rem;
+    position: relative;
+  }
+  .process-steps::before {
+    content: '';
+    position: absolute;
+    top: 2.5rem;
+    left: 12%;
+    right: 12%;
+    height: 2px;
+    background: repeating-linear-gradient(90deg, var(--yellow) 0, var(--yellow) 8px, transparent 8px, transparent 18px);
+  }
+  .step {
+    text-align: center;
+    padding: 0 1.5rem;
+    position: relative;
+  }
+  .step-num {
+    width: 5rem;
+    height: 5rem;
+    background: var(--bg);
+    border: 2px solid var(--yellow);
+    margin: 0 auto 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 2;
+  }
+  .step-num span {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    color: var(--yellow);
+    line-height: 1;
+  }
+  .step h4 {
+    font-family: var(--font-sub);
+    font-weight: 700;
+    font-size: 0.9rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text);
+    margin-bottom: 0.6rem;
+  }
+  .step p { font-size: 0.82rem; color: var(--muted); line-height: 1.6; }
+
+  /* ─── PAGO / CTA ─────────────────────────────────────── */
+  #pago {
+    background: var(--bg);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    padding: 7rem 5vw;
+  }
+  #pago::before {
+    content: 'PAGO';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: var(--font-display);
+    font-size: 22vw;
+    color: rgba(232,197,71,0.03);
+    pointer-events: none;
+    white-space: nowrap;
+    letter-spacing: 0.1em;
+  }
+  .pago-inner { position: relative; z-index: 2; }
+  .pago-inner h2 {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 4.5vw, 5rem);
+    letter-spacing: 0.03em;
+    color: var(--text);
+    margin-bottom: 0.5em;
+  }
+  .pago-inner h2 span { color: var(--yellow); }
+  .pago-inner p {
+    color: var(--muted);
+    font-size: 0.95rem;
+    max-width: 500px;
+    margin: 0 auto 2.5rem;
+    line-height: 1.7;
+  }
+  .payment-methods {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 3rem;
+  }
+  .pm-badge {
+    background: var(--surface);
+    border: 1px solid rgba(232,197,71,0.2);
+    padding: 0.7rem 1.4rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: var(--font-sub);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .pm-badge .pm-icon { font-size: 1.2rem; }
+  .pago-cta-group { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+  /* ─── FAQ ────────────────────────────────────────────── */
+  #faq { max-width: 800px; margin: 0 auto; }
+  #faq-section { padding: 6rem 5vw; }
+  .faq-item {
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .faq-q {
+    width: 100%;
+    background: none;
+    border: none;
+    color: var(--text);
+    text-align: left;
+    padding: 1.4rem 0;
+    font-family: var(--font-sub);
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    transition: color 0.2s;
+  }
+  .faq-q:hover { color: var(--yellow); }
+  .faq-q .arrow {
+    font-size: 1.1rem;
+    transition: transform 0.3s;
+    color: var(--yellow);
+    flex-shrink: 0;
+  }
+  .faq-q.open .arrow { transform: rotate(45deg); }
+  .faq-a {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, padding 0.3s;
+    font-size: 0.88rem;
+    color: var(--muted);
+    line-height: 1.75;
+  }
+  .faq-a.open { max-height: 300px; padding-bottom: 1.4rem; }
+
+  /* ─── FOOTER ─────────────────────────────────────────── */
+  footer {
+    background: #1a1a1a;
+    padding: 4rem 5vw 2rem;
+    border-top: 3px solid var(--yellow);
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 3rem;
+    margin-bottom: 3rem;
+  }
+  .footer-brand .logo {
+    font-family: var(--font-display);
+    font-size: 2.6rem;
+    letter-spacing: 0.08em;
+    color: var(--text);
+    margin-bottom: 0.8rem;
+  }
+  .footer-brand .logo span { color: var(--yellow); }
+  .footer-brand p {
+    font-size: 0.85rem;
+    color: var(--muted);
+    line-height: 1.7;
+    max-width: 280px;
+  }
+  .footer-col h4 {
+    font-family: var(--font-sub);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--yellow);
+    margin-bottom: 1.2rem;
+  }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; }
+  .footer-col ul li a {
+    font-size: 0.85rem;
+    color: var(--muted);
+    transition: color 0.2s;
+  }
+  .footer-col ul li a:hover { color: var(--text); }
+  .footer-socials { display: flex; gap: 0.8rem; margin-top: 1.5rem; }
+  .social-btn {
+    width: 38px; height: 38px;
+    background: var(--surface);
+    border: 1px solid rgba(232,197,71,0.2);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .social-btn:hover { background: var(--yellow); border-color: var(--yellow); }
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    font-size: 0.78rem;
+    color: var(--muted);
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  /* ─── MODAL ──────────────────────────────────────────── */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.85);
+    z-index: 200;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal {
+    background: var(--surface);
+    max-width: 520px;
+    width: 100%;
+    padding: 2.5rem;
+    position: relative;
+    border-top: 4px solid var(--yellow);
+    animation: fadeUp 0.35s ease;
+  }
+  .modal-close {
+    position: absolute;
+    top: 1rem; right: 1.2rem;
+    background: none;
+    border: none;
+    color: var(--muted);
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+  .modal-close:hover { color: var(--yellow); }
+  .modal h3 {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    color: var(--text);
+    margin-bottom: 0.3rem;
+    letter-spacing: 0.04em;
+  }
+  .modal p { font-size: 0.88rem; color: var(--muted); margin-bottom: 1.8rem; }
+  .form-group { margin-bottom: 1.2rem; }
+  .form-group label {
+    display: block;
+    font-family: var(--font-sub);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--yellow);
+    margin-bottom: 0.4rem;
+  }
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    width: 100%;
+    background: var(--bg);
+    border: 1.5px solid rgba(255,255,255,0.08);
+    color: var(--text);
+    padding: 10px 14px;
+    font-family: var(--font-body);
+    font-size: 0.88rem;
+    outline: none;
+    transition: border-color 0.2s;
+    -webkit-appearance: none;
+  }
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus { border-color: var(--yellow); }
+  .form-group select { cursor: pointer; }
+  .form-group textarea { resize: vertical; min-height: 80px; }
+  .form-submit {
+    width: 100%;
+    background: var(--yellow);
+    color: var(--accent-dark);
+    font-family: var(--font-sub);
+    font-weight: 700;
+    font-size: 0.88rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 14px;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin-top: 0.5rem;
+  }
+  .form-submit:hover { background: var(--yellow-soft); }
+
+  /* ─── ANIMATIONS ─────────────────────────────────────── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(28px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ─── RESPONSIVE ─────────────────────────────────────── */
+  @media (max-width: 1024px) {
+    .services-grid { grid-template-columns: 1fr 1fr; }
+    .ebooks-grid { grid-template-columns: 1fr 1fr; }
+    .testi-grid { grid-template-columns: 1fr 1fr; }
+    .process-steps { grid-template-columns: 1fr 1fr; gap: 2rem; }
+    .process-steps::before { display: none; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 768px) {
+    .hero { grid-template-columns: 1fr; padding-top: 68px; }
+    .hero-visual { display: none; }
+    .about-grid { grid-template-columns: 1fr; }
+    .about-img-wrap { display: none; }
+    .services-grid { grid-template-columns: 1fr; }
+    .ebooks-grid { grid-template-columns: 1fr; }
+    .testi-grid { grid-template-columns: 1fr; }
+    .process-steps { grid-template-columns: 1fr 1fr; }
+    .nav-links, .nav-cta { display: none; }
+    .hamburger { display: flex; }
+    .footer-grid { grid-template-columns: 1fr; }
+    .services-header { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ─── NAV ─────────────────────────────────────────────── -->
+<nav id="navbar">
+  <div class="nav-logo">CALIB<span>R</span>A</div>
+  <ul class="nav-links">
+    <li><a href="#about">Sobre mí</a></li>
+    <li><a href="#servicios">Servicios</a></li>
+    <li><a href="#ebooks">Ebooks</a></li>
+    <li><a href="#proceso">Cómo funciona</a></li>
+    <li><a href="#faq-section">FAQ</a></li>
+  </ul>
+  <button class="nav-cta" onclick="openModal('general')">Consulta gratuita</button>
+  <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about" onclick="toggleMenu()">Sobre mí</a>
+  <a href="#servicios" onclick="toggleMenu()">Servicios</a>
+  <a href="#ebooks" onclick="toggleMenu()">Ebooks</a>
+  <a href="#proceso" onclick="toggleMenu()">Cómo funciona</a>
+  <a href="#faq-section" onclick="toggleMenu()">FAQ</a>
+  <a href="#" onclick="openModal('general'); toggleMenu()">→ Consulta gratuita</a>
+</div>
+
+<!-- ─── HERO ─────────────────────────────────────────────── -->
+<section class="hero" id="home">
+  <div class="hero-bg-text">CALIBRA</div>
+  <div class="hero-content">
+    <div class="tag">Coach · Calistenia · Buenos Aires</div>
+    <h1>ENTRENA<em>SIN LÍMITES</em></h1>
+    <div class="hero-bar"></div>
+    <p>Asesorías online personalizadas y recursos de entrenamiento para llevar tu cuerpo al siguiente nivel — desde principiante hasta élite.</p>
+    <div class="hero-btns">
+      <button class="btn-primary" onclick="document.getElementById('servicios').scrollIntoView({behavior:'smooth'})">Ver servicios</button>
+      <button class="btn-outline" onclick="document.getElementById('ebooks').scrollIntoView({behavior:'smooth'})">Ver ebooks</button>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="hero-card-stack">
+      <div class="card-bg"></div>
+      <div class="card-main">
+        <div class="card-icon">🤸</div>
+        <div class="card-label">Coaching online</div>
+        <div class="card-title">STREET<br>WORKOUT</div>
+        <div class="hero-stats">
+          <div class="num">5+</div>
+          <div class="lbl">Años de<br>experiencia</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── MARQUEE ───────────────────────────────────────────── -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <div class="marquee-item">Calistenia <span class="marquee-dot"></span></div>
+    <div class="marquee-item">Street Workout <span class="marquee-dot"></span></div>
+    <div class="marquee-item">Fuerza relativa <span class="marquee-dot"></span></div>
+    <div class="marquee-item">Planche <span class="marquee-dot"></span></div>
+    <div class="marquee-item">Front Lever <span class="marquee-dot"></span></div>
+    <div class="marquee-item">Musculatura <span class="marquee-dot"></span></div>
+    <div class="marquee-item">Movilidad <span class="marquee-dot"></span></div>
+    <div class="marquee-item">Progresiones <span class="marquee-dot"></span></div>
+    <div class="marquee-item">Calistenia <span class="marquee-dot"></span></div>
+    <div class="marquee-item">Street Workout <span class="marquee-dot"></span></div>
+    <div class="marquee-item">Fuerza relativa <span class="marquee-dot"></span></div>
+    <div class="marquee-item">Planche <span class="marquee-dot"></span></div>
+    <div class="marquee-item">Front Lever <span class="marquee-dot"></span></div>
+    <div class="marquee-item">Musculatura <span class="marquee-dot"></span></div>
+    <div class="marquee-item">Movilidad <span class="marquee-dot"></span></div>
+    <div class="marquee-item">Progresiones <span class="marquee-dot"></span></div>
+  </div>
+</div>
+
+<!-- ─── ABOUT ────────────────────────────────────────────── -->
+<section id="about">
+  <div class="about-grid reveal">
+    <div class="about-img-wrap">
+      <div class="about-img-box">
+        <div class="icon-big">🏋️</div>
+      </div>
+      <div class="about-accent-box">
+        <div class="num">100+</div>
+        <div class="lbl">Alumnos<br>entrenados</div>
+      </div>
+    </div>
+    <div class="about-text">
+      <div class="section-label">Sobre mí</div>
+      <h2>ATLETA,<br>INSTRUCTOR<br>& <span>COACH</span></h2>
+      <div class="divider"></div>
+      <p>Soy instructor de calistenia con más de 5 años de entrenamiento y competición a nivel nacional en powerfreestyle. Entreno grupos e individuos en plaza y ofrezco asesorías online para alumnos de todo el país.</p>
+      <p>Mi enfoque combina la técnica deportiva con la progresión inteligente — cada alumno tiene un camino diferente y yo te ayudo a construir el tuyo.</p>
+      <div class="chips">
+        <span class="chip">Powerfreestyle</span>
+        <span class="chip">Planche</span>
+        <span class="chip">Front Lever</span>
+        <span class="chip">Handstand</span>
+        <span class="chip">Fuerza</span>
+        <span class="chip">Nutrición</span>
+        <span class="chip">Movilidad</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── SERVICIOS ─────────────────────────────────────────── -->
+<section id="servicios">
+  <div class="services-header reveal">
+    <div>
+      <div class="section-label">Lo que ofrezco</div>
+      <h2 class="section-title">ASESORÍAS<br>ONLINE</h2>
+    </div>
+    <p class="section-sub">Elegí el nivel de acompañamiento que más se adapta a tus objetivos y disponibilidad.</p>
+  </div>
+  <div class="services-grid reveal">
+
+    <!-- Starter -->
+    <div class="service-card">
+      <div class="service-num">01</div>
+      <div class="service-icon">⚡</div>
+      <div class="service-badge">Principiante</div>
+      <h3>STARTER</h3>
+      <p>Ideal para quienes recién empiezan o quieren ordenar su entrenamiento con base sólida.</p>
+      <ul class="service-list">
+        <li>Rutina mensual personalizada</li>
+        <li>Video-análisis inicial</li>
+        <li>1 ajuste durante el mes</li>
+        <li>Acceso a grupo de alumnos</li>
+        <li>Soporte por WhatsApp</li>
+      </ul>
+      <div class="service-price">USD 25<span> / mes</span></div>
+      <button class="service-btn" onclick="openModal('starter')">Contratar</button>
+    </div>
+
+    <!-- Pro (featured) -->
+    <div class="service-card featured">
+      <div class="service-num">02</div>
+      <div class="service-icon">🔥</div>
+      <div class="service-badge">Más popular</div>
+      <h3>PRO</h3>
+      <p>Seguimiento cercano con ajustes semanales. Para quienes quieren resultados reales y consistentes.</p>
+      <ul class="service-list">
+        <li>Rutina semanal personalizada</li>
+        <li>Video-análisis semanal</li>
+        <li>Ajustes y feedback continuo</li>
+        <li>Plan de nutrición básico</li>
+        <li>Videollamada mensual (30 min)</li>
+        <li>Soporte directo prioritario</li>
+      </ul>
+      <div class="service-price">USD 60<span> / mes</span></div>
+      <button class="service-btn" onclick="openModal('pro')">Contratar</button>
+    </div>
+
+    <!-- Elite -->
+    <div class="service-card">
+      <div class="service-num">03</div>
+      <div class="service-icon">👑</div>
+      <div class="service-badge">Competición</div>
+      <h3>ELITE</h3>
+      <p>Para atletas avanzados o en preparación para competencia. Máximo nivel de personalización.</p>
+      <ul class="service-list">
+        <li>Todo lo incluido en Pro</li>
+        <li>Periodización por macrociclos</li>
+        <li>Prep específica para skills</li>
+        <li>2 videollamadas / mes</li>
+        <li>Análisis biomecánico avanzado</li>
+        <li>Contacto directo sin límites</li>
+      </ul>
+      <div class="service-price">USD 100<span> / mes</span></div>
+      <button class="service-btn" onclick="openModal('elite')">Contratar</button>
+    </div>
+
+  </div>
+</section>
+
+<!-- ─── PROCESO ───────────────────────────────────────────── -->
+<section id="proceso">
+  <div class="reveal" style="text-align:center; margin-bottom:1rem;">
+    <div class="section-label" style="justify-content:center;">Cómo funciona</div>
+    <h2 class="section-title">EL PROCESO</h2>
+    <div class="divider" style="margin:1rem auto 0;"></div>
+  </div>
+  <div class="process-steps reveal">
+    <div class="step">
+      <div class="step-num"><span>01</span></div>
+      <h4>Elegís tu plan</h4>
+      <p>Seleccionás el nivel de asesoría según tus objetivos y completás el formulario inicial.</p>
+    </div>
+    <div class="step">
+      <div class="step-num"><span>02</span></div>
+      <h4>Evaluación</h4>
+      <p>Te mandás videos de tus movimientos actuales para que pueda evaluar tu nivel real.</p>
+    </div>
+    <div class="step">
+      <div class="step-num"><span>03</span></div>
+      <h4>Tu rutina</h4>
+      <p>Armo tu plan personalizado basado en tus objetivos, disponibilidad y nivel actual.</p>
+    </div>
+    <div class="step">
+      <div class="step-num"><span>04</span></div>
+      <h4>Seguimiento</h4>
+      <p>Ajustes continuos, feedback de tus videos y evolución mes a mes hacia tus metas.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ─── EBOOKS ────────────────────────────────────────────── -->
+<section id="ebooks" style="background:var(--surface);">
+  <div class="reveal">
+    <div class="section-label">Recursos digitales</div>
+    <h2 class="section-title">EBOOKS &<br>GUÍAS</h2>
+    <div class="divider"></div>
+    <p class="section-sub">Material descargable para que tengas las bases del entrenamiento y la nutrición en tus manos.</p>
+  </div>
+  <div class="ebooks-grid reveal">
+
+    <div class="ebook-card">
+      <div class="ebook-cover">
+        <div class="ebook-cover-pattern"></div>
+        <div class="ebook-icon">💪</div>
+        <div class="ebook-cover-bar"></div>
+        <div class="ebook-cover-content">
+          <div class="ebook-cover-tag">Entrenamiento</div>
+          <div class="ebook-cover-title">CALISTENIA PARA PRINCIPIANTES</div>
+        </div>
+      </div>
+      <div class="ebook-body">
+        <p>Todo lo que necesitás saber para empezar desde cero con base técnica sólida. Progresiones, rutinas y explicaciones claras.</p>
+        <div class="ebook-footer">
+          <div class="ebook-price">$9 <sub>USD</sub></div>
+          <button class="btn-buy" onclick="openModal('ebook1')">Comprar</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="ebook-card">
+      <div class="ebook-cover">
+        <div class="ebook-cover-pattern"></div>
+        <div class="ebook-icon">🥗</div>
+        <div class="ebook-cover-bar"></div>
+        <div class="ebook-cover-content">
+          <div class="ebook-cover-tag">Nutrición</div>
+          <div class="ebook-cover-title">GUÍA DE NUTRICIÓN PARA ATLETAS</div>
+        </div>
+      </div>
+      <div class="ebook-body">
+        <p>Principios claros de alimentación para optimizar tu rendimiento, recuperación y composición corporal sin complicarte la vida.</p>
+        <div class="ebook-footer">
+          <div class="ebook-price">$12 <sub>USD</sub></div>
+          <button class="btn-buy" onclick="openModal('ebook2')">Comprar</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="ebook-card">
+      <div class="ebook-cover">
+        <div class="ebook-cover-pattern"></div>
+        <div class="ebook-icon">🤸</div>
+        <div class="ebook-cover-bar"></div>
+        <div class="ebook-cover-content">
+          <div class="ebook-cover-tag">Skills avanzados</div>
+          <div class="ebook-cover-title">PLANCHE & FRONT LEVER</div>
+        </div>
+      </div>
+      <div class="ebook-body">
+        <p>Guía completa de progresiones para los dos elementos más icónicos de la calistenia. De principiante a full en pasos concretos.</p>
+        <div class="ebook-footer">
+          <div class="ebook-price">$15 <sub>USD</sub></div>
+          <button class="btn-buy" onclick="openModal('ebook3')">Comprar</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ─── TESTIMONIOS ───────────────────────────────────────── -->
+<section id="testimonios">
+  <div class="reveal" style="text-align:center;">
+    <div class="section-label" style="justify-content:center;">Lo que dicen</div>
+    <h2 class="section-title">RESULTADOS</h2>
+    <div class="divider" style="margin:1rem auto 0;"></div>
+  </div>
+  <div class="testi-grid reveal">
+
+    <div class="testi-card">
+      <div class="stars">★★★★★</div>
+      <p class="testi-text">En 3 meses con el plan Pro llegué al front lever completo. El feedback de videos es lo más valioso — cambia totalmente cómo entendés tu propio cuerpo.</p>
+      <div class="testi-author">
+        <div class="testi-avatar">👤</div>
+        <div>
+          <div class="testi-name">Matías R.</div>
+          <div class="testi-detail">Plan Pro — 3 meses</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="testi-card">
+      <div class="stars">★★★★★</div>
+      <p class="testi-text">Empecé sin poder hacer ni una dominada correcta. Ahora tengo muscle-up y estoy trabajando el planche tucado. No lo hubiera logrado solo.</p>
+      <div class="testi-author">
+        <div class="testi-avatar">👤</div>
+        <div>
+          <div class="testi-name">Lucas P.</div>
+          <div class="testi-detail">Plan Starter → Pro — 6 meses</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="testi-card">
+      <div class="stars">★★★★★</div>
+      <p class="testi-text">El ebook de nutrición fue un antes y después para mí. Simple, concreto y sin vueltas. Bajé 5 kg manteniendo toda la fuerza en 2 meses.</p>
+      <div class="testi-author">
+        <div class="testi-avatar">👤</div>
+        <div>
+          <div class="testi-name">Valentina G.</div>
+          <div class="testi-detail">Ebook Nutrición</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ─── PAGO ───────────────────────────────────────────────── -->
+<section id="pago">
+  <div class="pago-inner reveal">
+    <div class="section-label" style="justify-content:center;">Métodos de pago</div>
+    <h2>PAGÁ COMO<br><span>MÁS TE CONVIENE</span></h2>
+    <p>Aceptamos múltiples métodos de pago locales e internacionales para que nada te frene a empezar.</p>
+    <div class="pago-cta-group">
+      <button class="btn-primary" onclick="openModal('general')">Empezar ahora</button>
+      <button class="btn-outline">Ver todos los planes</button>
+    </div>
+    <div class="payment-methods">
+      <div class="pm-badge"><span class="pm-icon">💳</span> MercadoPago</div>
+      <div class="pm-badge"><span class="pm-icon">🏦</span> Transferencia</div>
+      <div class="pm-badge"><span class="pm-icon">💵</span> PayPal</div>
+      <div class="pm-badge"><span class="pm-icon">₿</span> Crypto (USDT)</div>
+      <div class="pm-badge"><span class="pm-icon">💲</span> Dólar efectivo</div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FAQ ────────────────────────────────────────────────── -->
+<section id="faq-section">
+  <div style="max-width:800px;margin:0 auto;" class="reveal">
+    <div class="section-label">Preguntas frecuentes</div>
+    <h2 class="section-title">FAQ</h2>
+    <div class="divider"></div>
+    <div id="faq">
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">¿Necesito equipamiento para las asesorías? <span class="arrow">+</span></button>
+        <div class="faq-a">No es obligatorio. Trabajo con lo que tenés disponible — barras de parque, bandas, anillas o solo el piso. Mi metodología se adapta a tu contexto real.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">¿Cómo se hace el seguimiento online? <span class="arrow">+</span></button>
+        <div class="faq-a">Toda la comunicación es por WhatsApp o Telegram. Me mandás videos de tus series, yo los analizo y te doy feedback detallado. Los planes Pro y Elite tienen además videollamadas periódicas.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">¿Puedo empezar si soy principiante absoluto? <span class="arrow">+</span></button>
+        <div class="faq-a">Por supuesto. El plan Starter está pensado exactamente para eso. Empezamos con una evaluación inicial y construimos desde tu nivel actual, sin importar cuál sea.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">¿Los ebooks tienen actualización? <span class="arrow">+</span></button>
+        <div class="faq-a">Sí. Cada compra de ebook te da acceso a las futuras actualizaciones de ese mismo título sin costo adicional. Te llega el link de descarga por correo.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">¿Cómo son los pagos? ¿Se renuevan automáticamente? <span class="arrow">+</span></button>
+        <div class="faq-a">No hay renovación automática. Cada mes acordamos la continuidad y el pago se hace de forma manual. Así tenés control total sin compromisos forzados.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">¿Puedo cambiar de plan durante el proceso? <span class="arrow">+</span></button>
+        <div class="faq-a">Sí, podés subir o ajustar tu plan en cualquier momento. Muchos alumnos empiezan en Starter y pasan a Pro cuando sienten que quieren más acompañamiento.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ────────────────────────────────────────────── -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="logo">CALIB<span>R</span>A</div>
+      <p>Coaching online de calistenia y recursos de entrenamiento para llevar tu cuerpo más lejos.</p>
+      <div class="footer-socials">
+        <div class="social-btn">📸</div>
+        <div class="social-btn">🎵</div>
+        <div class="social-btn">▶️</div>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Servicios</h4>
+      <ul>
+        <li><a href="#servicios">Plan Starter</a></li>
+        <li><a href="#servicios">Plan Pro</a></li>
+        <li><a href="#servicios">Plan Elite</a></li>
+        <li><a href="#" onclick="openModal('general')">Consulta gratuita</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Recursos</h4>
+      <ul>
+        <li><a href="#ebooks">Ebooks</a></li>
+        <li><a href="#proceso">Cómo funciona</a></li>
+        <li><a href="#testimonios">Testimonios</a></li>
+        <li><a href="#faq-section">FAQ</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contacto</h4>
+      <ul>
+        <li><a href="#">WhatsApp</a></li>
+        <li><a href="#">Instagram</a></li>
+        <li><a href="#">Email</a></li>
+        <li><a href="#">Buenos Aires, ARG</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Calibra — Todos los derechos reservados</span>
+    <span>Hecho con 🔥 en Buenos Aires</span>
+  </div>
+</footer>
+
+<!-- ─── MODAL ──────────────────────────────────────────────── -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModalDirect()">✕</button>
+    <div id="modalContent"></div>
+  </div>
+</div>
+
+<!-- ─── SCRIPTS ───────────────────────────────────────────── -->
+<script>
+  /* ── Navbar scroll ── */
+  window.addEventListener('scroll', () => {
+    document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 30);
+  });
+
+  /* ── Mobile menu ── */
+  function toggleMenu() {
+    document.getElementById('mobileMenu').classList.toggle('open');
+  }
+
+  /* ── Reveal on scroll ── */
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+  }, { threshold: 0.12 });
+  revealEls.forEach(el => io.observe(el));
+
+  /* ── FAQ accordion ── */
+  function toggleFaq(btn) {
+    const answer = btn.nextElementSibling;
+    const isOpen = answer.classList.contains('open');
+    document.querySelectorAll('.faq-a').forEach(a => a.classList.remove('open'));
+    document.querySelectorAll('.faq-q').forEach(b => b.classList.remove('open'));
+    if (!isOpen) { answer.classList.add('open'); btn.classList.add('open'); }
+  }
+
+  /* ── Modal ── */
+  const modalContents = {
+    general: `
+      <div class="tag">Consulta gratuita</div>
+      <h3>HABLEMOS</h3>
+      <p>Contame tu situación y te cuento cómo puedo ayudarte. Sin compromiso.</p>
+      <div class="form-group"><label>Nombre</label><input type="text" placeholder="Tu nombre"/></div>
+      <div class="form-group"><label>Email</label><input type="email" placeholder="tu@email.com"/></div>
+      <div class="form-group"><label>¿Cuál es tu objetivo?</label>
+        <select><option>Ganar fuerza y músculo</option><option>Aprender skills (planche, etc.)</option><option>Perder peso</option><option>Competir en calistenia</option><option>Otro</option></select>
+      </div>
+      <div class="form-group"><label>Mensaje</label><textarea placeholder="Contame tu nivel actual y qué querés lograr..."></textarea></div>
+      <button class="form-submit">Enviar consulta →</button>`,
+    starter: `
+      <div class="tag">Plan Starter</div>
+      <h3>STARTER</h3>
+      <p>USD 25 / mes — Rutina mensual + soporte. Completá tus datos para empezar.</p>
+      <div class="form-group"><label>Nombre</label><input type="text" placeholder="Tu nombre"/></div>
+      <div class="form-group"><label>Email</label><input type="email" placeholder="tu@email.com"/></div>
+      <div class="form-group"><label>Método de pago</label>
+        <select><option>MercadoPago</option><option>Transferencia</option><option>PayPal</option><option>Crypto (USDT)</option><option>Dólar efectivo</option></select>
+      </div>
+      <div class="form-group"><label>Nivel actual</label><textarea placeholder="Contame qué movimientos podés hacer y cuánto tiempo llevás entrenando..."></textarea></div>
+      <button class="form-submit">Contratar Starter →</button>`,
+    pro: `
+      <div class="tag" style="background:#E8C547">Plan Pro — Más popular</div>
+      <h3>PRO</h3>
+      <p>USD 60 / mes — Seguimiento semanal completo. Completá tus datos para empezar.</p>
+      <div class="form-group"><label>Nombre</label><input type="text" placeholder="Tu nombre"/></div>
+      <div class="form-group"><label>Email</label><input type="email" placeholder="tu@email.com"/></div>
+      <div class="form-group"><label>Método de pago</label>
+        <select><option>MercadoPago</option><option>Transferencia</option><option>PayPal</option><option>Crypto (USDT)</option><option>Dólar efectivo</option></select>
+      </div>
+      <div class="form-group"><label>Objetivo principal</label><textarea placeholder="¿Qué querés lograr? ¿Cuál es tu nivel actual?"></textarea></div>
+      <button class="form-submit">Contratar Pro →</button>`,
+    elite: `
+      <div class="tag">Plan Elite</div>
+      <h3>ELITE</h3>
+      <p>USD 100 / mes — Para atletas avanzados y competidores. El máximo nivel de acompañamiento.</p>
+      <div class="form-group"><label>Nombre</label><input type="text" placeholder="Tu nombre"/></div>
+      <div class="form-group"><label>Email</label><input type="email" placeholder="tu@email.com"/></div>
+      <div class="form-group"><label>Método de pago</label>
+        <select><option>MercadoPago</option><option>Transferencia</option><option>PayPal</option><option>Crypto (USDT)</option><option>Dólar efectivo</option></select>
+      </div>
+      <div class="form-group"><label>Experiencia competitiva</label><textarea placeholder="Contame tu historial, skills actuales y objetivos de competencia..."></textarea></div>
+      <button class="form-submit">Contratar Elite →</button>`,
+    ebook1: `
+      <div class="tag">Ebook</div>
+      <h3>CALISTENIA PARA PRINCIPIANTES</h3>
+      <p>USD 9 — Descarga inmediata después del pago. Recibirás el link en tu correo.</p>
+      <div class="form-group"><label>Email para recibir el ebook</label><input type="email" placeholder="tu@email.com"/></div>
+      <div class="form-group"><label>Método de pago</label>
+        <select><option>MercadoPago</option><option>PayPal</option><option>Crypto (USDT)</option><option>Transferencia</option></select>
+      </div>
+      <button class="form-submit">Comprar — USD 9 →</button>`,
+    ebook2: `
+      <div class="tag">Ebook</div>
+      <h3>GUÍA DE NUTRICIÓN</h3>
+      <p>USD 12 — Descarga inmediata después del pago. Recibirás el link en tu correo.</p>
+      <div class="form-group"><label>Email para recibir el ebook</label><input type="email" placeholder="tu@email.com"/></div>
+      <div class="form-group"><label>Método de pago</label>
+        <select><option>MercadoPago</option><option>PayPal</option><option>Crypto (USDT)</option><option>Transferencia</option></select>
+      </div>
+      <button class="form-submit">Comprar — USD 12 →</button>`,
+    ebook3: `
+      <div class="tag">Ebook</div>
+      <h3>PLANCHE & FRONT LEVER</h3>
+      <p>USD 15 — Descarga inmediata después del pago. Recibirás el link en tu correo.</p>
+      <div class="form-group"><label>Email para recibir el ebook</label><input type="email" placeholder="tu@email.com"/></div>
+      <div class="form-group"><label>Método de pago</label>
+        <select><option>MercadoPago</option><option>PayPal</option><option>Crypto (USDT)</option><option>Transferencia</option></select>
+      </div>
+      <button class="form-submit">Comprar — USD 15 →</button>`,
+  };
+
+  function openModal(type) {
+    document.getElementById('modalContent').innerHTML = modalContents[type] || modalContents.general;
+    document.getElementById('modalOverlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeModalDirect() {
+    document.getElementById('modalOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  function closeModal(e) {
+    if (e.target === document.getElementById('modalOverlay')) closeModalDirect();
+  }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModalDirect(); });
+</script>
+</body>
+</html>
