@@ -260,6 +260,18 @@
     opacity: 0.18;
     line-height: 1;
   }
+  .card-image {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 200px;
+            height: 200px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            opacity: 0.8;
+            background-image: var(--imagen);
+        }
   .card-label {
     font-family: var(--font-sub);
     font-size: 0.7rem;
@@ -1148,7 +1160,7 @@
     <div class="hero-card-stack">
       <div class="card-bg"></div>
       <div class="card-main">
-        <div class="card-icon">
+        <div class="card-image">
           <img src="Imagenes/Flag.jpeg" alt="Presentacion Atleta">
         </div>
         <div class="card-label">Coaching online</div>
