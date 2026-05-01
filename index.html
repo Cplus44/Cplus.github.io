@@ -243,6 +243,9 @@
     justify-content: flex-end;
     padding: 2rem;
     overflow: hidden;
+    position: relative;
+    border: 2px solid #FFD700;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
   }
   .card-main::before {
     content: '';
@@ -265,13 +268,41 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 200px;
-            height: 200px;
-            background-size: contain;
+            background-size: cover;
             background-repeat: no-repeat;
-            opacity: 0.8;
+            opacity: 1;
             background-image: var(--imagen);
+            z-index: 0;
+            overflow: hidden;
         }
+  .card-image::after {
+          content: '';
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          height: 40%;
+          background: linear-gradient(to bottom, rgba(0,0,0,0), rgba(0,0,0,0.2));
+          z-index: 1;
+    }
+  /* Tamaños diferentes */
+  .card-image--large {
+      width: 350px;
+      height: 450px;
+      object-position: center 30%;
+  }
+
+  .card-image--medium {
+      width: 500px;
+      height: 700px;
+      object-position: center 30%;
+  }
+
+  .card-image--small {
+      width: 400px;
+      height: 550px;
+      object-position: center 30%;
+  }      
   .card-label {
     font-family: var(--font-sub);
     font-size: 0.7rem;
@@ -279,6 +310,7 @@
     text-transform: uppercase;
     color: var(--yellow);
     margin-bottom: 0.4rem;
+    z-index: 2;
   }
   .card-title {
     font-family: var(--font-display);
@@ -286,6 +318,8 @@
     color: var(--text);
     line-height: 1;
     letter-spacing: 0.03em;
+    z-index: 2;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
   }
   .hero-stats {
     position: absolute;
@@ -620,7 +654,7 @@
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(to top, rgba(36,36,36,0.9) 35%, transparent);
+    background: linear-gradient(to mid, rgba(36,36,36,0.9) 20%, transparent);
   }
   .ebook-cover-pattern {
     position: absolute;
@@ -1091,6 +1125,27 @@
     transition: opacity 0.7s ease, transform 0.7s ease;
   }
   .reveal.visible { opacity: 1; transform: translateY(0); }
+  /* ─── ABOUT CAROUSEL ──────────────────────────────────── */
+  .carousel { position: relative; width: 100%; aspect-ratio: 4/5; overflow: hidden; background: var(--surface); }
+  .carousel-track { display: flex; height: 100%; transition: transform 0.5s cubic-bezier(0.4,0,0.2,1); }
+  .carousel-slide { flex: 0 0 100%; height: 100%; position: relative; overflow: hidden; }
+  .carousel-slide-bg { position: absolute; inset: 0; background-size: cover; background-position: center; transition: transform 0.6s ease; }
+  .carousel:hover .carousel-slide-bg { transform: scale(1.03); }
+  .carousel-slide-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(36,36,36,0.85) 30%, rgba(36,36,36,0.1) 70%); }
+  .carousel-slide-pattern { position: absolute; inset: 0; background: repeating-linear-gradient(45deg, rgba(232,197,71,0.04) 0, rgba(232,197,71,0.04) 1px, transparent 1px, transparent 18px); }
+  .carousel-slide-icon { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-60%); font-size: 7rem; opacity: 0.18; }
+  .carousel-slide-content { position: absolute; bottom: 0; left: 0; right: 0; padding: 1.6rem; z-index: 2; }
+  .carousel-slide-cat { display: inline-block; background: var(--yellow); color: var(--accent-dark); font-family: var(--font-sub); font-size: 0.6rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; padding: 3px 9px; margin-bottom: 0.5rem; }
+  .carousel-slide-title { font-family: var(--font-display); font-size: 1.5rem; color: var(--text); line-height: 1.05; letter-spacing: 0.03em; text-shadow: 0 2px 8px rgba(0,0,0,0.5); }
+  .carousel-top-bar { position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--yellow); z-index: 3; }
+  .carousel-btn { position: absolute; top: 50%; transform: translateY(-50%); width: 38px; height: 38px; background: rgba(36,36,36,0.75); border: 1.5px solid rgba(232,197,71,0.5); color: var(--yellow); font-size: 1.3rem; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 4; transition: background 0.2s, border-color 0.2s; backdrop-filter: blur(4px); line-height: 1; }
+  .carousel-btn:hover { background: var(--yellow); color: var(--accent-dark); border-color: var(--yellow); }
+  .carousel-btn--prev { left: 0.8rem; }
+  .carousel-btn--next { right: 0.8rem; }
+  .carousel-dots { position: absolute; bottom: 1rem; right: 1.4rem; display: flex; gap: 6px; z-index: 4; }
+  .carousel-dot { width: 8px; height: 8px; background: rgba(232,197,71,0.35); border-radius: 50%; cursor: pointer; border: none; transition: background 0.2s, transform 0.2s; }
+  .carousel-dot.active { background: var(--yellow); transform: scale(1.3); }
+  .carousel-counter { position: absolute; top: 1rem; right: 1.2rem; font-family: var(--font-sub); font-size: 0.68rem; font-weight: 700; letter-spacing: 0.14em; color: rgba(232,197,71,0.8); z-index: 4; }
 
   /* ─── RESPONSIVE ─────────────────────────────────────── */
   @media (max-width: 1024px) {
@@ -1160,7 +1215,7 @@
     <div class="hero-card-stack">
       <div class="card-bg"></div>
       <div class="card-main">
-        <div class="card-image">
+        <div class="card-image - card-image--small">
           <img src="Imagenes/Flag.jpeg" alt="Presentacion Atleta">
         </div>
         <div class="card-label">Coaching online</div>
@@ -1201,7 +1256,68 @@
   <div class="about-grid reveal">
     <div class="about-img-wrap">
       <div class="about-img-box">
-        <div class="icon-big">🏋️</div>
+        <div class="carousel" id="aboutCarousel">
+            <div class="carousel-top-bar"></div>
+            <div class="carousel-track" id="carouselTrack">
+          
+              <div class="carousel-slide">
+                <div class="carousel-slide-pattern"></div>
+                <div class="carousel-slide-bg" style="background-image: url('Imagenes/Plancha.png');"></div>
+                <div class="carousel-slide-overlay"></div>
+                <div class="carousel-slide-content">
+                  <div class="carousel-slide-cat">Entrenamiento</div>
+                  <div class="carousel-slide-title">STREET<br>WORKOUT</div>
+                </div>
+              </div>
+          
+              <div class="carousel-slide">
+                <div class="carousel-slide-pattern"></div>
+                <div class="carousel-slide-bg" style="background-image: url('Imagenes/Epdrago.png');"></div>
+                <div class="carousel-slide-overlay"></div>
+                <div class="carousel-slide-content">
+                  <div class="carousel-slide-cat">Competencia</div>
+                  <div class="carousel-slide-title">POWERFREESTYLE Epdrago Championship<br>2024</div>
+                </div>
+              </div>
+          
+              <div class="carousel-slide">
+                <div class="carousel-slide-pattern"></div>
+                <div class="carousel-slide-bg" style="background-image: url('Imagenes/PlanchaDedos.jpeg');"></div>
+                <div class="carousel-slide-overlay"></div>
+                <div class="carousel-slide-content">
+                  <div class="carousel-slide-cat">Skill — Logro</div>
+                  <div class="carousel-slide-title">PLANCHE<br>COMPLETO</div>
+                </div>
+              </div>
+          
+              <div class="carousel-slide">
+                <div class="carousel-slide-pattern"></div>
+                <div class="carousel-slide-bg" style="background-image: url('Imagenes/alumnos.jpg');"></div>
+                <div class="carousel-slide-overlay"></div>
+                <div class="carousel-slide-icon">👥</div>
+                <div class="carousel-slide-content">
+                  <div class="carousel-slide-cat">Coaching</div>
+                  <div class="carousel-slide-title">100+<br>ALUMNOS</div>
+                </div>
+              </div>
+          
+              <div class="carousel-slide">
+                <div class="carousel-slide-pattern"></div>
+                <div class="carousel-slide-bg" style="background-image: url('Imagenes/frontlever.jpg');"></div>
+                <div class="carousel-slide-overlay"></div>
+                <div class="carousel-slide-icon">🤸</div>
+                <div class="carousel-slide-content">
+                  <div class="carousel-slide-cat">Skill — Logro</div>
+                  <div class="carousel-slide-title">FRONT<br>LEVER</div>
+                </div>
+              </div>
+          
+            </div>
+            <button class="carousel-btn carousel-btn--prev" onclick="carouselMove(-1)">&#8249;</button>
+            <button class="carousel-btn carousel-btn--next" onclick="carouselMove(1)">&#8250;</button>
+            <div class="carousel-dots" id="carouselDots"></div>
+            <div class="carousel-counter" id="carouselCounter">1 / 5</div>
+          </div>
       </div>
       <div class="about-accent-box">
         <div class="num">100+</div>
@@ -1212,7 +1328,7 @@
       <div class="section-label">Sobre mí</div>
       <h2>ATLETA,<br>INSTRUCTOR<br>& <span>COACH</span></h2>
       <div class="divider"></div>
-      <p>Soy instructor de calistenia con más de 5 años de entrenamiento y competición a nivel nacional en powerfreestyle. Entreno grupos e individuos en plaza y ofrezco asesorías online para alumnos de todo el mundo.</p>
+      <p>Soy instructor de calistenia con más de 6 años de entrenamiento y competición a nivel nacional en powerfreestyle. Entreno grupos e individuos en plaza y ofrezco asesorías online para alumnos de todo el mundo.</p>
       <p>Mi enfoque combina la técnica deportiva con la progresión inteligente — cada alumno tiene un camino diferente y yo te ayudo a construir el tuyo.</p>
       <div class="chips">
         <span class="chip">Powerfreestyle</span>
@@ -1341,59 +1457,66 @@
     <div class="ebook-card">
       <div class="ebook-cover">
         <div class="ebook-cover-pattern"></div>
-        <div class="ebook-icon">💪</div>
+        <div class="ebook-icon">🤸</div>
         <div class="ebook-cover-bar"></div>
         <div class="ebook-cover-content">
-          <div class="ebook-cover-tag">Entrenamiento</div>
-          <div class="ebook-cover-title">CALISTENIA PARA PRINCIPIANTES</div>
+          <div class="ebook-cover-tag">MOVILIDAD</div>
+          <div class="ebook-cover-title">ENTRENAMIENTO DE OFICINA</div>
         </div>
       </div>
       <div class="ebook-body">
-        <p>Todo lo que necesitás saber para empezar desde cero con base técnica sólida. Progresiones, rutinas y explicaciones claras.</p>
+        <p>Guía completa de ejercicios para mejorar tu movilidad y flexibilidad, ideal para quienes pasan la mayor parte del día sentados.</p>
         <div class="ebook-footer">
-          <div class="ebook-price">$9 <sub>USD</sub></div>
+          <div class="ebook-price">$9.99 <sub>USD</sub></div>
+          <button class="btn-buy" onclick="openModal('ebook3')">Comprar</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="ebook-card">
+      <div class="ebook-cover">
+        <div class="ebook-cover-pattern"></div>
+        <div class="card-image - card-image--medium">
+          <img src="Imagenes/GuiaNutricion.png" alt="Ebook nutricion para transformar tu salud">
+        </div>
+        <div class="ebook-cover-bar"></div>
+        <div class="ebook-cover-content">
+          <div class="ebook-cover-tag">Nutrición</div>
+          <div class="ebook-cover-title">GUÍA DE PARA TRANSFORMAR TU SALUD</div>
+        </div>
+      </div>
+      <div class="ebook-body">
+        <p>Principios claros de alimentación para optimizar tu rendimiento, recuperación y composición corporal sin complicarte la vida.
+        </p>
+        <div class="ebook-footer">
+          <div class="ebook-price">$12,99<sub>USD</sub></div>
+          <a href="https://hotmart.com/es/marketplace/productos/deja-de-empezar-dietas/O104843438E" target="_blank" class="btn-buy">Comprar</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="ebook-card">
+      <div class="ebook-cover">
+        <div class="ebook-cover-pattern"></div>
+        <div class="card-image - card-image--medium">
+            <img src="Imagenes/30Dias.png" alt="Ebook Reto 30 Dias para Principiantes">
+          </div>
+        <div class="ebook-cover-bar"></div>
+        <div class="ebook-cover-content">
+          <div class="ebook-cover-tag">Entrenamiento</div>
+          <div class="ebook-cover-title">RETO 30 DIAS PARA PRINCIPIANTES</div>
+        </div>
+      </div>
+      <div class="ebook-body">
+        <p>Convertite en tu mejor versión con este reto de 30 días, la guía definitiva para dominar tu cuerpo desde cero con rutinas progresivas, sin equipo y con resultados garantizados desde la comodidad de tu casa</p>
+        <div class="ebook-footer">
+          <div class="ebook-price">$14.99<sub>USD</sub></div>
           <button class="btn-buy" onclick="openModal('ebook1')">Comprar</button>
         </div>
       </div>
     </div>
 
-    <div class="ebook-card">
-      <div class="ebook-cover">
-        <div class="ebook-cover-pattern"></div>
-        <div class="ebook-icon">🥗</div>
-        <div class="ebook-cover-bar"></div>
-        <div class="ebook-cover-content">
-          <div class="ebook-cover-tag">Nutrición</div>
-          <div class="ebook-cover-title">GUÍA DE NUTRICIÓN PARA ATLETAS</div>
-        </div>
-      </div>
-      <div class="ebook-body">
-        <p>Principios claros de alimentación para optimizar tu rendimiento, recuperación y composición corporal sin complicarte la vida.</p>
-        <div class="ebook-footer">
-          <div class="ebook-price">$12 <sub>USD</sub></div>
-          <button class="btn-buy" onclick="openModal('ebook2')">Comprar</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="ebook-card">
-      <div class="ebook-cover">
-        <div class="ebook-cover-pattern"></div>
-        <div class="ebook-icon">🤸</div>
-        <div class="ebook-cover-bar"></div>
-        <div class="ebook-cover-content">
-          <div class="ebook-cover-tag">Skills avanzados</div>
-          <div class="ebook-cover-title">PLANCHE & FRONT LEVER</div>
-        </div>
-      </div>
-      <div class="ebook-body">
-        <p>Guía completa de progresiones para los dos elementos más icónicos de la calistenia. De principiante a full en pasos concretos.</p>
-        <div class="ebook-footer">
-          <div class="ebook-price">$15 <sub>USD</sub></div>
-          <button class="btn-buy" onclick="openModal('ebook3')">Comprar</button>
-        </div>
-      </div>
-    </div>
+    
 
   </div>
 </section>
@@ -1401,7 +1524,7 @@
 <!-- ─── TESTIMONIOS ───────────────────────────────────────── -->
 <section id="testimonios">
   <div class="reveal" style="text-align:center;">
-    <div class="section-label" style="justify-content:center;">Lo que dicen</div>
+    <div class="section-label" style="justify-content:center;">Resultados de nuestros alumnos de CaliPush</div>
     <h2 class="section-title">RESULTADOS</h2>
     <div class="divider" style="margin:1rem auto 0;"></div>
   </div>
@@ -1508,9 +1631,10 @@
       <div class="logo">CALI<span>P</span>ush</div>
       <p>Coaching online de calistenia y recursos de entrenamiento para llevar tu cuerpo más lejos.</p>
       <div class="footer-socials">
-        <div class="social-btn">📸</div>
-        <div class="social-btn">🎵</div>
-        <div class="social-btn">▶️</div>
+        <a href="https://www.instagram.com/cplus_sw/" target="_blank" class="social-btn">📸</a>
+        <a href="https://open.spotify.com/playlist/7KbanDUxTmLBz2VU0R9e8R?si=d251916cb8724721" target="_blank" class="social-btn">🎵</a>    
+        <a href="https://kick.com/alza-calistenia" target="_blank" class="social-btn">🟢K</a>  
+        
       </div>
     </div>
     <div class="footer-col">
@@ -1671,6 +1795,39 @@
     if (e.target === document.getElementById('modalOverlay')) closeModalDirect();
   }
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModalDirect(); });
+  /* ── About Carousel ── */
+(function() {
+  const track = document.getElementById('carouselTrack');
+  const dotsContainer = document.getElementById('carouselDots');
+  const counter = document.getElementById('carouselCounter');
+  if (!track) return;
+  const slides = track.querySelectorAll('.carousel-slide');
+  const total = slides.length;
+  let current = 0, timer;
+
+  slides.forEach((_, i) => {
+    const dot = document.createElement('button');
+    dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+    dot.onclick = () => goTo(i);
+    dotsContainer.appendChild(dot);
+  });
+
+  function goTo(index) {
+    current = (index + total) % total;
+    track.style.transform = `translateX(-${current * 100}%)`;
+    dotsContainer.querySelectorAll('.carousel-dot').forEach((d, i) => d.classList.toggle('active', i === current));
+    counter.textContent = `${current + 1} / ${total}`;
+    resetTimer();
+  }
+
+  function resetTimer() {
+    clearInterval(timer);
+    timer = setInterval(() => goTo(current + 1), 4500);
+  }
+
+  window.carouselMove = (dir) => goTo(current + dir);
+  resetTimer();
+})();
 </script>
 </body>
 </html>
