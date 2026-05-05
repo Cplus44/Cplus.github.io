@@ -7,6 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <style>
   /* ─── VARIABLES ─────────────────────────────────────── */
   :root {
@@ -654,7 +655,7 @@
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(to mid, rgba(36,36,36,0.9) 20%, transparent);
+    background: linear-gradient(to top, rgba(36, 36, 36, 0.5) 35%, transparent);
   }
   .ebook-cover-pattern {
     position: absolute;
@@ -749,60 +750,170 @@
   }
   .btn-buy:hover { background: var(--yellow-soft); transform: translateY(-1px); }
 
-  /* ─── TESTIMONIOS ────────────────────────────────────── */
+  /* ─── TRANSFORMACIONES ──────────────────────────────── */
   #testimonios { background: var(--surface); }
-  .testi-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
+  .transform-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
     margin-top: 3rem;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
   }
-  .testi-card {
+  .transform-card {
     background: var(--bg);
-    padding: 2rem;
+    overflow: hidden;
     border-left: 4px solid var(--yellow);
-    position: relative;
   }
-  .testi-card::before {
-    content: '"';
+  .transform-video-pair {
+    display: grid;
+    grid-template-columns: 1fr 56px 1fr;
+    align-items: stretch;
+    background: #111;
+  }
+  .transform-video-wrap {
+    position: relative;
+    aspect-ratio: 9/16;
+    max-height: 340px;
+    overflow: hidden;
+    background: #0d0d0d;
+    margin: 0 auto; 
+  }
+  .transform-video-wrap video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .transform-video-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    color: var(--muted);
+  }
+  .transform-video-placeholder .ph-icon {
+    font-size: 2.8rem;
+    opacity: 0.3;
+  }
+  .transform-video-placeholder .ph-text {
+    font-family: var(--font-sub);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    opacity: 0.4;
+    text-align: center;
+    padding: 0 1rem;
+  }
+  .transform-label {
     position: absolute;
-    top: -0.5rem;
-    right: 1.5rem;
+    top: 1rem;
+    left: 1rem;
     font-family: var(--font-display);
-    font-size: 8rem;
-    color: rgba(232,197,71,0.07);
+    font-size: 1.3rem;
+    letter-spacing: 0.14em;
+    padding: 4px 14px;
+    z-index: 2;
     line-height: 1;
   }
-  .testi-text {
-    font-size: 0.9rem;
-    color: var(--text);
-    line-height: 1.7;
-    margin-bottom: 1.5rem;
-    font-style: italic;
+  .transform-label--antes {
+    background: rgba(20,20,20,0.82);
+    color: var(--muted);
+    border: 1.5px solid rgba(255,255,255,0.1);
+    backdrop-filter: blur(4px);
   }
-  .testi-author { display: flex; align-items: center; gap: 0.9rem; }
-  .testi-avatar {
-    width: 40px; height: 40px;
-    background: var(--surface);
-    border: 2px solid var(--yellow);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 1.3rem;
-    flex-shrink: 0;
+  .transform-label--despues {
+    background: var(--yellow);
+    color: var(--accent-dark);
   }
-  .testi-name {
-    font-family: var(--font-sub);
-    font-weight: 700;
-    font-size: 0.85rem;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--text);
+  .transform-divider {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    background: #111;
+    padding: 1rem 0;
+    border-left: 1px solid rgba(255,255,255,0.04);
+    border-right: 1px solid rgba(255,255,255,0.04);
   }
-  .testi-detail {
-    font-size: 0.75rem;
+  .transform-arrow {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
     color: var(--yellow);
+    line-height: 1;
+  }
+  .transform-vs-line {
+    width: 1px;
+    flex: 1;
+    max-height: 60px;
+    background: rgba(232,197,71,0.18);
+  }
+  .transform-info {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto auto;
+    gap: 0.6rem 1.8rem;
+    align-items: center;
+    padding: 1.6rem 2rem;
+    border-top: 1px solid rgba(232,197,71,0.1);
+  }
+  .transform-badge {
+    grid-row: 1 / 3;
+    background: var(--yellow);
+    padding: 0.8rem 1.1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    min-width: 72px;
+  }
+  .transform-badge-num {
+    font-family: var(--font-display);
+    font-size: 2.4rem;
+    color: var(--accent-dark);
+    line-height: 1;
+  }
+  .transform-badge-unit {
+    font-family: var(--font-sub);
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent-dark);
     margin-top: 1px;
   }
-  .stars { color: var(--yellow); font-size: 0.85rem; margin-bottom: 0.8rem; }
+  .transform-meta { display: flex; flex-direction: column; gap: 0.25rem; }
+  .transform-name {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    letter-spacing: 0.05em;
+    color: var(--text);
+    line-height: 1;
+  }
+  .transform-plan {
+    font-family: var(--font-sub);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--yellow);
+  }
+  .transform-quote {
+    grid-column: 2;
+    font-size: 0.83rem;
+    color: var(--muted);
+    font-style: italic;
+    line-height: 1.65;
+    padding-left: 0.8rem;
+    border-left: 2px solid rgba(232,197,71,0.22);
+  }
 
   /* ─── PROCESO ────────────────────────────────────────── */
   .process-steps {
@@ -1109,8 +1220,105 @@
     margin-top: 0.5rem;
   }
   .form-submit:hover { background: var(--yellow-soft); }
+  .form-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+  .form-submit.loading { background: var(--yellow-soft); }
 
-  /* ─── ANIMATIONS ─────────────────────────────────────── */
+  /* ─── FORM FEEDBACK ──────────────────────────────────── */
+  .form-feedback {
+    display: none;
+    padding: 1rem 1.2rem;
+    margin-top: 0.8rem;
+    font-family: var(--font-sub);
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border-left: 3px solid;
+  }
+  .form-feedback.success {
+    display: block;
+    background: rgba(100, 200, 100, 0.08);
+    border-color: #6dc46d;
+    color: #6dc46d;
+  }
+  .form-feedback.error {
+    display: block;
+    background: rgba(220, 80, 80, 0.08);
+    border-color: #e05555;
+    color: #e05555;
+  }
+  .form-success-screen {
+    text-align: center;
+    padding: 2rem 0;
+  }
+  .form-success-screen .success-icon {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+  }
+  .form-success-screen h3 {
+    font-family: var(--font-display);
+    font-size: 2.4rem;
+    color: var(--yellow);
+    margin-bottom: 0.4rem;
+    letter-spacing: 0.06em;
+  }
+  .form-success-screen p {
+    color: var(--muted);
+    font-size: 0.9rem;
+    line-height: 1.7;
+    margin-bottom: 1.6rem;
+  }
+  .btn-close-modal {
+    background: var(--yellow);
+    color: var(--accent-dark);
+    font-family: var(--font-sub);
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 12px 28px;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .btn-close-modal:hover { background: var(--yellow-soft); }
+
+  @media (max-width: 480px) {
+    .transform-video-pair {
+      grid-template-columns: 1fr;
+      grid-template-rows: auto auto auto;
+    }
+    .transform-video-wrap {
+      aspect-ratio: 16/9;
+      max-height: none;
+    }
+    .transform-divider {
+      flex-direction: row;
+      height: 36px;
+      padding: 0 1.2rem;
+      border-left: none;
+      border-right: none;
+      border-top: 1px solid rgba(255,255,255,0.04);
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .transform-vs-line {
+      width: auto;
+      height: 1px;
+      max-height: none;
+      flex: 1;
+    }
+    .transform-arrow { font-size: 1.2rem; }
+    .transform-label { font-size: 1rem; padding: 3px 10px; top: 0.7rem; left: 0.7rem; }
+    .transform-info {
+      grid-template-columns: auto 1fr;
+      padding: 1rem;
+      gap: 0.5rem 1rem;
+    }
+    .transform-badge-num { font-size: 1.8rem; }
+    .transform-badge { min-width: 56px; padding: 0.6rem 0.8rem; }
+    .transform-name { font-size: 1.2rem; }
+    .transform-quote { display: none; }
+  }
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(28px); }
     to   { opacity: 1; transform: translateY(0); }
@@ -1151,7 +1359,7 @@
   @media (max-width: 1024px) {
     .services-grid { grid-template-columns: 1fr 1fr; }
     .ebooks-grid { grid-template-columns: 1fr 1fr; }
-    .testi-grid { grid-template-columns: 1fr 1fr; }
+    .transform-video-wrap { max-height: 260px; }
     .process-steps { grid-template-columns: 1fr 1fr; gap: 2rem; }
     .process-steps::before { display: none; }
     .footer-grid { grid-template-columns: 1fr 1fr; }
@@ -1163,7 +1371,11 @@
     .about-img-wrap { display: none; }
     .services-grid { grid-template-columns: 1fr; }
     .ebooks-grid { grid-template-columns: 1fr; }
-    .testi-grid { grid-template-columns: 1fr; }
+    .transform-video-pair { grid-template-columns: 1fr 36px 1fr; }
+    .transform-video-wrap { max-height: 200px; }
+    .transform-info { padding: 1.2rem 1.2rem; }
+    .transform-divider { padding: 0.6rem 0; }
+    .transform-quote { display: none; }
     .process-steps { grid-template-columns: 1fr 1fr; }
     .nav-links, .nav-cta { display: none; }
     .hamburger { display: flex; }
@@ -1368,7 +1580,7 @@
         <li>Acceso a grupo de alumnos</li>
         <li>Soporte por WhatsApp</li>
       </ul>
-      <div class="service-price">USD 25<span> / mes</span></div>
+      <div class="service-price">USD 30<span> 45000 ARS /mes</span></div>
       <button class="service-btn" onclick="openModal('starter')">Contratar</button>
     </div>
 
@@ -1387,7 +1599,7 @@
         <li>Videollamada mensual (30 min)</li>
         <li>Soporte directo prioritario</li>
       </ul>
-      <div class="service-price">USD 60<span> / mes</span></div>
+      <div class="service-price">USD 60<span> 75000 ARS /mes</span></div>
       <button class="service-btn" onclick="openModal('pro')">Contratar</button>
     </div>
 
@@ -1406,7 +1618,7 @@
         <li>Análisis biomecánico avanzado</li>
         <li>Contacto directo sin límites</li>
       </ul>
-      <div class="service-price">USD 100<span> / mes</span></div>
+      <div class="service-price">USD 100<span> 135000 ARS /mes</span></div>
       <button class="service-btn" onclick="openModal('elite')">Contratar</button>
     </div>
 
@@ -1468,7 +1680,7 @@
         <p>Guía completa de ejercicios para mejorar tu movilidad y flexibilidad, ideal para quienes pasan la mayor parte del día sentados.</p>
         <div class="ebook-footer">
           <div class="ebook-price">$9.99 <sub>USD</sub></div>
-          <button class="btn-buy" onclick="openModal('ebook3')">Comprar</button>
+          <button class="btn-buy" onclick="openModal('ebook3')">Proximamente</button>
         </div>
       </div>
     </div>
@@ -1499,8 +1711,8 @@
       <div class="ebook-cover">
         <div class="ebook-cover-pattern"></div>
         <div class="card-image - card-image--medium">
-            <img src="Imagenes/30Dias.png" alt="Ebook Reto 30 Dias para Principiantes">
-          </div>
+          <img src="Imagenes/30Dias.png" alt="RETO 30 DIAS PARA PRINCIPIANTES">
+        </div>
         <div class="ebook-cover-bar"></div>
         <div class="ebook-cover-content">
           <div class="ebook-cover-tag">Entrenamiento</div>
@@ -1521,47 +1733,124 @@
   </div>
 </section>
 
-<!-- ─── TESTIMONIOS ───────────────────────────────────────── -->
+<!-- ─── TRANSFORMACIONES ──────────────────────────────────── -->
 <section id="testimonios">
   <div class="reveal" style="text-align:center;">
-    <div class="section-label" style="justify-content:center;">Resultados de nuestros alumnos de CaliPush</div>
-    <h2 class="section-title">RESULTADOS</h2>
+    <div class="section-label" style="justify-content:center;">Transformaciones reales de alumnos CaliPush</div>
+    <h2 class="section-title">ANTES &<br>DESPUÉS</h2>
     <div class="divider" style="margin:1rem auto 0;"></div>
   </div>
-  <div class="testi-grid reveal">
 
-    <div class="testi-card">
-      <div class="stars">★★★★★</div>
-      <p class="testi-text">En 3 meses con el plan Pro llegué al front lever completo. El feedback de videos es lo más valioso — cambia totalmente cómo entendés tu propio cuerpo.</p>
-      <div class="testi-author">
-        <div class="testi-avatar">👤</div>
-        <div>
-          <div class="testi-name">Matías R.</div>
-          <div class="testi-detail">Plan Pro — 3 meses</div>
+  <div class="transform-list reveal">
+
+    <!-- Transformación 1 -->
+    <div class="transform-card">
+      <div class="transform-video-pair">
+
+        <div class="transform-video-wrap">
+          <!-- Reemplazá src con tu video ANTES. Ej: src="Videos/matias_antes.mp4" -->
+          <video
+            src="Videos/BrunoAAntes.mp4"
+            autoplay muted loop playsinline
+            preload="metadata"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          </video>
+          <div class="transform-video-placeholder" style="display:none;">
+            <span class="ph-icon">🎬</span>
+            <span class="ph-text">Video antes<br>alumno1_antes.mp4</span>
+          </div>
+          <div class="transform-label transform-label--antes">ANTES</div>
+        </div>
+
+        <div class="transform-divider">
+          <div class="transform-vs-line"></div>
+          <div class="transform-arrow">→</div>
+          <div class="transform-vs-line"></div>
+        </div>
+
+        <div class="transform-video-wrap">
+          <!-- Reemplazá src con tu video DESPUÉS. Ej: src="Videos/matias_despues.mp4" -->
+          <video
+            src="Videos/BrunoADespues.mp4"
+            autoplay muted loop playsinline
+            preload="metadata"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          </video>
+          <div class="transform-video-placeholder" style="display:none;">
+            <span class="ph-icon">🏆</span>
+            <span class="ph-text">Video después<br>alumno1_despues.mp4</span>
+          </div>
+          <div class="transform-label transform-label--despues">DESPUÉS</div>
+        </div>
+
+      </div>
+      <div class="transform-info">
+        <div class="transform-badge">
+          <div class="transform-badge-num">7</div>
+          <div class="transform-badge-unit">meses</div>
+        </div>
+        <div class="transform-meta">
+          <div class="transform-name">Bruno Azzareti.</div>
+          <div class="transform-plan">Plan Pro — Asesoria Plancha y Front</div>
+        </div>
+        <div class="transform-quote">
+          "En 7 meses pasamos de no aguantar una straddle a realizar combos en full planche."
         </div>
       </div>
     </div>
 
-    <div class="testi-card">
-      <div class="stars">★★★★★</div>
-      <p class="testi-text">Empecé sin poder hacer ni una dominada correcta. Ahora tengo muscle-up y estoy trabajando el planche tucado. No lo hubiera logrado solo.</p>
-      <div class="testi-author">
-        <div class="testi-avatar">👤</div>
-        <div>
-          <div class="testi-name">Lucas P.</div>
-          <div class="testi-detail">Plan Starter → Pro — 6 meses</div>
-        </div>
-      </div>
-    </div>
+    <!-- Transformación 2 -->
+    <div class="transform-card">
+      <div class="transform-video-pair">
 
-    <div class="testi-card">
-      <div class="stars">★★★★★</div>
-      <p class="testi-text">El ebook de nutrición fue un antes y después para mí. Simple, concreto y sin vueltas. Bajé 5 kg manteniendo toda la fuerza en 2 meses.</p>
-      <div class="testi-author">
-        <div class="testi-avatar">👤</div>
-        <div>
-          <div class="testi-name">Valentina G.</div>
-          <div class="testi-detail">Ebook Nutrición</div>
+        <div class="transform-video-wrap">
+          <!-- Reemplazá src con tu video ANTES. Ej: src="Videos/lucas_antes.mp4" -->
+          <video
+            src="Videos/PatoAntes.mp4"
+            autoplay muted loop playsinline
+            preload="metadata"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          </video>
+          <div class="transform-video-placeholder" style="display:none;">
+            <span class="ph-icon">🎬</span>
+            <span class="ph-text">Video antes<br>alumno2_antes.mp4</span>
+          </div>
+          <div class="transform-label transform-label--antes">ANTES</div>
+        </div>
+
+        <div class="transform-divider">
+          <div class="transform-vs-line"></div>
+          <div class="transform-arrow">→</div>
+          <div class="transform-vs-line"></div>
+        </div>
+
+        <div class="transform-video-wrap">
+          <!-- Reemplazá src con tu video DESPUÉS. Ej: src="Videos/lucas_despues.mp4" -->
+          <video
+            src="Videos/PatoDespues.mp4"
+            autoplay muted loop playsinline
+            preload="metadata"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          </video>
+          <div class="transform-video-placeholder" style="display:none;"> 
+            <span class="ph-icon">🏆</span>
+            <span class="ph-text">Video después<br>alumno2_despues.mp4</span>
+          </div>
+          <div class="transform-label transform-label--despues">DESPUÉS</div>
+        </div>
+
+      </div>
+      <div class="transform-info">
+        <div class="transform-badge">
+          <div class="transform-badge-num">5</div>
+          <div class="transform-badge-unit">meses</div>
+        </div>
+        <div class="transform-meta">
+          <div class="transform-name">Francisco P. Jorge</div>
+          <div class="transform-plan">Plan Pro → Asesoria Front y Plancha</div>
+        </div>
+        <div class="transform-quote">
+          "Empecé sin poder hacer un Front de manera correcta. Ahora tengo touch, press y pullups."
         </div>
       </div>
     </div>
@@ -1577,7 +1866,7 @@
     <p>Aceptamos múltiples métodos de pago locales e internacionales para que nada te frene a empezar.</p>
     <div class="pago-cta-group">
       <button class="btn-primary" onclick="openModal('general')">Empezar ahora</button>
-      <button class="btn-outline">Ver todos los planes</button>
+      <a class="btn-outline" href="#servicios">Ver todos los planes</a>
     </div>
     <div class="payment-methods">
       <div class="pm-badge"><span class="pm-icon">💳</span> MercadoPago</div>
@@ -1634,7 +1923,6 @@
         <a href="https://www.instagram.com/cplus_sw/" target="_blank" class="social-btn">📸</a>
         <a href="https://open.spotify.com/playlist/7KbanDUxTmLBz2VU0R9e8R?si=d251916cb8724721" target="_blank" class="social-btn">🎵</a>    
         <a href="https://kick.com/alza-calistenia" target="_blank" class="social-btn">🟢K</a>  
-        
       </div>
     </div>
     <div class="footer-col">
@@ -1658,10 +1946,10 @@
     <div class="footer-col">
       <h4>Contacto</h4>
       <ul>
-        <li><a href="#">WhatsApp</a></li>
-        <li><a href="#">Instagram</a></li>
-        <li><a href="#">Email</a></li>
-        <li><a href="#">Buenos Aires, ARG</a></li>
+        <li><a href="https://wa.me/5492976216161">WhatsApp</a></li>
+        <li><a href="https://www.instagram.com/cplus_sw/">Instagram</a></li>
+        <li><a href="#" onclick="openModal('general')">Email</a></li>
+        <li><a href="https://maps.app.goo.gl/pmsfeqY8Cw38cfUh9">Buenos Aires, ARG</a></li>
       </ul>
     </div>
   </div>
@@ -1681,6 +1969,22 @@
 
 <!-- ─── SCRIPTS ───────────────────────────────────────────── -->
 <script>
+  /* ══════════════════════════════════════════════════════
+     ⚙️  CONFIGURACIÓN EMAILJS
+     1. Creá una cuenta gratuita en https://www.emailjs.com
+     2. Creá un "Email Service" (Gmail, Outlook, etc.)
+     3. Creá un "Email Template" con las variables:
+          {{plan}}, {{nombre}}, {{email}}, {{metodo_pago}},
+          {{objetivo}}, {{mensaje}}, {{from_name}}
+     4. Reemplazá los valores de abajo con los tuyos:
+  ══════════════════════════════════════════════════════ */
+  const EMAILJS_PUBLIC_KEY  = 'VURmDHGbXNngv68ew';      // ← Account > API Keys
+  const EMAILJS_SERVICE_ID  = 'service_r4wcppm';      // ← Email Services
+  const EMAILJS_TEMPLATE_ID = 'template_g7adi3g';     // ← Email Templates
+  const EMAIL_DESTINO       = 'cpluscoach@gmail.com';        // ← Tu email donde llegará
+
+  emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+
   /* ── Navbar scroll ── */
   window.addEventListener('scroll', () => {
     document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 30);
@@ -1707,81 +2011,135 @@
     if (!isOpen) { answer.classList.add('open'); btn.classList.add('open'); }
   }
 
-  /* ── Modal ── */
+  /* ── Modal content templates ── */
   const modalContents = {
     general: `
       <div class="tag">Consulta gratuita</div>
       <h3>HABLEMOS</h3>
       <p>Contame tu situación y te cuento cómo puedo ayudarte. Sin compromiso.</p>
-      <div class="form-group"><label>Nombre</label><input type="text" placeholder="Tu nombre"/></div>
-      <div class="form-group"><label>Email</label><input type="email" placeholder="tu@email.com"/></div>
+      <div class="form-group"><label>Nombre</label><input id="f-nombre" type="text" placeholder="Tu nombre" required/></div>
+      <div class="form-group"><label>Numero</label><input id="f-numero" type="text" placeholder="Telefono /Celular" required/></div>
+      <div class="form-group"><label>Email</label><input id="f-email" type="email" placeholder="tu@email.com" required/></div>
       <div class="form-group"><label>¿Cuál es tu objetivo?</label>
-        <select><option>Ganar fuerza y músculo</option><option>Aprender skills (planche, etc.)</option><option>Perder peso</option><option>Competir en calistenia</option><option>Otro</option></select>
+        <select id="f-objetivo"><option>Ganar fuerza y músculo</option><option>Aprender skills (planche, etc.)</option><option>Perder peso</option><option>Competir en calistenia</option><option>Otro</option></select>
       </div>
-      <div class="form-group"><label>Mensaje</label><textarea placeholder="Contame tu nivel actual y qué querés lograr..."></textarea></div>
-      <button class="form-submit">Enviar consulta →</button>`,
+      <div class="form-group"><label>Mensaje</label><textarea id="f-mensaje" placeholder="Contame tu nivel actual y qué querés lograr..."></textarea></div>
+      <div class="form-feedback" id="f-feedback"></div>
+      <button class="form-submit" id="f-submit" onclick="enviarFormulario('general')">Enviar consulta →</button>`,
+
     starter: `
       <div class="tag">Plan Starter</div>
       <h3>STARTER</h3>
       <p>USD 25 / mes — Rutina mensual + soporte. Completá tus datos para empezar.</p>
-      <div class="form-group"><label>Nombre</label><input type="text" placeholder="Tu nombre"/></div>
-      <div class="form-group"><label>Email</label><input type="email" placeholder="tu@email.com"/></div>
+      <div class="form-group"><label>Nombre</label><input id="f-nombre" type="text" placeholder="Tu nombre" required/></div>
+      <div class="form-group"><label>Numero</label><input id="f-numero" type="text" placeholder="Telefono /Celular" required/></div>
+      <div class="form-group"><label>Email</label><input id="f-email" type="email" placeholder="tu@email.com" required/></div>
       <div class="form-group"><label>Método de pago</label>
-        <select><option>MercadoPago</option><option>Transferencia</option><option>PayPal</option><option>Crypto (USDT)</option><option>Dólar efectivo</option></select>
+        <select id="f-pago"><option>MercadoPago</option><option>Transferencia</option><option>PayPal</option><option>Crypto (USDT)</option><option>Wise</option></select>
       </div>
-      <div class="form-group"><label>Nivel actual</label><textarea placeholder="Contame qué movimientos podés hacer y cuánto tiempo llevás entrenando..."></textarea></div>
-      <button class="form-submit">Contratar Starter →</button>`,
+      <div class="form-group"><label>Nivel actual</label><textarea id="f-mensaje" placeholder="Contame qué movimientos podés hacer y cuánto tiempo llevás entrenando..."></textarea></div>
+      <div class="form-feedback" id="f-feedback"></div>
+      <button class="form-submit" id="f-submit" onclick="enviarFormulario('starter')">Contratar Starter →</button>`,
+
     pro: `
       <div class="tag" style="background:#E8C547">Plan Pro — Más popular</div>
       <h3>PRO</h3>
       <p>USD 60 / mes — Seguimiento semanal completo. Completá tus datos para empezar.</p>
-      <div class="form-group"><label>Nombre</label><input type="text" placeholder="Tu nombre"/></div>
-      <div class="form-group"><label>Email</label><input type="email" placeholder="tu@email.com"/></div>
+      <div class="form-group"><label>Nombre</label><input id="f-nombre" type="text" placeholder="Tu nombre" required/></div>
+      <div class="form-group"><label>Numero</label><input id="f-numero" type="text" placeholder="Telefono /Celular" required/></div>
+      <div class="form-group"><label>Email</label><input id="f-email" type="email" placeholder="tu@email.com" required/></div>
       <div class="form-group"><label>Método de pago</label>
-        <select><option>MercadoPago</option><option>Transferencia</option><option>PayPal</option><option>Crypto (USDT)</option><option>Dólar efectivo</option></select>
+        <select id="f-pago"><option>MercadoPago</option><option>Transferencia</option><option>PayPal</option><option>Crypto (USDT)</option><option>Wise</option></select>
       </div>
-      <div class="form-group"><label>Objetivo principal</label><textarea placeholder="¿Qué querés lograr? ¿Cuál es tu nivel actual?"></textarea></div>
-      <button class="form-submit">Contratar Pro →</button>`,
+      <div class="form-group"><label>Objetivo principal</label><textarea id="f-mensaje" placeholder="¿Qué querés lograr? ¿Cuál es tu nivel actual?"></textarea></div>
+      <div class="form-feedback" id="f-feedback"></div>
+      <button class="form-submit" id="f-submit" onclick="enviarFormulario('pro')">Contratar Pro →</button>`,
+
     elite: `
       <div class="tag">Plan Elite</div>
       <h3>ELITE</h3>
       <p>USD 100 / mes — Para atletas avanzados y competidores. El máximo nivel de acompañamiento.</p>
-      <div class="form-group"><label>Nombre</label><input type="text" placeholder="Tu nombre"/></div>
-      <div class="form-group"><label>Email</label><input type="email" placeholder="tu@email.com"/></div>
+      <div class="form-group"><label>Nombre</label><input id="f-nombre" type="text" placeholder="Tu nombre" required/></div>
+      <div class="form-group"><label>Numero</label><input id="f-numero" type="text" placeholder="Telefono /Celular" required/></div>
+      <div class="form-group"><label>Email</label><input id="f-email" type="email" placeholder="tu@email.com" required/></div>
       <div class="form-group"><label>Método de pago</label>
-        <select><option>MercadoPago</option><option>Transferencia</option><option>PayPal</option><option>Crypto (USDT)</option><option>Dólar efectivo</option></select>
+        <select id="f-pago"><option>MercadoPago</option><option>Transferencia</option><option>PayPal</option><option>Crypto (USDT)</option><option>Wise</option></select>
       </div>
-      <div class="form-group"><label>Experiencia competitiva</label><textarea placeholder="Contame tu historial, skills actuales y objetivos de competencia..."></textarea></div>
-      <button class="form-submit">Contratar Elite →</button>`,
-    ebook1: `
-      <div class="tag">Ebook</div>
-      <h3>CALISTENIA PARA PRINCIPIANTES</h3>
-      <p>USD 9 — Descarga inmediata después del pago. Recibirás el link en tu correo.</p>
-      <div class="form-group"><label>Email para recibir el ebook</label><input type="email" placeholder="tu@email.com"/></div>
-      <div class="form-group"><label>Método de pago</label>
-        <select><option>MercadoPago</option><option>PayPal</option><option>Crypto (USDT)</option><option>Transferencia</option></select>
-      </div>
-      <button class="form-submit">Comprar — USD 9 →</button>`,
-    ebook2: `
-      <div class="tag">Ebook</div>
-      <h3>GUÍA DE NUTRICIÓN</h3>
-      <p>USD 12 — Descarga inmediata después del pago. Recibirás el link en tu correo.</p>
-      <div class="form-group"><label>Email para recibir el ebook</label><input type="email" placeholder="tu@email.com"/></div>
-      <div class="form-group"><label>Método de pago</label>
-        <select><option>MercadoPago</option><option>PayPal</option><option>Crypto (USDT)</option><option>Transferencia</option></select>
-      </div>
-      <button class="form-submit">Comprar — USD 12 →</button>`,
-    ebook3: `
-      <div class="tag">Ebook</div>
-      <h3>PLANCHE & FRONT LEVER</h3>
-      <p>USD 15 — Descarga inmediata después del pago. Recibirás el link en tu correo.</p>
-      <div class="form-group"><label>Email para recibir el ebook</label><input type="email" placeholder="tu@email.com"/></div>
-      <div class="form-group"><label>Método de pago</label>
-        <select><option>MercadoPago</option><option>PayPal</option><option>Crypto (USDT)</option><option>Transferencia</option></select>
-      </div>
-      <button class="form-submit">Comprar — USD 15 →</button>`,
+      <div class="form-group"><label>Experiencia competitiva</label><textarea id="f-mensaje" placeholder="Contame tu historial, skills actuales y objetivos de competencia..."></textarea></div>
+      <div class="form-feedback" id="f-feedback"></div>
+      <button class="form-submit" id="f-submit" onclick="enviarFormulario('elite')">Contratar Elite →</button>`,
   };
 
+  /* ── Enviar formulario con EmailJS ── */
+  function enviarFormulario(plan) {
+    const nombre  = document.getElementById('f-nombre')?.value.trim();
+    const email   = document.getElementById('f-email')?.value.trim();
+    const pago    = document.getElementById('f-pago')?.value || '—';
+    const objetivo= document.getElementById('f-objetivo')?.value || '—';
+    const mensaje = document.getElementById('f-mensaje')?.value.trim() || '—';
+    const feedback= document.getElementById('f-feedback');
+    const submit  = document.getElementById('f-submit');
+
+    /* Validación básica */
+    if (!nombre || !email) {
+      feedback.textContent = '⚠  Completá tu nombre y email antes de enviar.';
+      feedback.className = 'form-feedback error';
+      return;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      feedback.textContent = '⚠  El email no parece válido.';
+      feedback.className = 'form-feedback error';
+      return;
+    }
+
+    /* Estado de carga */
+    submit.disabled = true;
+    submit.textContent = 'Enviando…';
+    submit.classList.add('loading');
+    feedback.className = 'form-feedback';
+
+    const planLabels = {
+      general: 'Consulta gratuita',
+      starter: 'Plan Starter — USD 25/mes',
+      pro:     'Plan Pro — USD 60/mes',
+      elite:   'Plan Elite — USD 100/mes',
+    };
+
+    const templateParams = {
+      plan:         planLabels[plan] || plan,
+      from_name:    nombre,
+      nombre:       nombre,
+      email:        email,
+      reply_to:     email,
+      metodo_pago:  pago,
+      objetivo:     objetivo,
+      mensaje:      mensaje,
+      to_email:     EMAIL_DESTINO,
+    };
+
+    emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams)
+      .then(() => {
+        /* Pantalla de éxito */
+        document.getElementById('modalContent').innerHTML = `
+          <div class="form-success-screen">
+            <div class="success-icon">✅</div>
+            <h3>¡MENSAJE ENVIADO!</h3>
+            <p>Recibí tu consulta para <strong style="color:var(--yellow)">${planLabels[plan]}</strong>.<br>
+               Te respondo a <strong>${email}</strong> en menos de 24 hs.</p>
+            <button class="btn-close-modal" onclick="closeModalDirect()">Cerrar ventana</button>
+          </div>`;
+      })
+      .catch((err) => {
+        console.error('EmailJS error:', err);
+        submit.disabled = false;
+        submit.textContent = 'Reintentar →';
+        submit.classList.remove('loading');
+        feedback.textContent = '✕  Hubo un error al enviar. Revisá tu conexión o escribime directo por WhatsApp.';
+        feedback.className = 'form-feedback error';
+      });
+  }
+
+  /* ── Modal ── */
   function openModal(type) {
     document.getElementById('modalContent').innerHTML = modalContents[type] || modalContents.general;
     document.getElementById('modalOverlay').classList.add('open');
@@ -1795,6 +2153,7 @@
     if (e.target === document.getElementById('modalOverlay')) closeModalDirect();
   }
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModalDirect(); });
+
   /* ── About Carousel ── */
 (function() {
   const track = document.getElementById('carouselTrack');
