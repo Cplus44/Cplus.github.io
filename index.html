@@ -3,7 +3,18 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>CaliPush — Calistenia & Coaching</title>
+<title>CaliPush — Coaching Online de Calistenia | Buenos Aires</title>
+<meta name="description" content="Asesorías online personalizadas de calistenia con Federico Fanara. Planes Starter, Pro y Elite. Planche, Front Lever, Street Workout. Buenos Aires y todo el mundo."/>
+<!-- Pre-launch: quitá este meta antes de publicar -->
+<meta name="robots" content="noindex, nofollow"/>
+<!-- Open Graph (preview en WhatsApp, Instagram, etc.) -->
+<meta property="og:type"        content="website"/>
+<meta property="og:title"       content="CaliPush — Coaching Online de Calistenia"/>
+<meta property="og:description" content="Asesorías personalizadas de calistenia, street workout y skills avanzados. Planes desde USD 30/mes."/>
+<meta property="og:image"       content="Imagenes/Flag.jpeg"/>
+<meta property="og:locale"      content="es_AR"/>
+<meta name="twitter:card"       content="summary_large_image"/>
+<link rel="icon" type="image/png" href="Imagenes/Icono.png"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet"/>
@@ -201,6 +212,7 @@
   }
   .btn-primary:hover { background: var(--yellow-soft); transform: translateY(-2px); }
   .btn-outline {
+    display: inline-block;
     background: transparent;
     color: var(--text);
     font-family: var(--font-sub);
@@ -244,7 +256,6 @@
     justify-content: flex-end;
     padding: 2rem;
     overflow: hidden;
-    position: relative;
     border: 2px solid #FFD700;
     box-shadow: 0 20px 60px rgba(0,0,0,0.4);
   }
@@ -265,45 +276,34 @@
     line-height: 1;
   }
   .card-image {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-size: cover;
-            background-repeat: no-repeat;
-            opacity: 1;
-            background-image: var(--imagen);
-            z-index: 0;
-            overflow: hidden;
-        }
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 0;
+    overflow: hidden;
+  }
+  .card-image img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 30%;
+  }
   .card-image::after {
-          content: '';
-          position: absolute;
-          bottom: 0;
-          left: 0;
-          right: 0;
-          height: 40%;
-          background: linear-gradient(to bottom, rgba(0,0,0,0), rgba(0,0,0,0.2));
-          z-index: 1;
-    }
-  /* Tamaños diferentes */
-  .card-image--large {
-      width: 350px;
-      height: 450px;
-      object-position: center 30%;
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 40%;
+    background: linear-gradient(to bottom, rgba(0,0,0,0), rgba(0,0,0,0.2));
+    z-index: 1;
   }
-
-  .card-image--medium {
-      width: 500px;
-      height: 700px;
-      object-position: center 30%;
-  }
-
-  .card-image--small {
-      width: 400px;
-      height: 550px;
-      object-position: center 30%;
-  }      
+  /* Tamaños del card-image */
+  .card-image--large  { width: 350px; height: 450px; }
+  .card-image--medium { width: 500px; height: 700px; }
+  .card-image--small  { width: 400px; height: 550px; }
   .card-label {
     font-family: var(--font-sub);
     font-size: 0.7rem;
@@ -749,6 +749,13 @@
     transition: background 0.2s, transform 0.15s;
   }
   .btn-buy:hover { background: var(--yellow-soft); transform: translateY(-1px); }
+  .btn-buy--disabled {
+    background: rgba(232,197,71,0.15);
+    color: var(--muted);
+    cursor: not-allowed;
+    border: 1.5px solid rgba(232,197,71,0.2);
+  }
+  .btn-buy--disabled:hover { background: rgba(232,197,71,0.15); transform: none; color: var(--muted); }
 
   /* ─── TRANSFORMACIONES ──────────────────────────────── */
   #testimonios { background: var(--surface); }
@@ -773,7 +780,7 @@
     background: #111;
   }
   .transform-video-wrap {
-    position: relative;
+    position: relative;     
     aspect-ratio: 9/16;
     max-height: 340px;
     overflow: hidden;
@@ -1150,6 +1157,8 @@
     background: var(--surface);
     max-width: 520px;
     width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
     padding: 2.5rem;
     position: relative;
     border-top: 4px solid var(--yellow);
@@ -1382,6 +1391,104 @@
     .footer-grid { grid-template-columns: 1fr; }
     .services-header { flex-direction: column; align-items: flex-start; }
   }
+/* ─── MODAL PAGO MULTI-PASO ──────────────────────────────── */
+.step-indicator {
+  display: flex; align-items: center; margin-bottom: 1.6rem;
+}
+.step-ind-item { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.step-ind-num {
+  width: 32px; height: 32px; border-radius: 50%;
+  border: 2px solid rgba(232,197,71,0.25);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-sub); font-size: 0.85rem; font-weight: 700;
+  color: var(--muted); transition: all 0.3s;
+}
+.step-ind-item.active .step-ind-num { border-color: var(--yellow); background: var(--yellow); color: var(--accent-dark); }
+.step-ind-item.done .step-ind-num   { border-color: var(--yellow); color: var(--yellow); }
+.step-ind-label {
+  font-family: var(--font-sub); font-size: 0.6rem; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted);
+}
+.step-ind-item.active .step-ind-label { color: var(--yellow); }
+.step-ind-line { flex: 1; height: 2px; background: rgba(232,197,71,0.18); margin: 0 0.5rem 1.2rem; }
+
+.pm-options { display: flex; flex-direction: column; gap: 0.5rem; margin: 1rem 0; }
+.pm-option {
+  display: flex; align-items: center; gap: 0.8rem;
+  background: var(--bg); border: 1.5px solid rgba(255,255,255,0.06);
+  padding: 0.75rem 1rem; cursor: pointer; width: 100%;
+  transition: border-color 0.2s, background 0.2s; text-align: left;
+}
+.pm-option:hover  { border-color: rgba(232,197,71,0.4); }
+.pm-option.active { border-color: var(--yellow); background: rgba(232,197,71,0.07); }
+.pm-option-icon  { font-size: 1.3rem; flex-shrink: 0; }
+.pm-option-label {
+  flex: 1; font-family: var(--font-sub); font-size: 0.88rem;
+  font-weight: 600; letter-spacing: 0.06em; color: var(--text);
+}
+.pm-option-moneda {
+  font-family: var(--font-sub); font-size: 0.68rem; font-weight: 700;
+  letter-spacing: 0.12em; color: var(--muted);
+  background: rgba(255,255,255,0.06); padding: 2px 7px;
+}
+
+.pm-detail-box {
+  background: rgba(232,197,71,0.05); border: 1px solid rgba(232,197,71,0.2);
+  border-left: 3px solid var(--yellow); padding: 1rem 1.2rem;
+  margin: 0.8rem 0; animation: fadeUp 0.2s ease;
+}
+.pm-detail-monto {
+  font-family: var(--font-sub); font-size: 0.78rem; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--muted);
+  margin-bottom: 0.8rem; padding-bottom: 0.6rem;
+  border-bottom: 1px solid rgba(232,197,71,0.15);
+}
+.pm-detail-monto strong { color: var(--yellow); font-size: 1rem; }
+.pm-detail-row {
+  display: flex; justify-content: space-between;
+  align-items: center; padding: 0.4rem 0; gap: 1rem;
+}
+.pm-detail-row > span {
+  font-family: var(--font-sub); font-size: 0.7rem; font-weight: 600;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); flex-shrink: 0;
+}
+.pm-detail-row strong {
+  font-family: var(--font-body); font-size: 0.85rem; color: var(--text);
+  display: flex; align-items: center; gap: 0.5rem; text-align: right;
+}
+.pm-detail-row strong.mono { font-family: monospace; font-size: 0.75rem; word-break: break-all; }
+.pm-nota {
+  font-size: 0.78rem; color: var(--muted); line-height: 1.55;
+  margin-top: 0.8rem; padding-top: 0.6rem;
+  border-top: 1px solid rgba(232,197,71,0.1);
+}
+.copy-btn {
+  background: none; border: 1px solid rgba(232,197,71,0.3);
+  color: var(--yellow); font-family: var(--font-sub); font-size: 0.6rem;
+  font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 2px 6px; cursor: pointer; transition: background 0.2s; flex-shrink: 0;
+}
+.copy-btn:hover { background: var(--yellow); color: var(--accent-dark); }
+
+.upload-area {
+  border: 2px dashed rgba(232,197,71,0.3); padding: 2rem;
+  text-align: center; cursor: pointer;
+  transition: border-color 0.2s, background 0.2s; margin: 1rem 0;
+}
+.upload-area:hover, .upload-area.drag { border-color: var(--yellow); background: rgba(232,197,71,0.04); }
+.upload-icon  { font-size: 2rem; margin-bottom: 0.5rem; }
+.upload-text  { font-family: var(--font-sub); font-size: 0.88rem; font-weight: 600; letter-spacing: 0.06em; color: var(--text); margin-bottom: 0.3rem; }
+.upload-formats { font-size: 0.72rem; color: var(--muted); letter-spacing: 0.08em; }
+.upload-preview-row {
+  display: flex; align-items: center; justify-content: space-between;
+  background: rgba(232,197,71,0.06); border: 1px solid rgba(232,197,71,0.2);
+  padding: 0.6rem 1rem; margin-top: 0.5rem;
+}
+.upload-preview-name {
+  font-family: var(--font-sub); font-size: 0.82rem; font-weight: 600;
+  color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.modal-nav { display: flex; gap: 0.8rem; align-items: center; margin-top: 1.2rem; }
 </style>
 </head>
 <body>
@@ -1427,7 +1534,7 @@
     <div class="hero-card-stack">
       <div class="card-bg"></div>
       <div class="card-main">
-        <div class="card-image - card-image--small">
+        <div class="card-image card-image--small">
           <img src="Imagenes/Flag.jpeg" alt="Presentacion Atleta">
         </div>
         <div class="card-label">Coaching online</div>
@@ -1641,7 +1748,7 @@
     <div class="step">
       <div class="step-num"><span>02</span></div>
       <h4>Evaluación</h4>
-      <p>Envias videos de tus movimientos actuales para que pueda evaluar tu nivel real.</p>
+      <p>Enviás videos de tus movimientos actuales para que pueda evaluar tu nivel real.</p>
     </div>
     <div class="step">
       <div class="step-num"><span>03</span></div>
@@ -1680,7 +1787,7 @@
         <p>Guía completa de ejercicios para mejorar tu movilidad y flexibilidad, ideal para quienes pasan la mayor parte del día sentados.</p>
         <div class="ebook-footer">
           <div class="ebook-price">$9.99 <sub>USD</sub></div>
-          <button class="btn-buy" onclick="openModal('ebook3')">Proximamente</button>
+          <button class="btn-buy btn-buy--disabled" disabled>Próximamente</button>
         </div>
       </div>
     </div>
@@ -1688,20 +1795,20 @@
     <div class="ebook-card">
       <div class="ebook-cover">
         <div class="ebook-cover-pattern"></div>
-        <div class="card-image - card-image--medium">
-          <img src="Imagenes/GuiaNutricion.png" alt="Ebook nutricion para transformar tu salud">
+        <div class="card-image card-image--medium">
+          <img src="Imagenes/GuiaNutricion.png" alt="Ebook nutricion para transformar tu salud" loading="lazy">
         </div>
         <div class="ebook-cover-bar"></div>
         <div class="ebook-cover-content">
           <div class="ebook-cover-tag">Nutrición</div>
-          <div class="ebook-cover-title">GUÍA DE PARA TRANSFORMAR TU SALUD</div>
+          <div class="ebook-cover-title">GUÍA PARA TRANSFORMAR TU SALUD</div>
         </div>
       </div>
       <div class="ebook-body">
         <p>Principios claros de alimentación para optimizar tu rendimiento, recuperación y composición corporal sin complicarte la vida.
         </p>
         <div class="ebook-footer">
-          <div class="ebook-price">$12,99<sub>USD</sub></div>
+          <div class="ebook-price">$12.99<sub>USD</sub></div>
           <a href="https://hotmart.com/es/marketplace/productos/deja-de-empezar-dietas/O104843438E" target="_blank" class="btn-buy">Comprar</a>
         </div>
       </div>
@@ -1710,8 +1817,8 @@
     <div class="ebook-card">
       <div class="ebook-cover">
         <div class="ebook-cover-pattern"></div>
-        <div class="card-image - card-image--medium">
-          <img src="Imagenes/30Dias.png" alt="RETO 30 DIAS PARA PRINCIPIANTES">
+        <div class="card-image card-image--medium">
+          <img src="Imagenes/30Dias.png" alt="Reto 30 días para principiantes" loading="lazy">
         </div>
         <div class="ebook-cover-bar"></div>
         <div class="ebook-cover-content">
@@ -1723,12 +1830,10 @@
         <p>Convertite en tu mejor versión con este reto de 30 días, la guía definitiva para dominar tu cuerpo desde cero con rutinas progresivas, sin equipo y con resultados garantizados desde la comodidad de tu casa</p>
         <div class="ebook-footer">
           <div class="ebook-price">$14.99<sub>USD</sub></div>
-          <button class="btn-buy" onclick="openModal('ebook1')">Comprar</button>
+          <a href="https://go.hotmart.com/Q105891123H" target="_blank" class="btn-buy">Comprar</a>
         </div>
       </div>
     </div>
-
-    
 
   </div>
 </section>
@@ -1748,17 +1853,10 @@
       <div class="transform-video-pair">
 
         <div class="transform-video-wrap">
-          <!-- Reemplazá src con tu video ANTES. Ej: src="Videos/matias_antes.mp4" -->
-          <video
-            src="Videos/BrunoAAntes.mp4"
-            autoplay muted loop playsinline
-            preload="metadata"
-            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <video 
+            src="https://res.cloudinary.com/dq17gampr/video/upload/v1779282681/BrunoAAntes_tw3fiw.mp4"
+            autoplay muted loop playsinline preload="metadata">
           </video>
-          <div class="transform-video-placeholder" style="display:none;">
-            <span class="ph-icon">🎬</span>
-            <span class="ph-text">Video antes<br>alumno1_antes.mp4</span>
-          </div>
           <div class="transform-label transform-label--antes">ANTES</div>
         </div>
 
@@ -1769,17 +1867,10 @@
         </div>
 
         <div class="transform-video-wrap">
-          <!-- Reemplazá src con tu video DESPUÉS. Ej: src="Videos/matias_despues.mp4" -->
           <video
-            src="Videos/BrunoADespues.mp4"
-            autoplay muted loop playsinline
-            preload="metadata"
-            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            src="https://res.cloudinary.com/dq17gampr/video/upload/v1779282683/BrunoADespues_v8joeu.mp4"
+            autoplay muted loop playsinline preload="metadata">
           </video>
-          <div class="transform-video-placeholder" style="display:none;">
-            <span class="ph-icon">🏆</span>
-            <span class="ph-text">Video después<br>alumno1_despues.mp4</span>
-          </div>
           <div class="transform-label transform-label--despues">DESPUÉS</div>
         </div>
 
@@ -1790,8 +1881,8 @@
           <div class="transform-badge-unit">meses</div>
         </div>
         <div class="transform-meta">
-          <div class="transform-name">Bruno Azzareti.</div>
-          <div class="transform-plan">Plan Pro — Asesoria Plancha y Front</div>
+          <div class="transform-name">Bruno Azzareti</div>
+          <div class="transform-plan">Plan Pro — Asesoría Plancha y Front</div>
         </div>
         <div class="transform-quote">
           "En 7 meses pasamos de no aguantar una straddle a realizar combos en full planche."
@@ -1804,17 +1895,10 @@
       <div class="transform-video-pair">
 
         <div class="transform-video-wrap">
-          <!-- Reemplazá src con tu video ANTES. Ej: src="Videos/lucas_antes.mp4" -->
           <video
-            src="Videos/PatoAntes.mp4"
-            autoplay muted loop playsinline
-            preload="metadata"
-            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            src="https://res.cloudinary.com/dq17gampr/video/upload/v1779282683/PatoAntes_nijdvg.mp4"
+            autoplay muted loop playsinline preload="metadata">
           </video>
-          <div class="transform-video-placeholder" style="display:none;">
-            <span class="ph-icon">🎬</span>
-            <span class="ph-text">Video antes<br>alumno2_antes.mp4</span>
-          </div>
           <div class="transform-label transform-label--antes">ANTES</div>
         </div>
 
@@ -1825,17 +1909,10 @@
         </div>
 
         <div class="transform-video-wrap">
-          <!-- Reemplazá src con tu video DESPUÉS. Ej: src="Videos/lucas_despues.mp4" -->
           <video
-            src="Videos/PatoDespues.mp4"
-            autoplay muted loop playsinline
-            preload="metadata"
-            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            src="https://res.cloudinary.com/dq17gampr/video/upload/v1779282682/PatoDespues_i6zuhg.mp4"
+            autoplay muted loop playsinline preload="metadata">
           </video>
-          <div class="transform-video-placeholder" style="display:none;"> 
-            <span class="ph-icon">🏆</span>
-            <span class="ph-text">Video después<br>alumno2_despues.mp4</span>
-          </div>
           <div class="transform-label transform-label--despues">DESPUÉS</div>
         </div>
 
@@ -1847,7 +1924,7 @@
         </div>
         <div class="transform-meta">
           <div class="transform-name">Francisco P. Jorge</div>
-          <div class="transform-plan">Plan Pro → Asesoria Front y Plancha</div>
+          <div class="transform-plan">Plan Pro — Asesoría Front y Plancha</div>
         </div>
         <div class="transform-quote">
           "Empecé sin poder hacer un Front de manera correcta. Ahora tengo touch, press y pullups."
@@ -1949,6 +2026,7 @@
         <li><a href="https://wa.me/5492976216161">WhatsApp</a></li>
         <li><a href="https://www.instagram.com/cplus_sw/">Instagram</a></li>
         <li><a href="#" onclick="openModal('general')">Email</a></li>
+        <li><a href="https://www.tiktok.com/@cplus_sw?is_from_webapp=1&sender_device=pc">TikTok</a></li>
         <li><a href="https://maps.app.goo.gl/pmsfeqY8Cw38cfUh9">Buenos Aires, ARG</a></li>
       </ul>
     </div>
@@ -1969,192 +2047,510 @@
 
 <!-- ─── SCRIPTS ───────────────────────────────────────────── -->
 <script>
-  /* ══════════════════════════════════════════════════════
-     ⚙️  CONFIGURACIÓN EMAILJS
-     1. Creá una cuenta gratuita en https://www.emailjs.com
-     2. Creá un "Email Service" (Gmail, Outlook, etc.)
-     3. Creá un "Email Template" con las variables:
-          {{plan}}, {{nombre}}, {{email}}, {{metodo_pago}},
-          {{objetivo}}, {{mensaje}}, {{from_name}}
-     4. Reemplazá los valores de abajo con los tuyos:
-  ══════════════════════════════════════════════════════ */
-  const EMAILJS_PUBLIC_KEY  = 'VURmDHGbXNngv68ew';      // ← Account > API Keys
-  const EMAILJS_SERVICE_ID  = 'service_r4wcppm';      // ← Email Services
-  const EMAILJS_TEMPLATE_ID = 'template_g7adi3g';     // ← Email Templates
-  const EMAIL_DESTINO       = 'cpluscoach@gmail.com';        // ← Tu email donde llegará
+/* ══════════════════════════════════════════════════════
+   CONFIGURACIÓN — COMPLETAR CON TUS DATOS
+══════════════════════════════════════════════════════ */
+const EMAILJS_PUBLIC_KEY  = 'VURmDHGbXNngv68ew';
+const EMAILJS_SERVICE_ID  = 'service_r4wcppm';
+const EMAILJS_TEMPLATE_ID = 'template_g7adi3g';
+const EMAIL_DESTINO       = 'cpluscoach@gmail.com';
+const SHEETS_WEBHOOK_URL  = 'https://script.google.com/macros/s/AKfycbw3ieTcGh7OK-gZs_Rg8QiD7nUZdmCBqPuDKl1KT5Azz4XBCkcyhHooBnV9rOP8yKF4/exec';
+const IMGBB_API_KEY       = '183c1473911df7ba7e38955c9fbb66b8'; // ← imgbb.com → API → Add API key
 
-  emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+/* ── Tus datos bancarios / de pago ── */
+const METODOS_PAGO = {
+  transferencia: {
+    icon: '🏦', label: 'Transferencia bancaria', moneda: 'ARS',
+    campos: [
+      { label: 'CBU',     valor: '4150999718004680470022' },
+      { label: 'Alias',   valor: 'cplus.ars' },
+      { label: 'Titular', valor: 'Federico Fanara' },
+    ],
+    nota: 'Realizá la transferencia y guardá el comprobante (captura de pantalla o PDF).',
+  },
+  mercadopago: {
+    icon: '💳', label: 'MercadoPago', moneda: 'ARS',
+    campos: [
+      { label: 'Alias MP', valor: 'cplus44.mp' },
+      { label: 'CVU',      valor: '0000003100098095210707' },
+    ],
+    nota: 'Enviá el dinero desde la app de MP como transferencia y guardá el comprobante.',
+  },
+  paypal: {
+    icon: '💵', label: 'PayPal', moneda: 'USD',
+    campos: [
+      { label: 'Email PayPal', valor: 'federicom8@yahoo.com.ar' },
+    ],
+    nota: '⚠ Seleccioná "Amigos y familia" para evitar descuento de comisiones.',
+  },
+  crypto: {
+    icon: '₿', label: 'Crypto (USDT)', moneda: 'USD',
+    campos: [
+      { label: 'Red',    valor: 'TRC-20 (Tron)' },
+      { label: 'Wallet', valor: 'TJ8cP53Ph7afjpFNnHi3mV4zNDzzJFtR5X', mono: true },
+    ],
+    nota: '⚠ Usá únicamente la red TRC-20. Otra red puede resultar en pérdida de fondos.',
+  },
+  wise: {
+    icon: '🌍', label: 'Wise', moneda: 'USD',
+    campos: [
+      { label: 'Email Wise', valor: 'federicom8@yahoo.com.ar' },
+    ],
+    nota: 'Iniciá el envío desde tu cuenta Wise al email indicado.',
+  },
+};
 
-  /* ── Navbar scroll ── */
-  window.addEventListener('scroll', () => {
-    document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 30);
+const PLAN_INFO = {
+  starter: { label: 'Starter', usd: 30,  ars: 45000  },
+  pro:     { label: 'Pro',     usd: 60,  ars: 75000  },
+  elite:   { label: 'Elite',   usd: 100, ars: 135000 },
+};
+
+/* ══════════════════════════════════════════════════════
+   ESTADO GLOBAL DEL MODAL
+══════════════════════════════════════════════════════ */
+let _ms = {}; // modal state
+let _archivo = null;
+
+emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+
+/* ── Navbar scroll ── */
+window.addEventListener('scroll', () => {
+  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 30);
+});
+
+/* ── Mobile menu ── */
+function toggleMenu() {
+  document.getElementById('mobileMenu').classList.toggle('open');
+}
+
+/* ── Reveal on scroll ── */
+const revealEls = document.querySelectorAll('.reveal');
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.12 });
+revealEls.forEach(el => io.observe(el));
+
+/* ── FAQ ── */
+function toggleFaq(btn) {
+  const answer = btn.nextElementSibling;
+  const isOpen = answer.classList.contains('open');
+  document.querySelectorAll('.faq-a').forEach(a => a.classList.remove('open'));
+  document.querySelectorAll('.faq-q').forEach(b => b.classList.remove('open'));
+  if (!isOpen) { answer.classList.add('open'); btn.classList.add('open'); }
+}
+
+/* ══════════════════════════════════════════════════════
+   MODAL — APERTURA Y CIERRE
+══════════════════════════════════════════════════════ */
+function openModal(type) {
+  _archivo = null;
+  if (type === 'general') {
+    _renderConsulta();
+  } else if (PLAN_INFO[type]) {
+    _ms = { plan: type, paso: 1, datos: {}, metodo: null };
+    _renderPaso1();
+  } else {
+    _renderConsulta();
+  }
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModalDirect() {
+  document.getElementById('modalOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+  _ms = {}; _archivo = null;
+}
+
+function closeModal(e) {
+  if (e.target === document.getElementById('modalOverlay')) closeModalDirect();
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModalDirect(); });
+
+/* ── Indicador de pasos ── */
+function _stepIndicator(current) {
+  const labels = ['Datos', 'Pago', 'Comprobante'];
+  return `<div class="step-indicator">
+    ${[1,2,3].map((n, i) => `
+      <div class="step-ind-item ${n === current ? 'active' : n < current ? 'done' : ''}">
+        <div class="step-ind-num">${n < current ? '✓' : n}</div>
+        <div class="step-ind-label">${labels[i]}</div>
+      </div>
+      ${n < 3 ? '<div class="step-ind-line"></div>' : ''}
+    `).join('')}
+  </div>`;
+}
+
+/* ══════════════════════════════════════════════════════
+   PASO 1 — DATOS PERSONALES
+══════════════════════════════════════════════════════ */
+function _renderPaso1() {
+  const plan = PLAN_INFO[_ms.plan];
+  const d = _ms.datos;
+  document.getElementById('modalContent').innerHTML = `
+    ${_stepIndicator(1)}
+    <div class="tag">Plan ${plan.label}</div>
+    <h3>TUS DATOS</h3>
+    <p>Completá estos datos para registrar tu lugar.</p>
+    <div class="form-group">
+      <label>Nombre completo</label>
+      <input id="f-nombre" type="text" placeholder="Tu nombre" value="${d.nombre || ''}"/>
+    </div>
+    <div class="form-group">
+      <label>Email</label>
+      <input id="f-email" type="email" placeholder="tu@email.com" value="${d.email || ''}"/>
+    </div>
+    <div class="form-group">
+      <label>Teléfono / WhatsApp</label>
+      <input id="f-telefono" type="text" placeholder="+54 9 ..." value="${d.telefono || ''}"/>
+    </div>
+    <div class="form-group">
+      <label>¿Cuál es tu objetivo?</label>
+      <select id="f-objetivo">
+        <option>Ganar fuerza y músculo</option>
+        <option>Aprender skills (planche, front lever, etc.)</option>
+        <option>Competir en calistenia</option>
+        <option>Perder peso</option>
+        <option>Otro</option>
+      </select>
+    </div>
+    <div class="form-feedback" id="f-feedback"></div>
+    <button class="form-submit" onclick="_irPaso2()">Elegir método de pago →</button>
+  `;
+}
+
+function _irPaso2() {
+  const nombre   = document.getElementById('f-nombre').value.trim();
+  const email    = document.getElementById('f-email').value.trim();
+  const telefono = document.getElementById('f-telefono').value.trim();
+  const objetivo = document.getElementById('f-objetivo').value;
+  const fb = document.getElementById('f-feedback');
+
+  if (!nombre || !email) {
+    fb.textContent = '⚠ Completá tu nombre y email.';
+    fb.className = 'form-feedback error'; return;
+  }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    fb.textContent = '⚠ El email no parece válido.';
+    fb.className = 'form-feedback error'; return;
+  }
+
+  _ms.datos = { nombre, email, telefono, objetivo };
+  _ms.paso  = 2;
+  _renderPaso2();
+}
+
+/* ══════════════════════════════════════════════════════
+   PASO 2 — MÉTODO DE PAGO
+══════════════════════════════════════════════════════ */
+function _renderPaso2() {
+  const plan     = PLAN_INFO[_ms.plan];
+  const selected = _ms.metodo;
+
+  const methodBtns = Object.entries(METODOS_PAGO).map(([key, m]) => `
+    <button class="pm-option ${selected === key ? 'active' : ''}" onclick="_selectMetodo('${key}')">
+      <span class="pm-option-icon">${m.icon}</span>
+      <span class="pm-option-label">${m.label}</span>
+      <span class="pm-option-moneda">${m.moneda}</span>
+    </button>
+  `).join('');
+
+  let detailHtml = '';
+  if (selected) {
+    const m      = METODOS_PAGO[selected];
+    const monto  = m.moneda === 'USD'
+      ? `USD ${plan.usd}`
+      : `ARS ${plan.ars.toLocaleString('es-AR')}`;
+    const campos = m.campos.map(c => `
+      <div class="pm-detail-row">
+        <span>${c.label}</span>
+        <strong class="${c.mono ? 'mono' : ''}">
+          ${c.valor}
+          <button class="copy-btn" onclick="navigator.clipboard.writeText('${c.valor}')">copiar</button>
+        </strong>
+      </div>
+    `).join('');
+    detailHtml = `
+      <div class="pm-detail-box">
+        <div class="pm-detail-monto">Monto: <strong>${monto}</strong></div>
+        ${campos}
+        <p class="pm-nota">${m.nota}</p>
+      </div>`;
+  }
+
+  document.getElementById('modalContent').innerHTML = `
+    ${_stepIndicator(2)}
+    <h3>MÉTODO DE PAGO</h3>
+    <p style="margin-bottom:0.2rem">Plan <strong style="color:var(--yellow)">${plan.label}</strong> —
+      USD ${plan.usd} / ARS ${plan.ars.toLocaleString('es-AR')} por mes</p>
+    <div class="pm-options">${methodBtns}</div>
+    ${detailHtml}
+    <div class="modal-nav">
+      <button class="btn-outline" onclick="_renderPaso1()" style="font-size:0.8rem;padding:10px 18px;">← Volver</button>
+      ${selected
+        ? `<button class="form-submit" style="flex:1;margin-top:0" onclick="_irPaso3()">Ya pagué →</button>`
+        : ''}
+    </div>
+  `;
+}
+
+function _selectMetodo(key) {
+  _ms.metodo = key;
+  _renderPaso2();
+}
+
+function _irPaso3() {
+  _ms.paso = 3;
+  _renderPaso3();
+}
+
+/* ══════════════════════════════════════════════════════
+   PASO 3 — SUBIR COMPROBANTE
+══════════════════════════════════════════════════════ */
+function _renderPaso3() {
+  document.getElementById('modalContent').innerHTML = `
+    ${_stepIndicator(3)}
+    <h3>COMPROBANTE</h3>
+    <p>Subí la captura o foto de tu pago. Te confirmamos a la brevedad.</p>
+    <div class="upload-area" id="uploadArea"
+         onclick="document.getElementById('fileInput').click()"
+         ondragover="event.preventDefault();this.classList.add('drag')"
+         ondragleave="this.classList.remove('drag')"
+         ondrop="_handleDrop(event)">
+      <div class="upload-icon">📎</div>
+      <div class="upload-text">Arrastrá el comprobante acá o hacé click</div>
+      <div class="upload-formats">JPG · PNG · PDF · Máx 5 MB</div>
+      <input type="file" id="fileInput" accept="image/*,application/pdf"
+             style="display:none" onchange="_handleFile(this.files[0])"/>
+    </div>
+    <div id="uploadPreview" style="display:none">
+      <div class="upload-preview-row">
+        <span class="upload-preview-name" id="uploadFileName"></span>
+        <button class="copy-btn" onclick="_clearFile()">✕ Quitar</button>
+      </div>
+      <img id="uploadThumb" style="max-height:120px;margin-top:0.8rem;display:none;border:1px solid rgba(232,197,71,0.3);width:100%;object-fit:contain"/>
+    </div>
+    <div class="form-feedback" id="f-feedback"></div>
+    <div class="modal-nav">
+      <button class="btn-outline" onclick="_renderPaso2()" style="font-size:0.8rem;padding:10px 18px;">← Volver</button>
+      <button class="form-submit" id="f-submit" style="flex:1;margin-top:0" onclick="_confirmarPago()">Confirmar pago →</button>
+    </div>
+  `;
+}
+
+function _handleDrop(e) {
+  e.preventDefault();
+  document.getElementById('uploadArea').classList.remove('drag');
+  if (e.dataTransfer.files[0]) _handleFile(e.dataTransfer.files[0]);
+}
+
+function _handleFile(file) {
+  if (!file) return;
+  const fb = document.getElementById('f-feedback');
+  if (file.size > 5 * 1024 * 1024) {
+    fb.textContent = '⚠ El archivo supera los 5 MB.';
+    fb.className = 'form-feedback error'; return;
+  }
+  _archivo = file;
+  document.getElementById('uploadFileName').textContent = file.name;
+  document.getElementById('uploadPreview').style.display = 'block';
+  if (file.type.startsWith('image/')) {
+    const reader = new FileReader();
+    reader.onload = ev => {
+      const thumb = document.getElementById('uploadThumb');
+      thumb.src = ev.target.result;
+      thumb.style.display = 'block';
+    };
+    reader.readAsDataURL(file);
+  }
+}
+
+function _clearFile() {
+  _archivo = null;
+  document.getElementById('uploadPreview').style.display = 'none';
+  document.getElementById('fileInput').value = '';
+  const t = document.getElementById('uploadThumb');
+  if (t) t.style.display = 'none';
+}
+
+async function _confirmarPago() {
+  const fb     = document.getElementById('f-feedback');
+  const submit = document.getElementById('f-submit');
+
+  if (!_archivo) {
+    fb.textContent = '⚠ Subí el comprobante antes de confirmar.';
+    fb.className = 'form-feedback error'; return;
+  }
+
+  submit.disabled = true;
+  submit.textContent = 'Subiendo comprobante…';
+  submit.classList.add('loading');
+  fb.className = 'form-feedback';
+
+  try {
+    /* 1. Subir imagen a imgbb */
+    const base64 = await _toBase64(_archivo);
+    const formData = new FormData();
+    formData.append('image', base64.split(',')[1]);
+
+    const imgRes  = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, {
+      method: 'POST', body: formData,
+    });
+    const imgData = await imgRes.json();
+    if (!imgData.success) throw new Error('Error imgbb');
+
+    const comprobanteUrl = imgData.data.url;
+    const plan   = PLAN_INFO[_ms.plan];
+    const metodo = METODOS_PAGO[_ms.metodo];
+
+    /* 2. EmailJS + Sheets en paralelo */
+    const payload = {
+      plan:        `${plan.label} — USD ${plan.usd}/mes`,
+      from_name:   _ms.datos.nombre,
+      nombre:      _ms.datos.nombre,
+      email:       _ms.datos.email,
+      reply_to:    _ms.datos.email,
+      numero:      _ms.datos.telefono || '—',
+      metodo_pago: metodo.label,
+      objetivo:    _ms.datos.objetivo,
+      mensaje:     `✅ COMPROBANTE: ${comprobanteUrl}`,
+      to_email:    EMAIL_DESTINO,
+    };
+
+    await Promise.all([
+      emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, payload),
+      (SHEETS_WEBHOOK_URL && SHEETS_WEBHOOK_URL !== 'TU_APPS_SCRIPT_URL')
+        ? fetch(SHEETS_WEBHOOK_URL, {
+            method: 'POST', mode: 'no-cors',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ ...payload, comprobante_url: comprobanteUrl }),
+          })
+        : Promise.resolve(),
+    ]);
+
+    /* 3. Pantalla de éxito */
+    const waMsg = encodeURIComponent(
+      `Hola Fede! Contraté el Plan ${plan.label} y subí el comprobante. Soy ${_ms.datos.nombre}.`
+    );
+    document.getElementById('modalContent').innerHTML = `
+      <div class="form-success-screen">
+        <div class="success-icon">✅</div>
+        <h3>¡COMPROBANTE ENVIADO!</h3>
+        <p>Recibí tu pago para el <strong style="color:var(--yellow)">Plan ${plan.label}</strong>.<br>
+           Te confirmo a <strong>${_ms.datos.email}</strong> en menos de 24 hs.</p>
+        <a href="https://wa.me/5492976216161?text=${waMsg}"
+           target="_blank" class="btn-close-modal"
+           style="display:inline-block;text-decoration:none;margin-bottom:0.8rem">
+          Confirmar por WhatsApp →
+        </a><br>
+        <button class="btn-outline" onclick="closeModalDirect()"
+                style="font-size:0.8rem;padding:10px 24px;margin-top:0.5rem">Cerrar</button>
+      </div>`;
+
+  } catch (err) {
+    console.error(err);
+    submit.disabled = false;
+    submit.textContent = 'Reintentar →';
+    submit.classList.remove('loading');
+    fb.textContent = '✕ Error al enviar. Intentá de nuevo o escribime por WhatsApp.';
+    fb.className = 'form-feedback error';
+  }
+}
+
+function _toBase64(file) {
+  return new Promise((res, rej) => {
+    const r = new FileReader();
+    r.onload = () => res(r.result);
+    r.onerror = rej;
+    r.readAsDataURL(file);
   });
+}
 
-  /* ── Mobile menu ── */
-  function toggleMenu() {
-    document.getElementById('mobileMenu').classList.toggle('open');
+/* ══════════════════════════════════════════════════════
+   CONSULTA GRATUITA (sin pago)
+══════════════════════════════════════════════════════ */
+function _renderConsulta() {
+  document.getElementById('modalContent').innerHTML = `
+    <div class="tag">Consulta gratuita</div>
+    <h3>HABLEMOS</h3>
+    <p>Contame tu situación y te cuento cómo puedo ayudarte. Sin compromiso.</p>
+    <div class="form-group"><label>Nombre</label><input id="f-nombre" type="text" placeholder="Tu nombre"/></div>
+    <div class="form-group"><label>Teléfono / WhatsApp</label><input id="f-numero" type="text" placeholder="+54 9 ..."/></div>
+    <div class="form-group"><label>Email</label><input id="f-email" type="email" placeholder="tu@email.com"/></div>
+    <div class="form-group"><label>¿Cuál es tu objetivo?</label>
+      <select id="f-objetivo">
+        <option>Ganar fuerza y músculo</option>
+        <option>Aprender skills (planche, etc.)</option>
+        <option>Perder peso</option>
+        <option>Competir en calistenia</option>
+        <option>Otro</option>
+      </select>
+    </div>
+    <div class="form-group"><label>Mensaje</label>
+      <textarea id="f-mensaje" placeholder="Contame tu nivel actual y qué querés lograr..."></textarea>
+    </div>
+    <div class="form-feedback" id="f-feedback"></div>
+    <button class="form-submit" id="f-submit" onclick="enviarFormulario('general')">Enviar consulta →</button>
+  `;
+}
+
+/* ── Envío consulta gratuita (EmailJS + Sheets) ── */
+function enviarFormulario(plan) {
+  const nombre   = document.getElementById('f-nombre')?.value.trim();
+  const numero   = document.getElementById('f-numero')?.value.trim() || '—';
+  const email    = document.getElementById('f-email')?.value.trim();
+  const objetivo = document.getElementById('f-objetivo')?.value || '—';
+  const mensaje  = document.getElementById('f-mensaje')?.value.trim() || '—';
+  const fb       = document.getElementById('f-feedback');
+  const submit   = document.getElementById('f-submit');
+
+  if (!nombre || !email) {
+    fb.textContent = '⚠ Completá tu nombre y email.';
+    fb.className = 'form-feedback error'; return;
+  }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    fb.textContent = '⚠ El email no parece válido.';
+    fb.className = 'form-feedback error'; return;
   }
 
-  /* ── Reveal on scroll ── */
-  const revealEls = document.querySelectorAll('.reveal');
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
-  }, { threshold: 0.12 });
-  revealEls.forEach(el => io.observe(el));
+  submit.disabled = true;
+  submit.textContent = 'Enviando…';
+  submit.classList.add('loading');
+  fb.className = 'form-feedback';
 
-  /* ── FAQ accordion ── */
-  function toggleFaq(btn) {
-    const answer = btn.nextElementSibling;
-    const isOpen = answer.classList.contains('open');
-    document.querySelectorAll('.faq-a').forEach(a => a.classList.remove('open'));
-    document.querySelectorAll('.faq-q').forEach(b => b.classList.remove('open'));
-    if (!isOpen) { answer.classList.add('open'); btn.classList.add('open'); }
-  }
-
-  /* ── Modal content templates ── */
-  const modalContents = {
-    general: `
-      <div class="tag">Consulta gratuita</div>
-      <h3>HABLEMOS</h3>
-      <p>Contame tu situación y te cuento cómo puedo ayudarte. Sin compromiso.</p>
-      <div class="form-group"><label>Nombre</label><input id="f-nombre" type="text" placeholder="Tu nombre" required/></div>
-      <div class="form-group"><label>Numero</label><input id="f-numero" type="text" placeholder="Telefono /Celular" required/></div>
-      <div class="form-group"><label>Email</label><input id="f-email" type="email" placeholder="tu@email.com" required/></div>
-      <div class="form-group"><label>¿Cuál es tu objetivo?</label>
-        <select id="f-objetivo"><option>Ganar fuerza y músculo</option><option>Aprender skills (planche, etc.)</option><option>Perder peso</option><option>Competir en calistenia</option><option>Otro</option></select>
-      </div>
-      <div class="form-group"><label>Mensaje</label><textarea id="f-mensaje" placeholder="Contame tu nivel actual y qué querés lograr..."></textarea></div>
-      <div class="form-feedback" id="f-feedback"></div>
-      <button class="form-submit" id="f-submit" onclick="enviarFormulario('general')">Enviar consulta →</button>`,
-
-    starter: `
-      <div class="tag">Plan Starter</div>
-      <h3>STARTER</h3>
-      <p>USD 25 / mes — Rutina mensual + soporte. Completá tus datos para empezar.</p>
-      <div class="form-group"><label>Nombre</label><input id="f-nombre" type="text" placeholder="Tu nombre" required/></div>
-      <div class="form-group"><label>Numero</label><input id="f-numero" type="text" placeholder="Telefono /Celular" required/></div>
-      <div class="form-group"><label>Email</label><input id="f-email" type="email" placeholder="tu@email.com" required/></div>
-      <div class="form-group"><label>Método de pago</label>
-        <select id="f-pago"><option>MercadoPago</option><option>Transferencia</option><option>PayPal</option><option>Crypto (USDT)</option><option>Wise</option></select>
-      </div>
-      <div class="form-group"><label>Nivel actual</label><textarea id="f-mensaje" placeholder="Contame qué movimientos podés hacer y cuánto tiempo llevás entrenando..."></textarea></div>
-      <div class="form-feedback" id="f-feedback"></div>
-      <button class="form-submit" id="f-submit" onclick="enviarFormulario('starter')">Contratar Starter →</button>`,
-
-    pro: `
-      <div class="tag" style="background:#E8C547">Plan Pro — Más popular</div>
-      <h3>PRO</h3>
-      <p>USD 60 / mes — Seguimiento semanal completo. Completá tus datos para empezar.</p>
-      <div class="form-group"><label>Nombre</label><input id="f-nombre" type="text" placeholder="Tu nombre" required/></div>
-      <div class="form-group"><label>Numero</label><input id="f-numero" type="text" placeholder="Telefono /Celular" required/></div>
-      <div class="form-group"><label>Email</label><input id="f-email" type="email" placeholder="tu@email.com" required/></div>
-      <div class="form-group"><label>Método de pago</label>
-        <select id="f-pago"><option>MercadoPago</option><option>Transferencia</option><option>PayPal</option><option>Crypto (USDT)</option><option>Wise</option></select>
-      </div>
-      <div class="form-group"><label>Objetivo principal</label><textarea id="f-mensaje" placeholder="¿Qué querés lograr? ¿Cuál es tu nivel actual?"></textarea></div>
-      <div class="form-feedback" id="f-feedback"></div>
-      <button class="form-submit" id="f-submit" onclick="enviarFormulario('pro')">Contratar Pro →</button>`,
-
-    elite: `
-      <div class="tag">Plan Elite</div>
-      <h3>ELITE</h3>
-      <p>USD 100 / mes — Para atletas avanzados y competidores. El máximo nivel de acompañamiento.</p>
-      <div class="form-group"><label>Nombre</label><input id="f-nombre" type="text" placeholder="Tu nombre" required/></div>
-      <div class="form-group"><label>Numero</label><input id="f-numero" type="text" placeholder="Telefono /Celular" required/></div>
-      <div class="form-group"><label>Email</label><input id="f-email" type="email" placeholder="tu@email.com" required/></div>
-      <div class="form-group"><label>Método de pago</label>
-        <select id="f-pago"><option>MercadoPago</option><option>Transferencia</option><option>PayPal</option><option>Crypto (USDT)</option><option>Wise</option></select>
-      </div>
-      <div class="form-group"><label>Experiencia competitiva</label><textarea id="f-mensaje" placeholder="Contame tu historial, skills actuales y objetivos de competencia..."></textarea></div>
-      <div class="form-feedback" id="f-feedback"></div>
-      <button class="form-submit" id="f-submit" onclick="enviarFormulario('elite')">Contratar Elite →</button>`,
+  const datos = {
+    plan: 'Consulta gratuita', from_name: nombre, nombre, numero,
+    email, reply_to: email, metodo_pago: '—', objetivo, mensaje, to_email: EMAIL_DESTINO,
   };
 
-  /* ── Enviar formulario con EmailJS ── */
-  function enviarFormulario(plan) {
-    const nombre  = document.getElementById('f-nombre')?.value.trim();
-    const email   = document.getElementById('f-email')?.value.trim();
-    const pago    = document.getElementById('f-pago')?.value || '—';
-    const objetivo= document.getElementById('f-objetivo')?.value || '—';
-    const mensaje = document.getElementById('f-mensaje')?.value.trim() || '—';
-    const feedback= document.getElementById('f-feedback');
-    const submit  = document.getElementById('f-submit');
+  Promise.all([
+    emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, datos),
+    (SHEETS_WEBHOOK_URL && SHEETS_WEBHOOK_URL !== 'TU_APPS_SCRIPT_URL')
+      ? fetch(SHEETS_WEBHOOK_URL, { method:'POST', mode:'no-cors', headers:{'Content-Type':'application/json'}, body:JSON.stringify(datos) })
+      : Promise.resolve(),
+  ])
+    .then(() => {
+      document.getElementById('modalContent').innerHTML = `
+        <div class="form-success-screen">
+          <div class="success-icon">✅</div>
+          <h3>¡MENSAJE ENVIADO!</h3>
+          <p>Recibí tu consulta.<br>Te respondo a <strong>${email}</strong> en menos de 24 hs.</p>
+          <button class="btn-close-modal" onclick="closeModalDirect()">Cerrar</button>
+        </div>`;
+    })
+    .catch(err => {
+      console.error(err);
+      submit.disabled = false;
+      submit.textContent = 'Reintentar →';
+      submit.classList.remove('loading');
+      fb.textContent = '✕ Error al enviar. Escribime por WhatsApp.';
+      fb.className = 'form-feedback error';
+    });
+}
 
-    /* Validación básica */
-    if (!nombre || !email) {
-      feedback.textContent = '⚠  Completá tu nombre y email antes de enviar.';
-      feedback.className = 'form-feedback error';
-      return;
-    }
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      feedback.textContent = '⚠  El email no parece válido.';
-      feedback.className = 'form-feedback error';
-      return;
-    }
-
-    /* Estado de carga */
-    submit.disabled = true;
-    submit.textContent = 'Enviando…';
-    submit.classList.add('loading');
-    feedback.className = 'form-feedback';
-
-    const planLabels = {
-      general: 'Consulta gratuita',
-      starter: 'Plan Starter — USD 25/mes',
-      pro:     'Plan Pro — USD 60/mes',
-      elite:   'Plan Elite — USD 100/mes',
-    };
-
-    const templateParams = {
-      plan:         planLabels[plan] || plan,
-      from_name:    nombre,
-      nombre:       nombre,
-      email:        email,
-      reply_to:     email,
-      metodo_pago:  pago,
-      objetivo:     objetivo,
-      mensaje:      mensaje,
-      to_email:     EMAIL_DESTINO,
-    };
-
-    emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams)
-      .then(() => {
-        /* Pantalla de éxito */
-        document.getElementById('modalContent').innerHTML = `
-          <div class="form-success-screen">
-            <div class="success-icon">✅</div>
-            <h3>¡MENSAJE ENVIADO!</h3>
-            <p>Recibí tu consulta para <strong style="color:var(--yellow)">${planLabels[plan]}</strong>.<br>
-               Te respondo a <strong>${email}</strong> en menos de 24 hs.</p>
-            <button class="btn-close-modal" onclick="closeModalDirect()">Cerrar ventana</button>
-          </div>`;
-      })
-      .catch((err) => {
-        console.error('EmailJS error:', err);
-        submit.disabled = false;
-        submit.textContent = 'Reintentar →';
-        submit.classList.remove('loading');
-        feedback.textContent = '✕  Hubo un error al enviar. Revisá tu conexión o escribime directo por WhatsApp.';
-        feedback.className = 'form-feedback error';
-      });
-  }
-
-  /* ── Modal ── */
-  function openModal(type) {
-    document.getElementById('modalContent').innerHTML = modalContents[type] || modalContents.general;
-    document.getElementById('modalOverlay').classList.add('open');
-    document.body.style.overflow = 'hidden';
-  }
-  function closeModalDirect() {
-    document.getElementById('modalOverlay').classList.remove('open');
-    document.body.style.overflow = '';
-  }
-  function closeModal(e) {
-    if (e.target === document.getElementById('modalOverlay')) closeModalDirect();
-  }
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModalDirect(); });
-
-  /* ── About Carousel ── */
+/* ── Carousel ── */
 (function() {
   const track = document.getElementById('carouselTrack');
   const dotsContainer = document.getElementById('carouselDots');
@@ -2184,7 +2580,7 @@
     timer = setInterval(() => goTo(current + 1), 4500);
   }
 
-  window.carouselMove = (dir) => goTo(current + dir);
+  window.carouselMove = dir => goTo(current + dir);
   resetTimer();
 })();
 </script>
