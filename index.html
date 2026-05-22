@@ -1819,7 +1819,8 @@
         </p>
         <div class="ebook-footer">
           <div class="ebook-price">$12.99<sub>USD</sub></div>
-          <a href="https://hotmart.com/es/marketplace/productos/deja-de-empezar-dietas/O104843438E" target="_blank" class="btn-buy">Comprar</a>
+          <a href="https://hotmart.com/es/marketplace/productos/deja-de-empezar-dietas/O104843438E" target="_blank" class="btn-buy"
+          onclick="track('click_ebook', { titulo: 'Guia Nutricion' })">Comprar</a>
         </div>
       </div>
     </div>
@@ -1840,7 +1841,8 @@
         <p>Convertite en tu mejor versión con este reto de 30 días, la guía definitiva para dominar tu cuerpo desde cero con rutinas progresivas, sin equipo y con resultados garantizados desde la comodidad de tu casa</p>
         <div class="ebook-footer">
           <div class="ebook-price">$14.99<sub>USD</sub></div>
-          <a href="https://go.hotmart.com/Q105891123H" target="_blank" class="btn-buy">Comprar</a>
+          <a href="https://go.hotmart.com/Q105891123H" target="_blank" class="btn-buy"
+          onclick="track('click_ebook', { titulo: 'Guia Nutricion' })">Comprar</a>
         </div>
       </div>
     </div>
@@ -2033,7 +2035,7 @@
     <div class="footer-col">
       <h4>Contacto</h4>
       <ul>
-        <li><a href="https://wa.me/5492976216161">WhatsApp</a></li>
+        <a href="https://wa.me/5492976216161" onclick="track('click_whatsapp')">WhatsApp</a>
         <li><a href="https://www.instagram.com/cplus_sw/">Instagram</a></li>
         <li><a href="#" onclick="openModal('general')">Email</a></li>
         <li><a href="https://www.tiktok.com/@cplus_sw?is_from_webapp=1&sender_device=pc">TikTok</a></li>
@@ -2154,15 +2156,19 @@ function toggleFaq(btn) {
    MODAL — APERTURA Y CIERRE
 ══════════════════════════════════════════════════════ */
 function openModal(type) {
-  _archivo = null;
-  if (type === 'general') {
-    _renderConsulta();
-  } else if (PLAN_INFO[type]) {
-    _ms = { plan: type, paso: 1, datos: {}, metodo: null };
-    _renderPaso1();
-  } else {
-    _renderConsulta();
-  }
+  const planNombres = {
+    general: 'Consulta Gratuita',
+    starter: 'Plan Starter',
+    pro:     'Plan Pro',
+    elite:   'Plan Elite',
+  };
+  // Tracking: alguien mostró intención real de contratar
+  track('ver_plan', {
+    plan:     planNombres[type] || type,
+    currency: 'USD',
+    value:    { starter: 30, pro: 60, elite: 100, general: 0 }[type] || 0,
+  });
+  document.getElementById('modalContent').innerHTML = modalContents[type] || modalContents.general;
   document.getElementById('modalOverlay').classList.add('open');
   document.body.style.overflow = 'hidden';
 }
@@ -2191,6 +2197,12 @@ function _stepIndicator(current) {
       ${n < 3 ? '<div class="step-ind-line"></div>' : ''}
     `).join('')}
   </div>`;
+}
+
+function track(evento, params = {}) {
+  if (typeof gtag !== 'undefined') {
+    gtag('event', evento, params);
+  }
 }
 
 /* ══════════════════════════════════════════════════════
@@ -2511,54 +2523,104 @@ function enviarFormulario(plan) {
   const nombre   = document.getElementById('f-nombre')?.value.trim();
   const numero   = document.getElementById('f-numero')?.value.trim() || '—';
   const email    = document.getElementById('f-email')?.value.trim();
+  const pago     = document.getElementById('f-pago')?.value || '—';
   const objetivo = document.getElementById('f-objetivo')?.value || '—';
   const mensaje  = document.getElementById('f-mensaje')?.value.trim() || '—';
-  const fb       = document.getElementById('f-feedback');
+  const feedback = document.getElementById('f-feedback');
   const submit   = document.getElementById('f-submit');
 
   if (!nombre || !email) {
-    fb.textContent = '⚠ Completá tu nombre y email.';
-    fb.className = 'form-feedback error'; return;
+    feedback.textContent = '⚠  Completá tu nombre y email antes de enviar.';
+    feedback.className = 'form-feedback error';
+    return;
   }
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    fb.textContent = '⚠ El email no parece válido.';
-    fb.className = 'form-feedback error'; return;
+    feedback.textContent = '⚠  El email no parece válido.';
+    feedback.className = 'form-feedback error';
+    return;
   }
 
   submit.disabled = true;
   submit.textContent = 'Enviando…';
   submit.classList.add('loading');
-  fb.className = 'form-feedback';
+  feedback.className = 'form-feedback';
+
+  const planLabels = {
+    general: 'Consulta gratuita',
+    starter: 'Plan Starter — USD 30/mes',
+    pro:     'Plan Pro — USD 60/mes',
+    elite:   'Plan Elite — USD 100/mes',
+  };
 
   const datos = {
-    plan: 'Consulta gratuita', from_name: nombre, nombre, numero,
-    email, reply_to: email, metodo_pago: '—', objetivo, mensaje, to_email: EMAIL_DESTINO,
+    plan:        planLabels[plan] || plan,
+    from_name:   nombre,
+    nombre,
+    numero,
+    email,
+    reply_to:    email,
+    metodo_pago: pago,
+    objetivo,
+    mensaje,
+    to_email:    EMAIL_DESTINO,
   };
+
+  function guardarEnSheets() {
+    if (!SHEETS_WEBHOOK_URL || SHEETS_WEBHOOK_URL === 'TU_APPS_SCRIPT_URL') return Promise.resolve();
+    return fetch(SHEETS_WEBHOOK_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(datos),
+    }).catch(err => console.warn('Sheets warning:', err));
+  }
 
   Promise.all([
     emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, datos),
-    (SHEETS_WEBHOOK_URL && SHEETS_WEBHOOK_URL !== 'TU_APPS_SCRIPT_URL')
-      ? fetch(SHEETS_WEBHOOK_URL, { method:'POST', mode:'no-cors', headers:{'Content-Type':'application/json'}, body:JSON.stringify(datos) })
-      : Promise.resolve(),
+    guardarEnSheets(),
   ])
     .then(() => {
+      // ✅ CONVERSIÓN REAL — el evento más importante
+      track('formulario_enviado', {
+        plan:            planLabels[plan] || plan,
+        metodo_pago:     pago,
+        currency:        'USD',
+        value:           { starter: 30, pro: 60, elite: 100, general: 0 }[plan] || 0,
+      });
+
       document.getElementById('modalContent').innerHTML = `
         <div class="form-success-screen">
           <div class="success-icon">✅</div>
           <h3>¡MENSAJE ENVIADO!</h3>
-          <p>Recibí tu consulta.<br>Te respondo a <strong>${email}</strong> en menos de 24 hs.</p>
-          <button class="btn-close-modal" onclick="closeModalDirect()">Cerrar</button>
+          <p>Recibí tu consulta para <strong style="color:var(--yellow)">${planLabels[plan]}</strong>.<br>
+             Te respondo a <strong>${email}</strong> en menos de 24 hs.</p>
+          <button class="btn-close-modal" onclick="closeModalDirect()">Cerrar ventana</button>
         </div>`;
     })
-    .catch(err => {
-      console.error(err);
+    .catch((err) => {
+      console.error('Error al enviar:', err);
       submit.disabled = false;
       submit.textContent = 'Reintentar →';
       submit.classList.remove('loading');
-      fb.textContent = '✕ Error al enviar. Escribime por WhatsApp.';
-      fb.className = 'form-feedback error';
+      feedback.textContent = '✕  Hubo un error al enviar. Escribime por WhatsApp.';
+      feedback.className = 'form-feedback error';
     });
 }
+
+/* ─── SCROLL DEPTH (25% / 50% / 75% / 100%) ─────────────────── */
+(function() {
+  const marcas = [25, 50, 75, 100];
+  const alcanzadas = new Set();
+  window.addEventListener('scroll', () => {
+    const scrolled = (window.scrollY + window.innerHeight) / document.documentElement.scrollHeight * 100;
+    marcas.forEach(marca => {
+      if (scrolled >= marca && !alcanzadas.has(marca)) {
+        alcanzadas.add(marca);
+        track('scroll_profundidad', { porcentaje: marca });
+      }
+    });
+  }, { passive: true });
+})();
 
 /* ── Carousel ── */
 (function() {
