@@ -3,22 +3,21 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>CaliPush — Coaching Online de Calistenia | Buenos Aires</title>
+<title>CaliPush — Coaching Online de Calistenia | Argentina y Todo el Mundo</title>
 <meta name="description" content="Asesorías online personalizadas de calistenia con Federico Fanara. Planes Starter, Pro y Elite. Planche, Front Lever, Street Workout. Buenos Aires y todo el mundo."/>
-<!-- Pre-launch: quitá este meta antes de publicar -->
-<meta name="robots" content="noindex, nofollow"/>
+
 <!-- Open Graph (preview en WhatsApp, Instagram, etc.) -->
 <meta property="og:type"        content="website"/>
 <meta property="og:title"       content="CaliPush — Coaching Online de Calistenia"/>
 <meta property="og:description" content="Asesorías personalizadas de calistenia, street workout y skills avanzados. Planes desde USD 30/mes."/>
-<meta property="og:image" content="https://cplus44.github.io/Cplus.github.io/Imagenes/Plancha.png"/>
+<meta property="og:image" content="https://cplus44.github.io/Cplus.github.io/Imagenes/Plancha.webp"/>
 <meta property="og:locale"      content="es_AR"/>
 <meta name="twitter:card"       content="summary_large_image"/>
-<link rel="icon" type="image/png" href="Imagenes/Icono.png"/>
+<link rel="icon" type="image/png" href="Imagenes/Icono.webp"/>
+<link rel="preload" as="image" href="Imagenes/Flag.webp" fetchpriority="high"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet"/>
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <style>
   /* ─── VARIABLES ─────────────────────────────────────── */
   :root {
@@ -1141,6 +1140,8 @@
     gap: 0.5rem;
   }
 
+  
+
   /* ─── MODAL ──────────────────────────────────────────── */
   .modal-overlay {
     display: none;
@@ -1489,6 +1490,183 @@
   color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
 }
 .modal-nav { display: flex; gap: 0.8rem; align-items: center; margin-top: 1.2rem; }
+.wa-cta {
+  display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+  width: 100%; margin-top: 0.9rem; padding: 10px;
+  background: transparent; border: 1.5px solid rgba(37,211,102,0.35);
+  color: #25d366; font-family: var(--font-sub); font-size: 0.78rem;
+  font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+  cursor: pointer; text-decoration: none;
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+}
+.wa-cta:hover { background: rgba(37,211,102,0.08); border-color: #25d366; }
+.wa-cta-icon { font-size: 1rem; }
+
+/* ─── POPUP CUPOS ────────────────────────────────────── */
+.cupos-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.88);
+  z-index: 300;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  backdrop-filter: blur(4px);
+}
+.cupos-overlay.open { display: flex; }
+.cupos-popup {
+  background: var(--surface);
+  max-width: 460px;
+  width: 100%;
+  position: relative;
+  border-top: 4px solid var(--yellow);
+  animation: fadeUp 0.4s cubic-bezier(0.22,1,0.36,1) both;
+  overflow: hidden;
+}
+.cupos-popup::before {
+  content: '5';
+  position: absolute;
+  bottom: -1.5rem;
+  right: -1rem;
+  font-family: var(--font-display);
+  font-size: 14rem;
+  color: rgba(232,197,71,0.045);
+  line-height: 1;
+  pointer-events: none;
+  letter-spacing: -0.04em;
+}
+.cupos-close {
+  position: absolute;
+  top: 0.9rem;
+  right: 1.1rem;
+  background: none;
+  border: none;
+  color: var(--muted);
+  font-size: 1.3rem;
+  cursor: pointer;
+  transition: color 0.2s;
+  z-index: 2;
+  line-height: 1;
+  padding: 4px;
+}
+.cupos-close:hover { color: var(--yellow); }
+.cupos-body {
+  padding: 2.4rem 2.4rem 2rem;
+  position: relative;
+  z-index: 2;
+}
+.cupos-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--yellow);
+  color: var(--accent-dark);
+  font-family: var(--font-sub);
+  font-weight: 700;
+  font-size: 0.68rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 5px 12px;
+  margin-bottom: 1.2rem;
+}
+.cupos-tag::before {
+  content: '';
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  background: var(--accent-dark);
+  border-radius: 50%;
+  animation: cupos-pulse 1.4s ease-in-out infinite;
+}
+@keyframes cupos-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.5; transform: scale(0.75); }
+}
+.cupos-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.8rem, 7vw, 4.2rem);
+  line-height: 0.95;
+  letter-spacing: 0.02em;
+  color: var(--text);
+  margin-bottom: 0.3em;
+}
+.cupos-title em {
+  font-style: normal;
+  color: var(--yellow);
+  display: block;
+}
+.cupos-bar { width: 56px; height: 3px; background: var(--yellow); margin: 1rem 0 1.1rem; }
+.cupos-desc {
+  font-size: 0.9rem;
+  color: var(--muted);
+  line-height: 1.7;
+  margin-bottom: 1.8rem;
+  max-width: 340px;
+}
+.cupos-desc strong { color: var(--text); }
+.cupos-btns {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+.cupos-btn-primary {
+  flex: 1;
+  min-width: 140px;
+  background: var(--yellow);
+  color: var(--accent-dark);
+  font-family: var(--font-sub);
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 13px 20px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+  text-align: center;
+}
+.cupos-btn-primary:hover { background: var(--yellow-soft); transform: translateY(-2px); }
+.cupos-btn-secondary {
+  background: transparent;
+  color: var(--muted);
+  font-family: var(--font-sub);
+  font-weight: 600;
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 12px 16px;
+  border: 1.5px solid rgba(255,255,255,0.1);
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+  white-space: nowrap;
+}
+.cupos-btn-secondary:hover { border-color: var(--muted); color: var(--text); }
+.cupos-slots {
+  display: flex;
+  gap: 5px;
+  margin-bottom: 1.4rem;
+  align-items: center;
+}
+.cupos-slot {
+  width: 28px;
+  height: 6px;
+  background: var(--yellow);
+  border-radius: 2px;
+}
+.cupos-slot.empty {
+  background: rgba(232,197,71,0.18);
+}
+.cupos-slots-label {
+  font-family: var(--font-sub);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-left: 6px;
+}
+
 </style>
 </head>
 <body>
@@ -1521,8 +1699,8 @@
 <section class="hero" id="home">
   <div class="hero-bg-text">CaliPush</div>
   <div class="hero-content">
-    <div class="tag">Coach · Calistenia · Buenos Aires</div>
-    <h1>PUSH<em>THE LIMITS</em></h1>
+    <div class="tag">Coach · Calistenia · Buenos Aires Y Todo el Mundo</div>
+    <h1>COACHING ONLINE<em> PUSH THE LIMITS</em></h1>
     <div class="hero-bar"></div>
     <p>Asesorías online personalizadas y recursos de entrenamiento para llevar tu cuerpo al siguiente nivel — desde principiante hasta avanzados.</p>
     <div class="hero-btns">
@@ -1535,7 +1713,7 @@
       <div class="card-bg"></div>
       <div class="card-main">
         <div class="card-image card-image--small">
-          <img src="Imagenes/Flag.jpeg" alt="Presentacion Atleta">
+          <img src="Imagenes/Flag.webp" alt="Presentacion Atleta">
         </div>
         <div class="card-label">Coaching online</div>
         <div class="card-title">STREET<br>WORKOUT</div>
@@ -1581,7 +1759,7 @@
           
               <div class="carousel-slide">
                 <div class="carousel-slide-pattern"></div>
-                <div class="carousel-slide-bg" style="background-image: url('Imagenes/Plancha.png');"></div>
+                <div class="carousel-slide-bg" style="background-image: url('Imagenes/Plancha.webp');"></div>
                 <div class="carousel-slide-overlay"></div>
                 <div class="carousel-slide-content">
                   <div class="carousel-slide-cat">Entrenamiento</div>
@@ -1591,17 +1769,17 @@
           
               <div class="carousel-slide">
                 <div class="carousel-slide-pattern"></div>
-                <div class="carousel-slide-bg" style="background-image: url('Imagenes/Epdrago.png');"></div>
+                <div class="carousel-slide-bg" style="background-image: url('Imagenes/Epdrago.webp');"></div>
                 <div class="carousel-slide-overlay"></div>
                 <div class="carousel-slide-content">
                   <div class="carousel-slide-cat">Competencia</div>
-                  <div class="carousel-slide-title">POWERFREESTYLE Epdrago Championship<br>2024</div>
+                  <div class="carousel-slide-title">Epdrago Championship<br>2024</div>
                 </div>
               </div>
           
               <div class="carousel-slide">
                 <div class="carousel-slide-pattern"></div>
-                <div class="carousel-slide-bg" style="background-image: url('Imagenes/PlanchaDedos.jpeg');"></div>
+                <div class="carousel-slide-bg" style="background-image: url('Imagenes/PlanchaDedos.webp');"></div>
                 <div class="carousel-slide-overlay"></div>
                 <div class="carousel-slide-content">
                   <div class="carousel-slide-cat">Skill — Logro</div>
@@ -1611,7 +1789,7 @@
           
               <div class="carousel-slide">
                 <div class="carousel-slide-pattern"></div>
-                <div class="carousel-slide-bg" style="background-image: url('Imagenes/alumnos.jpg');"></div>
+                <div class="carousel-slide-bg" style="background-image: url('Imagenes/alumnos.webp');"></div>
                 <div class="carousel-slide-overlay"></div>
                 <div class="carousel-slide-icon">👥</div>
                 <div class="carousel-slide-content">
@@ -1622,7 +1800,7 @@
           
               <div class="carousel-slide">
                 <div class="carousel-slide-pattern"></div>
-                <div class="carousel-slide-bg" style="background-image: url('Imagenes/frontlever.jpg');"></div>
+                <div class="carousel-slide-bg" style="background-image: url('Imagenes/frontlever.webp');"></div>
                 <div class="carousel-slide-overlay"></div>
                 <div class="carousel-slide-icon">🤸</div>
                 <div class="carousel-slide-content">
@@ -1679,7 +1857,7 @@
       <div class="service-icon">⚡</div>
       <div class="service-badge">Principiante</div>
       <h3>STARTER</h3>
-      <p>Ideal para quienes recién empiezan o quieren ordenar su entrenamiento con base sólida.</p>
+      <p>Ideal para ordenar tu entrenamiento y ver resultados en las primeras 4 semanas.</p>
       <ul class="service-list">
         <li>Rutina mensual personalizada</li>
         <li>Video-análisis inicial</li>
@@ -1796,7 +1974,7 @@
       <div class="ebook-cover">
         <div class="ebook-cover-pattern"></div>
         <div class="card-image card-image--medium">
-          <img src="Imagenes/GuiaNutricion.png" alt="Ebook nutricion para transformar tu salud" loading="lazy">
+          <img src="Imagenes/GuiaNutricion.webp" alt="Ebook nutricion para transformar tu salud" loading="lazy">
         </div>
         <div class="ebook-cover-bar"></div>
         <div class="ebook-cover-content">
@@ -1819,7 +1997,7 @@
       <div class="ebook-cover">
         <div class="ebook-cover-pattern"></div>
         <div class="card-image card-image--medium">
-          <img src="Imagenes/30Dias.png" alt="Reto 30 días para principiantes" loading="lazy">
+          <img src="Imagenes/30Dias.webp" alt="Reto 30 días para principiantes" loading="lazy">
         </div>
         <div class="ebook-cover-bar"></div>
         <div class="ebook-cover-content">
@@ -1988,6 +2166,14 @@
         <button class="faq-q" onclick="toggleFaq(this)">¿Puedo cambiar de plan durante el proceso? <span class="arrow">+</span></button>
         <div class="faq-a">Sí, podés subir o ajustar tu plan en cualquier momento. Muchos alumnos empiezan en Starter y pasan a Pro cuando sienten que quieren más acompañamiento.</div>
       </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">¿Hay garantía o política de devolución? <span class="arrow">+</span></button>
+        <div class="faq-a">Sí. Si en los primeros 7 días sentís que el plan no es lo que esperabas, te devuelvo el dinero sin preguntas. Mi objetivo es que empieces con confianza y que el resultado hable por sí solo.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">¿Cómo pago si soy de México, Colombia, España u otro país? <span class="arrow">+</span></button>
+        <div class="faq-a">Sin problema. Para clientes internacionales los métodos más usados son PayPal (seleccionando "Amigos y familia" para evitar comisiones) y Wise, enviando al email federicom8@yahoo.com.ar. También aceptamos USDT por red TRC-20 para quienes prefieren crypto. El precio siempre es en USD y no hay costos extra de tu parte.</div>
+      </div>
     </div>
   </div>
 </section>
@@ -2039,6 +2225,38 @@
   </div>
 </footer>
 
+<!-- ─── POPUP CUPOS ──────────────────────────────────── -->
+<div class="cupos-overlay" id="cuposOverlay">
+  <div class="cupos-popup" role="dialog" aria-modal="true" aria-labelledby="cuposTitle">
+    <button class="cupos-close" onclick="closeCuposPopup()" aria-label="Cerrar">✕</button>
+    <div class="cupos-body">
+      <div class="cupos-tag">Cupos limitados</div>
+      <h2 class="cupos-title" id="cuposTitle">SOLO <em>5 CUPOS</em>DISPONIBLES</h2>
+      <div class="cupos-bar"></div>
+      <div class="cupos-slots">
+        <div class="cupos-slot"></div>
+        <div class="cupos-slot"></div>
+        <div class="cupos-slot"></div>
+        <div class="cupos-slot"></div>
+        <div class="cupos-slot"></div>
+        <div class="cupos-slot empty"></div>
+        <div class="cupos-slot empty"></div>
+        <div class="cupos-slot empty"></div>
+        <span class="cupos-slots-label">10 de 15 ocupados</span>
+      </div>
+      <p class="cupos-desc">Para garantizar atención personalizada. Acepto un <strong>Cupo limitado de alumnos.</strong>  ¡Asegurá tu lugar antes de que se llenen!</p>
+      <div class="cupos-btns">
+        <button class="cupos-btn-primary" onclick="closeCuposPopup(); document.getElementById('servicios').scrollIntoView({behavior:'smooth'})">
+          Conseguir mi lugar →
+        </button>
+        <button class="cupos-btn-secondary" onclick="closeCuposPopup()">
+          Ver más tarde
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- ─── MODAL ──────────────────────────────────────────────── -->
 <div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
   <div class="modal">
@@ -2048,6 +2266,7 @@
 </div>
 
 <!-- ─── SCRIPTS ───────────────────────────────────────────── -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script>
 /* ══════════════════════════════════════════════════════
    CONFIGURACIÓN — COMPLETAR CON TUS DATOS
@@ -2230,6 +2449,9 @@ function _renderPaso1() {
     </div>
     <div class="form-feedback" id="f-feedback"></div>
     <button class="form-submit" onclick="_irPaso2()">Elegir método de pago →</button>
+    <a class="wa-cta" href="https://wa.me/5492976216161" target="_blank" onclick="track('click_whatsapp_modal')">
+      <span class="wa-cta-icon">💬</span> ¿Tenés dudas? Escribime por WhatsApp
+    </a>
   `;
 }
 
@@ -2305,6 +2527,9 @@ function _renderPaso2() {
         ? `<button class="form-submit" style="flex:1;margin-top:0" onclick="_irPaso3()">Ya pagué →</button>`
         : ''}
     </div>
+    <a class="wa-cta" href="https://wa.me/5492976216161" target="_blank" onclick="track('click_whatsapp_modal')">
+      <span class="wa-cta-icon">💬</span> ¿Tenés dudas? Escribime por WhatsApp
+    </a>
   `;
 }
 
@@ -2349,6 +2574,9 @@ function _renderPaso3() {
       <button class="btn-outline" onclick="_renderPaso2()" style="font-size:0.8rem;padding:10px 18px;">← Volver</button>
       <button class="form-submit" id="f-submit" style="flex:1;margin-top:0" onclick="_confirmarPago()">Confirmar pago →</button>
     </div>
+    <a class="wa-cta" href="https://wa.me/5492976216161" target="_blank" onclick="track('click_whatsapp_modal')">
+      <span class="wa-cta-icon">💬</span> ¿Tenés dudas? Escribime por WhatsApp
+    </a>
   `;
 }
 
@@ -2512,6 +2740,9 @@ function _renderConsulta() {
     </div>
     <div class="form-feedback" id="f-feedback"></div>
     <button class="form-submit" id="f-submit" onclick="enviarFormulario('general')">Enviar consulta →</button>
+    <a class="wa-cta" href="https://wa.me/5492976216161" target="_blank" onclick="track('click_whatsapp_modal')">
+      <span class="wa-cta-icon">💬</span> ¿Tenés dudas? Escribime por WhatsApp
+    </a>
   `;
 }
 
@@ -2614,6 +2845,20 @@ function enviarFormulario(plan) {
     });
   }, { passive: true });
 })();
+
+/* ── Popup cupos ── */
+function closeCuposPopup() {
+  document.getElementById('cuposOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+(function() {
+  // Delay de 5s para que el hero cargue primero
+  setTimeout(function() {
+    document.getElementById('cuposOverlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }, 5000);
+})();
+
 </script>
 </body>
 </html>
