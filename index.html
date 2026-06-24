@@ -1,2712 +1,678 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>CaliPush — Coaching Online de Calistenia | Argentina y Todo el Mundo</title>
-<meta name="description" content="Asesorías online personalizadas de calistenia con Federico Fanara. Planes Starter, Pro y Elite. Planche, Front Lever, Street Workout. Buenos Aires y todo el mundo."/>
-
-<!-- Open Graph (preview en WhatsApp, Instagram, etc.) -->
-<meta property="og:type"        content="website"/>
-<meta property="og:title"       content="CaliPush — Coaching Online de Calistenia"/>
-<meta property="og:description" content="Asesorías personalizadas de calistenia, street workout y skills avanzados. Planes desde USD 30/mes."/>
-<meta property="og:image" content="https://cplus44.github.io/Cplus.github.io/Imagenes/Plancha.webp"/>
-<meta property="og:locale"      content="es_AR"/>
-<meta name="twitter:card"       content="summary_large_image"/>
-<link rel="icon" type="image/png" href="Imagenes/Icono.webp"/>
-<link rel="preload" as="image" href="Imagenes/Flag.webp" fetchpriority="high"/>
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CAT — Inscripción</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet">
 <style>
-  /* ─── VARIABLES ─────────────────────────────────────── */
-  :root {
-    --bg:        #242424;
-    --surface:   #333333;
-    --yellow:    #E8C547;
-    --yellow-soft: #F5DFA0;
-    --text:      #F0EDE6;
-    --muted:     #888888;
-    --accent-dark: #5C4800;
-    --font-display: 'Bebas Neue', sans-serif;
-    --font-sub: 'Barlow Condensed', sans-serif;
-    --font-body: 'Space Grotesk', sans-serif;
-  }
+:root{
+  --teal-light:#3FA7B5;
+  --teal:#2C8C9B;
+  --teal-dark:#1C6470;
+  --violet:#9B6FBF;
+  --violet-light:#B08AD4;
+  --bg-0:#0B1117;
+  --bg-1:#121A22;
+  --bg-2:#1A2530;
+  --bg-3:#222F3B;
+  --line:rgba(255,255,255,0.09);
+  --line-strong:rgba(255,255,255,0.16);
+  --ink:#F2F3F0;
+  --ink-dim:#9AA7B0;
+  --ink-faint:#697680;
+  --err:#E0654F;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  background:
+    radial-gradient(ellipse 1200px 600px at 50% -10%, rgba(63,167,181,0.22), transparent 60%),
+    linear-gradient(180deg,var(--bg-0) 0%,var(--bg-1) 40%,var(--bg-1) 100%);
+  color:var(--ink);
+  font-family:'Poppins',system-ui,sans-serif;
+  min-height:100vh;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:760px;margin:0 auto;padding:0 20px 80px;}
 
-  /* ─── RESET ─────────────────────────────────────────── */
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: var(--font-body);
-    font-size: 15px;
-    line-height: 1.6;
-    overflow-x: hidden;
-  }
-  a { color: inherit; text-decoration: none; }
-  img { display: block; max-width: 100%; }
+/* HERO */
+.hero{padding:56px 20px 36px;text-align:center;position:relative;overflow:hidden;}
+.hero::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(63,167,181,0.16),transparent 70%);pointer-events:none;}
+.hero-logo{position:relative;display:inline-block;margin-bottom:16px;}
+.hero-logo img{width:clamp(180px,40vw,280px);height:auto;filter:drop-shadow(0 0 24px rgba(63,167,181,0.4));}
+.event-name{font-size:clamp(18px,3.5vw,24px);font-weight:800;letter-spacing:0.5px;margin:18px 0 0;color:var(--ink);text-transform:uppercase;}
+.meta-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:20px;}
+.meta-chip{border:1px solid var(--line-strong);background:rgba(255,255,255,0.03);border-radius:10px;padding:9px 16px;font-size:13px;color:var(--ink-dim);font-weight:500;}
+.meta-chip b{color:var(--ink);font-weight:600;}
 
-  /* ─── NOISE TEXTURE OVERLAY ──────────────────────────── */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
-    opacity: 0.035;
-    pointer-events: none;
-    z-index: 9999;
-  }
+/* SECTION */
+.section{margin-top:40px;}
+.section-title{display:flex;align-items:center;font-size:13px;letter-spacing:2px;text-transform:uppercase;font-weight:700;color:var(--ink);margin-bottom:6px;}
+.section-num{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:7px;background:rgba(63,167,181,0.16);color:var(--teal-light);font-size:13px;font-weight:700;margin-right:10px;flex-shrink:0;}
+.section-sub{font-size:13px;color:var(--ink-dim);margin:0 0 16px;padding-left:36px;}
+.card{border:1px solid var(--line);background:rgba(255,255,255,0.025);border-radius:16px;padding:24px;}
 
-  /* ─── SCROLLBAR ──────────────────────────────────────── */
-  ::-webkit-scrollbar { width: 6px; }
-  ::-webkit-scrollbar-track { background: var(--bg); }
-  ::-webkit-scrollbar-thumb { background: var(--yellow); border-radius: 3px; }
+/* CATEGORIES */
+.cat-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+@media(max-width:520px){.cat-grid{grid-template-columns:1fr;}}
+.cat-card{border:1px solid var(--line-strong);border-radius:12px;padding:14px 16px;cursor:pointer;background:rgba(255,255,255,0.02);transition:border-color .15s,background .15s;position:relative;user-select:none;}
+.cat-card:hover{border-color:var(--teal);background:rgba(63,167,181,0.06);}
+.cat-card.selected{border-color:var(--teal-light);background:rgba(63,167,181,0.12);}
+.cat-card.fem{border-color:rgba(155,111,191,0.35);background:rgba(155,111,191,0.04);}
+.cat-card.fem:hover{border-color:var(--violet);background:rgba(155,111,191,0.09);}
+.cat-card.fem.selected{border-color:var(--violet-light);background:rgba(155,111,191,0.16);}
+.cat-card.unsure{border-color:rgba(255,255,255,0.2);background:rgba(255,255,255,0.02);}
+.cat-card.unsure:hover{border-color:var(--ink-dim);background:rgba(255,255,255,0.05);}
+.cat-card.unsure.selected{border-color:var(--ink);background:rgba(255,255,255,0.07);}
+.cat-check{position:absolute;top:10px;right:10px;width:18px;height:18px;border-radius:5px;border:1.5px solid var(--line-strong);background:transparent;display:flex;align-items:center;justify-content:center;font-size:11px;transition:all .15s;}
+.cat-card.selected .cat-check,.cat-card.fem.selected .cat-check{background:var(--teal-light);border-color:var(--teal-light);color:#0B1117;}
+.cat-card.fem.selected .cat-check{background:var(--violet-light);border-color:var(--violet-light);}
+.cat-card.unsure.selected .cat-check{background:var(--ink-dim);border-color:var(--ink-dim);}
+.cat-tag{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--teal-light);font-weight:700;margin:0 0 4px;}
+.cat-card.fem .cat-tag{color:var(--violet-light);}
+.cat-card.unsure .cat-tag{color:var(--ink-faint);}
+.cat-name{font-size:14px;font-weight:600;color:var(--ink);margin:0;}
+.cat-sex{font-size:12px;color:var(--ink-dim);margin:2px 0 0;}
+.cat-card.fem .cat-sex{color:rgba(176,138,212,0.8);}
+.cat-info-btn{font-size:11px;color:var(--teal-light);background:none;border:none;padding:0;cursor:pointer;margin-top:8px;font-family:'Poppins',sans-serif;text-decoration:underline;text-underline-offset:2px;}
+.cat-card.fem .cat-info-btn{color:var(--violet-light);}
+.cat-card.unsure .cat-info-btn{color:var(--ink-faint);}
+.cat-open-notice{margin-top:14px;background:rgba(63,167,181,0.06);border:1px solid rgba(63,167,181,0.18);border-radius:10px;padding:12px 16px;}
+.cat-open-notice p{margin:0 0 10px;font-size:13px;color:var(--ink-dim);}
+.cat-open-notice p strong{color:var(--ink);}
 
-  /* ─── NAV ────────────────────────────────────────────── */
-  nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 100;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 5vw;
-    height: 68px;
-    background: rgba(36,36,36,0.92);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(232,197,71,0.12);
-    transition: box-shadow 0.3s;
-  }
-  nav.scrolled { box-shadow: 0 4px 32px rgba(0,0,0,0.5); }
-  .nav-logo {
-    font-family: var(--font-display);
-    font-size: 2rem;
-    letter-spacing: 0.08em;
-    color: var(--text);
-  }
-  .nav-logo span { color: var(--yellow); }
-  .nav-links {
-    display: flex;
-    gap: 2.5rem;
-    list-style: none;
-    font-family: var(--font-sub);
-    font-weight: 600;
-    font-size: 0.85rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-  }
-  .nav-links a { color: var(--muted); transition: color 0.2s; }
-  .nav-links a:hover { color: var(--yellow); }
-  .nav-cta {
-    background: var(--yellow);
-    color: var(--accent-dark);
-    font-family: var(--font-sub);
-    font-weight: 700;
-    font-size: 0.8rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    padding: 10px 22px;
-    border: none;
-    cursor: pointer;
-    transition: background 0.2s, transform 0.15s;
-  }
-  .nav-cta:hover { background: var(--yellow-soft); transform: translateY(-1px); }
+/* FIELDS */
+label.field-label{display:block;font-size:12px;letter-spacing:1px;text-transform:uppercase;color:var(--ink-dim);font-weight:600;margin:0 0 8px;}
+.req{color:var(--teal-light);}
+.field{margin-bottom:18px;}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+@media(max-width:520px){.two-col{grid-template-columns:1fr;}}
+input[type=text],input[type=tel],input[type=email]{width:100%;background:var(--bg-2);border:1px solid var(--line-strong);border-radius:10px;color:var(--ink);font-family:'Poppins',sans-serif;font-size:15px;padding:12px 14px;outline:none;transition:border-color .15s,box-shadow .15s;}
+input::placeholder{color:var(--ink-faint);}
+input:focus{border-color:var(--teal-light);box-shadow:0 0 0 3px rgba(63,167,181,0.18);}
+input.invalid{border-color:var(--err);}
+.hint{font-size:12px;color:var(--ink-faint);margin-top:6px;}
+.err-msg{font-size:12px;color:var(--err);margin-top:6px;display:none;}
 
-  /* hamburger */
-  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
-  .hamburger span { display: block; width: 24px; height: 2px; background: var(--text); transition: 0.3s; }
-  .mobile-menu {
-    display: none;
-    position: fixed;
-    top: 68px; left: 0; right: 0;
-    background: var(--surface);
-    padding: 2rem 5vw;
-    z-index: 99;
-    border-bottom: 2px solid var(--yellow);
-  }
-  .mobile-menu.open { display: flex; flex-direction: column; gap: 1.5rem; }
-  .mobile-menu a {
-    font-family: var(--font-sub);
-    font-weight: 600;
-    font-size: 1.1rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--text);
-    border-bottom: 1px solid rgba(255,255,255,0.06);
-    padding-bottom: 1rem;
-  }
+/* TOGGLE */
+.toggle-row{display:flex;gap:10px;}
+.toggle-btn{flex:1;border:1px solid var(--line-strong);background:rgba(255,255,255,0.02);color:var(--ink-dim);border-radius:10px;padding:12px;text-align:center;font-size:14px;font-weight:600;cursor:pointer;transition:all .15s;font-family:'Poppins',sans-serif;}
+.toggle-btn.active{border-color:var(--teal-light);background:rgba(63,167,181,0.14);color:var(--ink);}
 
-  /* ─── HERO ───────────────────────────────────────────── */
-  .hero {
-    min-height: 100vh;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    align-items: center;
-    padding: 68px 5vw 0;
-    position: relative;
-    overflow: hidden;
-  }
-  /* big background text */
-  .hero-bg-text {
-    position: absolute;
-    bottom: -2vw;
-    left: -1vw;
-    font-family: var(--font-display);
-    font-size: clamp(10rem, 22vw, 22rem);
-    color: rgba(232,197,71,0.04);
-    line-height: 1;
-    pointer-events: none;
-    white-space: nowrap;
-    letter-spacing: -0.02em;
-  }
-  .hero-content {
-    position: relative;
-    z-index: 2;
-    padding: 6rem 0;
-    animation: fadeUp 0.9s ease both;
-  }
-  .tag {
-    display: inline-block;
-    background: var(--yellow);
-    color: var(--accent-dark);
-    font-family: var(--font-sub);
-    font-weight: 700;
-    font-size: 0.72rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    padding: 5px 12px;
-    margin-bottom: 1.4rem;
-  }
-  .hero h1 {
-    font-family: var(--font-display);
-    font-size: clamp(3.5rem, 6.5vw, 7rem);
-    line-height: 0.95;
-    letter-spacing: 0.02em;
-    color: var(--text);
-    margin-bottom: 0.6em;
-  }
-  .hero h1 em { font-style: normal; color: var(--yellow); display: block; }
-  .hero-bar { width: 80px; height: 3px; background: var(--yellow); margin: 1.2rem 0 1.6rem; }
-  .hero p {
-    font-size: 1rem;
-    color: var(--muted);
-    max-width: 440px;
-    line-height: 1.7;
-    margin-bottom: 2.4rem;
-  }
-  .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
-  .btn-primary {
-    background: var(--yellow);
-    color: var(--accent-dark);
-    font-family: var(--font-sub);
-    font-weight: 700;
-    font-size: 0.88rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    padding: 14px 32px;
-    border: none;
-    cursor: pointer;
-    transition: background 0.2s, transform 0.15s;
-  }
-  .btn-primary:hover { background: var(--yellow-soft); transform: translateY(-2px); }
-  .btn-outline {
-    display: inline-block;
-    background: transparent;
-    color: var(--text);
-    font-family: var(--font-sub);
-    font-weight: 600;
-    font-size: 0.88rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    padding: 13px 32px;
-    border: 1.5px solid var(--muted);
-    cursor: pointer;
-    transition: border-color 0.2s, color 0.2s, transform 0.15s;
-  }
-  .btn-outline:hover { border-color: var(--yellow); color: var(--yellow); transform: translateY(-2px); }
-  .hero-visual {
-    position: relative;
-    z-index: 2;
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-    padding: 6rem 0 0;
-    animation: fadeUp 0.9s 0.2s ease both;
-  }
-  .hero-card-stack {
-    position: relative;
-    width: min(380px, 42vw);
-    aspect-ratio: 3/4;
-  }
-  .card-bg {
-    position: absolute;
-    inset: 0;
-    background: var(--surface);
-    transform: rotate(4deg) translateX(18px);
-  }
-  .card-main {
-    position: relative;
-    background: var(--surface);
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    padding: 2rem;
-    overflow: hidden;
-    border: 2px solid #FFD700;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
-  }
-  .card-main::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 3px;
-    background: var(--yellow);
-  }
-  .card-icon {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -65%);
-    font-size: clamp(5rem, 10vw, 9rem);
-    opacity: 0.18;
-    line-height: 1;
-  }
-  .card-image {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 0;
-    overflow: hidden;
-  }
-  .card-image img {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center 30%;
-  }
-  .card-image::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 40%;
-    background: linear-gradient(to bottom, rgba(0,0,0,0), rgba(0,0,0,0.2));
-    z-index: 1;
-  }
-  /* Tamaños del card-image */
-  .card-image--large  { width: 350px; height: 450px; }
-  .card-image--medium { width: 500px; height: 700px; }
-  .card-image--small  { width: 400px; height: 550px; }
-  .card-label {
-    font-family: var(--font-sub);
-    font-size: 0.7rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--yellow);
-    margin-bottom: 0.4rem;
-    z-index: 2;
-  }
-  .card-title {
-    font-family: var(--font-display);
-    font-size: clamp(1.8rem, 3vw, 2.8rem);
-    color: var(--text);
-    line-height: 1;
-    letter-spacing: 0.03em;
-    z-index: 2;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-  }
-  .hero-stats {
-    position: absolute;
-    bottom: -2rem;
-    right: -2rem;
-    background: var(--yellow);
-    padding: 1.2rem 1.5rem;
-  }
-  .hero-stats .num {
-    font-family: var(--font-display);
-    font-size: 2.4rem;
-    color: var(--accent-dark);
-    line-height: 1;
-  }
-  .hero-stats .lbl {
-    font-family: var(--font-sub);
-    font-size: 0.68rem;
-    font-weight: 700;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--accent-dark);
-    margin-top: 2px;
-  }
+/* UPLOAD */
+.upload-box{border:1.5px dashed var(--line-strong);border-radius:12px;padding:24px;text-align:center;cursor:pointer;background:rgba(255,255,255,0.015);transition:border-color .15s,background .15s;}
+.upload-box:hover{border-color:var(--teal);}
+.upload-box.has-file{border-color:var(--teal-light);border-style:solid;background:rgba(63,167,181,0.07);}
+.upload-icon{font-size:22px;color:var(--ink-faint);margin-bottom:8px;}
+.upload-box.has-file .upload-icon{color:var(--teal-light);}
+.upload-text{font-size:13px;color:var(--ink-dim);}
+.upload-filename{font-size:13px;color:var(--ink);font-weight:600;word-break:break-all;}
+input[type=file]{display:none;}
 
-  /* ─── MARQUEE ────────────────────────────────────────── */
-  .marquee-wrap {
-    background: var(--yellow);
-    overflow: hidden;
-    padding: 0;
-    margin-top: 0;
-  }
-  .marquee-track {
-    display: flex;
-    width: max-content;
-    animation: marquee 24s linear infinite;
-  }
-  .marquee-item {
-    white-space: nowrap;
-    font-family: var(--font-display);
-    font-size: 1.05rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--accent-dark);
-    padding: 12px 40px;
-    display: flex;
-    align-items: center;
-    gap: 40px;
-  }
-  .marquee-dot { width: 6px; height: 6px; background: var(--accent-dark); border-radius: 50%; }
+/* PAYMENT */
+.payment-info{background:rgba(63,167,181,0.06);border:1px solid rgba(63,167,181,0.22);border-radius:12px;padding:18px 20px;margin-bottom:18px;}
+.payment-info p{margin:0 0 6px;font-size:14px;color:var(--ink-dim);}
+.payment-info p:last-child{margin:0;}
+.payment-info strong{color:var(--ink);font-weight:600;}
+.alias-row{display:flex;align-items:center;gap:10px;margin:10px 0 6px;flex-wrap:wrap;}
+.alias{font-size:20px;font-weight:700;color:var(--teal-light);letter-spacing:0.5px;}
+.copy-btn{font-size:11px;background:rgba(63,167,181,0.15);border:1px solid rgba(63,167,181,0.35);color:var(--teal-light);border-radius:6px;padding:4px 10px;cursor:pointer;font-family:'Poppins',sans-serif;font-weight:600;transition:all .15s;}
+.copy-btn:hover{background:rgba(63,167,181,0.25);}
+.copy-btn.copied{color:#3FA7B5;border-color:#3FA7B5;}
+.presale-banner{background:rgba(255,190,60,0.08);border:1px solid rgba(255,190,60,0.28);border-radius:10px;padding:12px 16px;margin-bottom:14px;}
+.presale-banner p{margin:0;font-size:13px;color:#F0C060;}
+.presale-banner .price-big{font-size:28px;font-weight:800;color:var(--ink);display:block;margin:4px 0 2px;}
+.presale-banner .price-note{font-size:12px;color:rgba(240,192,96,0.7);}
+.mp-btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;background:linear-gradient(135deg,#009EE3,#0077CC);color:#fff;border:none;border-radius:12px;padding:15px;font-family:'Poppins',sans-serif;font-size:15px;font-weight:700;cursor:pointer;margin-bottom:14px;text-decoration:none;transition:filter .15s;}
+.mp-btn:hover{filter:brightness(1.1);}
+.mp-logo{font-size:18px;}
+.or-divider{text-align:center;font-size:12px;color:var(--ink-faint);margin:12px 0;position:relative;}
+.or-divider::before,.or-divider::after{content:"";position:absolute;top:50%;width:42%;height:1px;background:var(--line-strong);}
+.or-divider::before{left:0;} .or-divider::after{right:0;}
 
-  /* ─── SECTION SHARED ─────────────────────────────────── */
-  section { padding: 6rem 5vw; }
-  .section-label {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.6rem;
-    font-family: var(--font-sub);
-    font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--yellow);
-    margin-bottom: 1rem;
-  }
-  .section-label::before {
-    content: '';
-    display: block;
-    width: 24px;
-    height: 2px;
-    background: var(--yellow);
-  }
-  .section-title {
-    font-family: var(--font-display);
-    font-size: clamp(2.4rem, 4.5vw, 4.5rem);
-    line-height: 1;
-    letter-spacing: 0.02em;
-    color: var(--text);
-    margin-bottom: 0.5em;
-  }
-  .section-sub {
-    font-size: 0.95rem;
-    color: var(--muted);
-    max-width: 520px;
-    line-height: 1.7;
-  }
-  .divider { width: 60px; height: 3px; background: var(--yellow); margin: 1.2rem 0 2.4rem; }
+/* TERMS */
+.terms-check-row{display:flex;gap:12px;align-items:flex-start;border:1px solid var(--line);border-radius:12px;padding:16px;background:rgba(255,255,255,0.02);cursor:pointer;}
+.terms-check-row input{margin-top:3px;width:16px;height:16px;accent-color:var(--teal-light);flex-shrink:0;}
+.terms-text{font-size:13px;color:var(--ink-dim);line-height:1.5;}
+.terms-link{color:var(--teal-light);text-decoration:underline;cursor:pointer;text-underline-offset:2px;background:none;border:none;font:inherit;font-size:13px;padding:0;}
 
-  /* ─── ABOUT ──────────────────────────────────────────── */
-  .about-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    align-items: center;
-  }
-  .about-img-wrap {
-    position: relative;
-  }
-  .about-img-box {
-    background: var(--surface);
-    aspect-ratio: 4/5;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    overflow: hidden;
-  }
-  .about-img-box::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: repeating-linear-gradient(
-      45deg,
-      rgba(232,197,71,0.04) 0,
-      rgba(232,197,71,0.04) 1px,
-      transparent 1px,
-      transparent 18px
-    );
-  }
-  .about-img-box .icon-big { font-size: 9rem; opacity: 0.14; }
-  .about-accent-box {
-    position: absolute;
-    bottom: -1.5rem;
-    right: -1.5rem;
-    background: var(--yellow);
-    padding: 1.5rem 1.8rem;
-  }
-  .about-accent-box .num {
-    font-family: var(--font-display);
-    font-size: 2.8rem;
-    color: var(--accent-dark);
-    line-height: 1;
-  }
-  .about-accent-box .lbl {
-    font-family: var(--font-sub);
-    font-size: 0.65rem;
-    font-weight: 700;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--accent-dark);
-  }
-  .about-text h2 {
-    font-family: var(--font-display);
-    font-size: clamp(2.2rem, 3.5vw, 4rem);
-    line-height: 1;
-    color: var(--text);
-    margin-bottom: 0.6em;
-  }
-  .about-text h2 span { color: var(--yellow); }
-  .about-text p {
-    color: var(--muted);
-    line-height: 1.75;
-    margin-bottom: 1.2rem;
-  }
-  .chips { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 1.8rem; }
-  .chip {
-    font-family: var(--font-sub);
-    font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    border: 1.5px solid rgba(232,197,71,0.35);
-    color: var(--yellow-soft);
-    padding: 6px 14px;
-    transition: background 0.2s, color 0.2s;
-  }
-  .chip:hover { background: var(--yellow); color: var(--accent-dark); border-color: var(--yellow); }
+/* SUBMIT */
+.submit-btn{width:100%;background:var(--teal-light);color:#0B1117;border:none;border-radius:12px;padding:16px;font-family:'Poppins',sans-serif;font-size:16px;font-weight:800;letter-spacing:1px;text-transform:uppercase;cursor:pointer;margin-top:32px;transition:filter .15s,transform .1s;}
+.submit-btn:hover{filter:brightness(1.08);}
+.submit-btn:active{transform:scale(0.99);}
+.submit-btn:disabled{opacity:0.5;cursor:not-allowed;}
+.submit-note{font-size:12px;color:var(--ink-faint);text-align:center;margin-top:12px;}
 
-  /* ─── SERVICIOS ──────────────────────────────────────── */
-  #servicios { background: var(--surface); }
-  .services-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    margin-bottom: 3.5rem;
-    flex-wrap: wrap;
-    gap: 1.5rem;
-  }
-  .services-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.5px;
-  }
-  .service-card {
-    background: var(--bg);
-    padding: 2.4rem 2rem;
-    position: relative;
-    overflow: hidden;
-    cursor: pointer;
-    transition: transform 0.3s;
-  }
-  .service-card::before {
-    content: '';
-    position: absolute;
-    left: 0; top: 0; bottom: 0;
-    width: 4px;
-    background: var(--yellow);
-    transform: scaleY(0);
-    transform-origin: bottom;
-    transition: transform 0.35s ease;
-  }
-  .service-card:hover::before { transform: scaleY(1); }
-  .service-card:hover { transform: translateX(4px); }
-  .service-card.featured {
-    background: var(--yellow);
-  }
-  .service-card.featured::before { display: none; }
-  .service-card.featured:hover { transform: translateY(-4px); }
-  .service-num {
-    font-family: var(--font-display);
-    font-size: 3.5rem;
-    color: rgba(232,197,71,0.12);
-    line-height: 1;
-    margin-bottom: 1rem;
-  }
-  .service-card.featured .service-num { color: rgba(92,72,0,0.2); }
-  .service-icon { font-size: 2rem; margin-bottom: 1rem; }
-  .service-card h3 {
-    font-family: var(--font-display);
-    font-size: 1.7rem;
-    letter-spacing: 0.04em;
-    color: var(--text);
-    margin-bottom: 0.5rem;
-  }
-  .service-card.featured h3 { color: var(--accent-dark); }
-  .service-badge {
-    display: inline-block;
-    background: var(--yellow);
-    color: var(--accent-dark);
-    font-family: var(--font-sub);
-    font-size: 0.62rem;
-    font-weight: 700;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    padding: 3px 9px;
-    margin-bottom: 0.8rem;
-  }
-  .service-card.featured .service-badge {
-    background: var(--accent-dark);
-    color: var(--yellow);
-  }
-  .service-card p {
-    font-size: 0.88rem;
-    color: var(--muted);
-    line-height: 1.65;
-    margin-bottom: 1.5rem;
-  }
-  .service-card.featured p { color: rgba(92,72,0,0.75); }
-  .service-list { list-style: none; margin-bottom: 2rem; }
-  .service-list li {
-    font-size: 0.84rem;
-    color: var(--muted);
-    padding: 0.4rem 0;
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-    border-bottom: 1px solid rgba(255,255,255,0.04);
-  }
-  .service-card.featured .service-list li { color: rgba(92,72,0,0.8); border-bottom-color: rgba(92,72,0,0.1); }
-  .service-list li::before {
-    content: '—';
-    color: var(--yellow);
-    font-weight: bold;
-  }
-  .service-card.featured .service-list li::before { color: var(--accent-dark); }
-  .service-price {
-    font-family: var(--font-display);
-    font-size: 2.6rem;
-    letter-spacing: 0.02em;
-    color: var(--text);
-    line-height: 1;
-  }
-  .service-price span {
-    font-family: var(--font-sub);
-    font-size: 0.8rem;
-    font-weight: 400;
-    color: var(--muted);
-    letter-spacing: 0.1em;
-  }
-  .service-card.featured .service-price { color: var(--accent-dark); }
-  .service-card.featured .service-price span { color: rgba(92,72,0,0.6); }
-  .service-btn {
-    margin-top: 1.4rem;
-    display: block;
-    width: 100%;
-    text-align: center;
-    padding: 12px;
-    font-family: var(--font-sub);
-    font-weight: 700;
-    font-size: 0.82rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    border: 1.5px solid var(--yellow);
-    color: var(--yellow);
-    background: transparent;
-    cursor: pointer;
-    transition: background 0.2s, color 0.2s;
-  }
-  .service-btn:hover { background: var(--yellow); color: var(--accent-dark); }
-  .service-card.featured .service-btn {
-    background: var(--accent-dark);
-    color: var(--yellow);
-    border-color: var(--accent-dark);
-  }
-  .service-card.featured .service-btn:hover { background: #3d3000; }
+/* SUCCESS */
+.success-screen{text-align:center;padding:80px 20px;display:none;}
+.success-icon{width:64px;height:64px;border-radius:50%;background:rgba(63,167,181,0.16);color:var(--teal-light);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-size:28px;}
+.success-screen h2{font-size:28px;font-weight:800;margin:0 0 10px;}
+.success-screen p{color:var(--ink-dim);font-size:14px;line-height:1.6;margin:0 0 4px;}
 
-  /* ─── EBOOKS ─────────────────────────────────────────── */
-  .ebooks-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
-    margin-top: 3rem;
-  }
-  .ebook-card {
-    background: var(--surface);
-    position: relative;
-    overflow: hidden;
-    transition: transform 0.3s;
-    cursor: pointer;
-  }
-  .ebook-card:hover { transform: translateY(-6px); }
-  .ebook-cover {
-    aspect-ratio: 3/4;
-    background: var(--bg);
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    padding: 1.6rem;
-    position: relative;
-    overflow: hidden;
-  }
-  .ebook-cover::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to top, rgba(36, 36, 36, 0.5) 35%, transparent);
-  }
-  .ebook-cover-pattern {
-    position: absolute;
-    inset: 0;
-    background:
-      repeating-linear-gradient(
-        0deg,
-        transparent 0,
-        transparent 28px,
-        rgba(232,197,71,0.05) 28px,
-        rgba(232,197,71,0.05) 29px
-      ),
-      repeating-linear-gradient(
-        90deg,
-        transparent 0,
-        transparent 28px,
-        rgba(232,197,71,0.05) 28px,
-        rgba(232,197,71,0.05) 29px
-      );
-  }
-  .ebook-icon {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -55%);
-    font-size: 7rem;
-    opacity: 0.13;
-  }
-  .ebook-cover-bar {
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 4px;
-    background: var(--yellow);
-  }
-  .ebook-cover-content { position: relative; z-index: 2; }
-  .ebook-cover-tag {
-    display: inline-block;
-    background: var(--yellow);
-    color: var(--accent-dark);
-    font-family: var(--font-sub);
-    font-size: 0.6rem;
-    font-weight: 700;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    padding: 3px 9px;
-    margin-bottom: 0.6rem;
-  }
-  .ebook-cover-title {
-    font-family: var(--font-display);
-    font-size: 1.6rem;
-    line-height: 1;
-    letter-spacing: 0.03em;
-    color: var(--text);
-  }
-  .ebook-body { padding: 1.4rem 1.6rem 1.8rem; }
-  .ebook-body p {
-    font-size: 0.85rem;
-    color: var(--muted);
-    line-height: 1.65;
-    margin-bottom: 1.2rem;
-  }
-  .ebook-footer {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  .ebook-price {
-    font-family: var(--font-display);
-    font-size: 2rem;
-    color: var(--yellow);
-    line-height: 1;
-  }
-  .ebook-price sub {
-    font-family: var(--font-sub);
-    font-size: 0.75rem;
-    font-weight: 500;
-    color: var(--muted);
-    vertical-align: middle;
-  }
-  .btn-buy {
-    background: var(--yellow);
-    color: var(--accent-dark);
-    font-family: var(--font-sub);
-    font-weight: 700;
-    font-size: 0.78rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    padding: 10px 18px;
-    border: none;
-    cursor: pointer;
-    transition: background 0.2s, transform 0.15s;
-  }
-  .btn-buy:hover { background: var(--yellow-soft); transform: translateY(-1px); }
-  .btn-buy--disabled {
-    background: rgba(232,197,71,0.15);
-    color: var(--muted);
-    cursor: not-allowed;
-    border: 1.5px solid rgba(232,197,71,0.2);
-  }
-  .btn-buy--disabled:hover { background: rgba(232,197,71,0.15); transform: none; color: var(--muted); }
+/* TOP ERROR */
+.top-error{display:none;background:rgba(224,101,79,0.12);border:1px solid rgba(224,101,79,0.4);color:#F0A493;border-radius:10px;padding:12px 16px;font-size:13px;margin-bottom:24px;}
 
-  /* ─── TRANSFORMACIONES ──────────────────────────────── */
-  #testimonios { background: var(--surface); }
-  .transform-list {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-    margin-top: 3rem;
-    max-width: 900px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  .transform-card {
-    background: var(--bg);
-    overflow: hidden;
-    border-left: 4px solid var(--yellow);
-  }
-  .transform-video-pair {
-    display: grid;
-    grid-template-columns: 1fr 56px 1fr;
-    align-items: stretch;
-    background: #111;
-  }
-  .transform-video-wrap {
-    position: relative;     
-    aspect-ratio: 9/16;
-    max-height: 340px;
-    overflow: hidden;
-    background: #0d0d0d;
-    margin: 0 auto; 
-  }
-  .transform-video-wrap video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-  }
-  .transform-video-placeholder {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 0.8rem;
-    color: var(--muted);
-  }
-  .transform-video-placeholder .ph-icon {
-    font-size: 2.8rem;
-    opacity: 0.3;
-  }
-  .transform-video-placeholder .ph-text {
-    font-family: var(--font-sub);
-    font-size: 0.7rem;
-    font-weight: 600;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    opacity: 0.4;
-    text-align: center;
-    padding: 0 1rem;
-  }
-  .transform-label {
-    position: absolute;
-    top: 1rem;
-    left: 1rem;
-    font-family: var(--font-display);
-    font-size: 1.3rem;
-    letter-spacing: 0.14em;
-    padding: 4px 14px;
-    z-index: 2;
-    line-height: 1;
-  }
-  .transform-label--antes {
-    background: rgba(20,20,20,0.82);
-    color: var(--muted);
-    border: 1.5px solid rgba(255,255,255,0.1);
-    backdrop-filter: blur(4px);
-  }
-  .transform-label--despues {
-    background: var(--yellow);
-    color: var(--accent-dark);
-  }
-  .transform-divider {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 0.6rem;
-    background: #111;
-    padding: 1rem 0;
-    border-left: 1px solid rgba(255,255,255,0.04);
-    border-right: 1px solid rgba(255,255,255,0.04);
-  }
-  .transform-arrow {
-    font-family: var(--font-display);
-    font-size: 1.6rem;
-    color: var(--yellow);
-    line-height: 1;
-  }
-  .transform-vs-line {
-    width: 1px;
-    flex: 1;
-    max-height: 60px;
-    background: rgba(232,197,71,0.18);
-  }
-  .transform-info {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    grid-template-rows: auto auto;
-    gap: 0.6rem 1.8rem;
-    align-items: center;
-    padding: 1.6rem 2rem;
-    border-top: 1px solid rgba(232,197,71,0.1);
-  }
-  .transform-badge {
-    grid-row: 1 / 3;
-    background: var(--yellow);
-    padding: 0.8rem 1.1rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    min-width: 72px;
-  }
-  .transform-badge-num {
-    font-family: var(--font-display);
-    font-size: 2.4rem;
-    color: var(--accent-dark);
-    line-height: 1;
-  }
-  .transform-badge-unit {
-    font-family: var(--font-sub);
-    font-size: 0.6rem;
-    font-weight: 700;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--accent-dark);
-    margin-top: 1px;
-  }
-  .transform-meta { display: flex; flex-direction: column; gap: 0.25rem; }
-  .transform-name {
-    font-family: var(--font-display);
-    font-size: 1.5rem;
-    letter-spacing: 0.05em;
-    color: var(--text);
-    line-height: 1;
-  }
-  .transform-plan {
-    font-family: var(--font-sub);
-    font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--yellow);
-  }
-  .transform-quote {
-    grid-column: 2;
-    font-size: 0.83rem;
-    color: var(--muted);
-    font-style: italic;
-    line-height: 1.65;
-    padding-left: 0.8rem;
-    border-left: 2px solid rgba(232,197,71,0.22);
-  }
+/* FOOTER */
+footer{text-align:center;margin-top:50px;padding-top:24px;border-top:1px solid var(--line);font-size:12px;color:var(--ink-faint);}
+footer a{color:var(--ink-dim);text-decoration:none;}
+footer a:hover{color:var(--teal-light);}
+.footer-logo{display:block;margin:0 auto 10px;width:52px;}
 
-  /* ─── PROCESO ────────────────────────────────────────── */
-  .process-steps {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 0;
-    margin-top: 3.5rem;
-    position: relative;
-  }
-  .process-steps::before {
-    content: '';
-    position: absolute;
-    top: 2.5rem;
-    left: 12%;
-    right: 12%;
-    height: 2px;
-    background: repeating-linear-gradient(90deg, var(--yellow) 0, var(--yellow) 8px, transparent 8px, transparent 18px);
-  }
-  .step {
-    text-align: center;
-    padding: 0 1.5rem;
-    position: relative;
-  }
-  .step-num {
-    width: 5rem;
-    height: 5rem;
-    background: var(--bg);
-    border: 2px solid var(--yellow);
-    margin: 0 auto 1.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    z-index: 2;
-  }
-  .step-num span {
-    font-family: var(--font-display);
-    font-size: 2rem;
-    color: var(--yellow);
-    line-height: 1;
-  }
-  .step h4 {
-    font-family: var(--font-sub);
-    font-weight: 700;
-    font-size: 0.9rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--text);
-    margin-bottom: 0.6rem;
-  }
-  .step p { font-size: 0.82rem; color: var(--muted); line-height: 1.6; }
+/* ======= MODALS ======= */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.72);z-index:1000;display:flex;align-items:center;justify-content:center;padding:16px;opacity:0;pointer-events:none;transition:opacity .2s;}
+.modal-overlay.open{opacity:1;pointer-events:all;}
+.modal-box{background:var(--bg-1);border:1px solid var(--line-strong);border-radius:20px;padding:28px;max-width:520px;width:100%;max-height:90vh;overflow-y:auto;transform:translateY(12px);transition:transform .2s;}
+.modal-overlay.open .modal-box{transform:translateY(0);}
+.modal-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:18px;gap:12px;}
+.modal-title{font-size:18px;font-weight:800;margin:0;}
+.modal-close{background:rgba(255,255,255,0.07);border:none;color:var(--ink-dim);border-radius:8px;width:32px;height:32px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'Poppins',sans-serif;}
+.modal-close:hover{background:rgba(255,255,255,0.12);color:var(--ink);}
+.modal-tag{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;font-weight:700;color:var(--teal-light);margin:0 0 6px;}
+.modal-tag.fem-tag{color:var(--violet-light);}
+.modal-body{font-size:14px;color:var(--ink-dim);line-height:1.7;}
+.modal-body p{margin:0 0 10px;}
+.modal-body ul{margin:0 0 10px;padding-left:20px;}
+.modal-body li{margin-bottom:6px;}
+.modal-actions{display:flex;gap:10px;margin-top:22px;flex-wrap:wrap;}
+.modal-btn-primary{flex:1;min-width:140px;background:var(--teal-light);color:#0B1117;border:none;border-radius:10px;padding:13px 16px;font-family:'Poppins',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:filter .15s;}
+.modal-btn-primary:hover{filter:brightness(1.08);}
+.modal-btn-primary.fem-primary{background:var(--violet-light);}
+.modal-btn-secondary{flex:1;min-width:140px;background:rgba(255,255,255,0.05);color:var(--ink-dim);border:1px solid var(--line-strong);border-radius:10px;padding:13px 16px;font-family:'Poppins',sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:all .15s;}
+.modal-btn-secondary:hover{border-color:var(--teal-light);color:var(--ink);}
 
-  /* ─── PAGO / CTA ─────────────────────────────────────── */
-  #pago {
-    background: var(--bg);
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-    padding: 7rem 5vw;
-  }
-  #pago::before {
-    content: 'PAGO';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-family: var(--font-display);
-    font-size: 22vw;
-    color: rgba(232,197,71,0.03);
-    pointer-events: none;
-    white-space: nowrap;
-    letter-spacing: 0.1em;
-  }
-  .pago-inner { position: relative; z-index: 2; }
-  .pago-inner h2 {
-    font-family: var(--font-display);
-    font-size: clamp(2.5rem, 4.5vw, 5rem);
-    letter-spacing: 0.03em;
-    color: var(--text);
-    margin-bottom: 0.5em;
-  }
-  .pago-inner h2 span { color: var(--yellow); }
-  .pago-inner p {
-    color: var(--muted);
-    font-size: 0.95rem;
-    max-width: 500px;
-    margin: 0 auto 2.5rem;
-    line-height: 1.7;
-  }
-  .payment-methods {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-    flex-wrap: wrap;
-    margin-top: 3rem;
-  }
-  .pm-badge {
-    background: var(--surface);
-    border: 1px solid rgba(232,197,71,0.2);
-    padding: 0.7rem 1.4rem;
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-    font-family: var(--font-sub);
-    font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--muted);
-  }
-  .pm-badge .pm-icon { font-size: 1.2rem; }
-  .pago-cta-group { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
-
-  /* ─── FAQ ────────────────────────────────────────────── */
-  #faq { max-width: 800px; margin: 0 auto; }
-  #faq-section { padding: 6rem 5vw; }
-  .faq-item {
-    border-bottom: 1px solid rgba(255,255,255,0.06);
-  }
-  .faq-q {
-    width: 100%;
-    background: none;
-    border: none;
-    color: var(--text);
-    text-align: left;
-    padding: 1.4rem 0;
-    font-family: var(--font-sub);
-    font-size: 0.95rem;
-    font-weight: 600;
-    letter-spacing: 0.06em;
-    cursor: pointer;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 1rem;
-    transition: color 0.2s;
-  }
-  .faq-q:hover { color: var(--yellow); }
-  .faq-q .arrow {
-    font-size: 1.1rem;
-    transition: transform 0.3s;
-    color: var(--yellow);
-    flex-shrink: 0;
-  }
-  .faq-q.open .arrow { transform: rotate(45deg); }
-  .faq-a {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.4s ease, padding 0.3s;
-    font-size: 0.88rem;
-    color: var(--muted);
-    line-height: 1.75;
-  }
-  .faq-a.open { max-height: 300px; padding-bottom: 1.4rem; }
-
-  /* ─── FOOTER ─────────────────────────────────────────── */
-  footer {
-    background: #1a1a1a;
-    padding: 4rem 5vw 2rem;
-    border-top: 3px solid var(--yellow);
-  }
-  .footer-grid {
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr 1fr;
-    gap: 3rem;
-    margin-bottom: 3rem;
-  }
-  .footer-brand .logo {
-    font-family: var(--font-display);
-    font-size: 2.6rem;
-    letter-spacing: 0.08em;
-    color: var(--text);
-    margin-bottom: 0.8rem;
-  }
-  .footer-brand .logo span { color: var(--yellow); }
-  .footer-brand p {
-    font-size: 0.85rem;
-    color: var(--muted);
-    line-height: 1.7;
-    max-width: 280px;
-  }
-  .footer-col h4 {
-    font-family: var(--font-sub);
-    font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--yellow);
-    margin-bottom: 1.2rem;
-  }
-  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; }
-  .footer-col ul li a {
-    font-size: 0.85rem;
-    color: var(--muted);
-    transition: color 0.2s;
-  }
-  .footer-col ul li a:hover { color: var(--text); }
-  .footer-socials { display: flex; gap: 0.8rem; margin-top: 1.5rem; }
-  .social-btn {
-    width: 38px; height: 38px;
-    background: var(--surface);
-    border: 1px solid rgba(232,197,71,0.2);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background 0.2s, border-color 0.2s;
-  }
-  .social-btn:hover { background: var(--yellow); border-color: var(--yellow); }
-  .footer-bottom {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-top: 2rem;
-    border-top: 1px solid rgba(255,255,255,0.06);
-    font-size: 0.78rem;
-    color: var(--muted);
-    flex-wrap: wrap;
-    gap: 0.5rem;
-  }
-
-  
-
-  /* ─── MODAL ──────────────────────────────────────────── */
-  .modal-overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.85);
-    z-index: 200;
-    align-items: center;
-    justify-content: center;
-    padding: 2rem;
-  }
-  .modal-overlay.open { display: flex; }
-  .modal {
-    background: var(--surface);
-    max-width: 520px;
-    width: 100%;
-    max-height: 90vh;
-    overflow-y: auto;
-    padding: 2.5rem;
-    position: relative;
-    border-top: 4px solid var(--yellow);
-    animation: fadeUp 0.35s ease;
-  }
-  .modal-close {
-    position: absolute;
-    top: 1rem; right: 1.2rem;
-    background: none;
-    border: none;
-    color: var(--muted);
-    font-size: 1.5rem;
-    cursor: pointer;
-    transition: color 0.2s;
-  }
-  .modal-close:hover { color: var(--yellow); }
-  .modal h3 {
-    font-family: var(--font-display);
-    font-size: 2rem;
-    color: var(--text);
-    margin-bottom: 0.3rem;
-    letter-spacing: 0.04em;
-  }
-  .modal p { font-size: 0.88rem; color: var(--muted); margin-bottom: 1.8rem; }
-  .form-group { margin-bottom: 1.2rem; }
-  .form-group label {
-    display: block;
-    font-family: var(--font-sub);
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--yellow);
-    margin-bottom: 0.4rem;
-  }
-  .form-group input,
-  .form-group select,
-  .form-group textarea {
-    width: 100%;
-    background: var(--bg);
-    border: 1.5px solid rgba(255,255,255,0.08);
-    color: var(--text);
-    padding: 10px 14px;
-    font-family: var(--font-body);
-    font-size: 0.88rem;
-    outline: none;
-    transition: border-color 0.2s;
-    -webkit-appearance: none;
-  }
-  .form-group input:focus,
-  .form-group select:focus,
-  .form-group textarea:focus { border-color: var(--yellow); }
-  .form-group select { cursor: pointer; }
-  .form-group textarea { resize: vertical; min-height: 80px; }
-  .form-submit {
-    width: 100%;
-    background: var(--yellow);
-    color: var(--accent-dark);
-    font-family: var(--font-sub);
-    font-weight: 700;
-    font-size: 0.88rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    padding: 14px;
-    border: none;
-    cursor: pointer;
-    transition: background 0.2s;
-    margin-top: 0.5rem;
-  }
-  .form-submit:hover { background: var(--yellow-soft); }
-  .form-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
-  .form-submit.loading { background: var(--yellow-soft); }
-
-  /* ─── FORM FEEDBACK ──────────────────────────────────── */
-  .form-feedback {
-    display: none;
-    padding: 1rem 1.2rem;
-    margin-top: 0.8rem;
-    font-family: var(--font-sub);
-    font-size: 0.85rem;
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    border-left: 3px solid;
-  }
-  .form-feedback.success {
-    display: block;
-    background: rgba(100, 200, 100, 0.08);
-    border-color: #6dc46d;
-    color: #6dc46d;
-  }
-  .form-feedback.error {
-    display: block;
-    background: rgba(220, 80, 80, 0.08);
-    border-color: #e05555;
-    color: #e05555;
-  }
-  .form-success-screen {
-    text-align: center;
-    padding: 2rem 0;
-  }
-  .form-success-screen .success-icon {
-    font-size: 3.5rem;
-    margin-bottom: 1rem;
-  }
-  .form-success-screen h3 {
-    font-family: var(--font-display);
-    font-size: 2.4rem;
-    color: var(--yellow);
-    margin-bottom: 0.4rem;
-    letter-spacing: 0.06em;
-  }
-  .form-success-screen p {
-    color: var(--muted);
-    font-size: 0.9rem;
-    line-height: 1.7;
-    margin-bottom: 1.6rem;
-  }
-  .btn-close-modal {
-    background: var(--yellow);
-    color: var(--accent-dark);
-    font-family: var(--font-sub);
-    font-weight: 700;
-    font-size: 0.85rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    padding: 12px 28px;
-    border: none;
-    cursor: pointer;
-    transition: background 0.2s;
-  }
-  .btn-close-modal:hover { background: var(--yellow-soft); }
-
-  @media (max-width: 480px) {
-    .transform-video-pair {
-      grid-template-columns: 1fr;
-      grid-template-rows: auto auto auto;
-    }
-    .transform-video-wrap {
-      aspect-ratio: 16/9;
-      max-height: none;
-    }
-    .transform-divider {
-      flex-direction: row;
-      height: 36px;
-      padding: 0 1.2rem;
-      border-left: none;
-      border-right: none;
-      border-top: 1px solid rgba(255,255,255,0.04);
-      border-bottom: 1px solid rgba(255,255,255,0.04);
-    }
-    .transform-vs-line {
-      width: auto;
-      height: 1px;
-      max-height: none;
-      flex: 1;
-    }
-    .transform-arrow { font-size: 1.2rem; }
-    .transform-label { font-size: 1rem; padding: 3px 10px; top: 0.7rem; left: 0.7rem; }
-    .transform-info {
-      grid-template-columns: auto 1fr;
-      padding: 1rem;
-      gap: 0.5rem 1rem;
-    }
-    .transform-badge-num { font-size: 1.8rem; }
-    .transform-badge { min-width: 56px; padding: 0.6rem 0.8rem; }
-    .transform-name { font-size: 1.2rem; }
-    .transform-quote { display: none; }
-  }
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(28px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-  @keyframes marquee {
-    from { transform: translateX(0); }
-    to   { transform: translateX(-50%); }
-  }
-  .reveal {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.7s ease, transform 0.7s ease;
-  }
-  .reveal.visible { opacity: 1; transform: translateY(0); }
-  /* ─── ABOUT CAROUSEL ──────────────────────────────────── */
-  .carousel { position: relative; width: 100%; aspect-ratio: 4/5; overflow: hidden; background: var(--surface); }
-  .carousel-track { display: flex; height: 100%; transition: transform 0.5s cubic-bezier(0.4,0,0.2,1); }
-  .carousel-slide { flex: 0 0 100%; height: 100%; position: relative; overflow: hidden; }
-  .carousel-slide-bg { position: absolute; inset: 0; background-size: cover; background-position: center; transition: transform 0.6s ease; }
-  .carousel:hover .carousel-slide-bg { transform: scale(1.03); }
-  .carousel-slide-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(36,36,36,0.85) 30%, rgba(36,36,36,0.1) 70%); }
-  .carousel-slide-pattern { position: absolute; inset: 0; background: repeating-linear-gradient(45deg, rgba(232,197,71,0.04) 0, rgba(232,197,71,0.04) 1px, transparent 1px, transparent 18px); }
-  .carousel-slide-icon { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-60%); font-size: 7rem; opacity: 0.18; }
-  .carousel-slide-content { position: absolute; bottom: 0; left: 0; right: 0; padding: 1.6rem; z-index: 2; }
-  .carousel-slide-cat { display: inline-block; background: var(--yellow); color: var(--accent-dark); font-family: var(--font-sub); font-size: 0.6rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; padding: 3px 9px; margin-bottom: 0.5rem; }
-  .carousel-slide-title { font-family: var(--font-display); font-size: 1.5rem; color: var(--text); line-height: 1.05; letter-spacing: 0.03em; text-shadow: 0 2px 8px rgba(0,0,0,0.5); }
-  .carousel-top-bar { position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--yellow); z-index: 3; }
-  .carousel-btn { position: absolute; top: 50%; transform: translateY(-50%); width: 38px; height: 38px; background: rgba(36,36,36,0.75); border: 1.5px solid rgba(232,197,71,0.5); color: var(--yellow); font-size: 1.3rem; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 4; transition: background 0.2s, border-color 0.2s; backdrop-filter: blur(4px); line-height: 1; }
-  .carousel-btn:hover { background: var(--yellow); color: var(--accent-dark); border-color: var(--yellow); }
-  .carousel-btn--prev { left: 0.8rem; }
-  .carousel-btn--next { right: 0.8rem; }
-  .carousel-dots { position: absolute; bottom: 1rem; right: 1.4rem; display: flex; gap: 6px; z-index: 4; }
-  .carousel-dot { width: 8px; height: 8px; background: rgba(232,197,71,0.35); border-radius: 50%; cursor: pointer; border: none; transition: background 0.2s, transform 0.2s; }
-  .carousel-dot.active { background: var(--yellow); transform: scale(1.3); }
-  .carousel-counter { position: absolute; top: 1rem; right: 1.2rem; font-family: var(--font-sub); font-size: 0.68rem; font-weight: 700; letter-spacing: 0.14em; color: rgba(232,197,71,0.8); z-index: 4; }
-
-  /* ─── RESPONSIVE ─────────────────────────────────────── */
-  @media (max-width: 1024px) {
-    .services-grid { grid-template-columns: 1fr 1fr; }
-    .ebooks-grid { grid-template-columns: 1fr 1fr; }
-    .transform-video-wrap { max-height: 260px; }
-    .process-steps { grid-template-columns: 1fr 1fr; gap: 2rem; }
-    .process-steps::before { display: none; }
-    .footer-grid { grid-template-columns: 1fr 1fr; }
-  }
-  @media (max-width: 768px) {
-    .hero { grid-template-columns: 1fr; padding-top: 68px; }
-    .hero-visual { display: none; }
-    .about-grid { grid-template-columns: 1fr; }
-    .about-img-wrap { display: none; }
-    .services-grid { grid-template-columns: 1fr; }
-    .ebooks-grid { grid-template-columns: 1fr; }
-    .transform-video-pair { grid-template-columns: 1fr 36px 1fr; }
-    .transform-video-wrap { max-height: 200px; }
-    .transform-info { padding: 1.2rem 1.2rem; }
-    .transform-divider { padding: 0.6rem 0; }
-    .transform-quote { display: none; }
-    .process-steps { grid-template-columns: 1fr 1fr; }
-    .nav-links, .nav-cta { display: none; }
-    .hamburger { display: flex; }
-    .footer-grid { grid-template-columns: 1fr; }
-    .services-header { flex-direction: column; align-items: flex-start; }
-  }
-/* ─── MODAL PAGO MULTI-PASO ──────────────────────────────── */
-.step-indicator {
-  display: flex; align-items: center; margin-bottom: 1.6rem;
-}
-.step-ind-item { display: flex; flex-direction: column; align-items: center; gap: 4px; }
-.step-ind-num {
-  width: 32px; height: 32px; border-radius: 50%;
-  border: 2px solid rgba(232,197,71,0.25);
-  display: flex; align-items: center; justify-content: center;
-  font-family: var(--font-sub); font-size: 0.85rem; font-weight: 700;
-  color: var(--muted); transition: all 0.3s;
-}
-.step-ind-item.active .step-ind-num { border-color: var(--yellow); background: var(--yellow); color: var(--accent-dark); }
-.step-ind-item.done .step-ind-num   { border-color: var(--yellow); color: var(--yellow); }
-.step-ind-label {
-  font-family: var(--font-sub); font-size: 0.6rem; font-weight: 700;
-  letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted);
-}
-.step-ind-item.active .step-ind-label { color: var(--yellow); }
-.step-ind-line { flex: 1; height: 2px; background: rgba(232,197,71,0.18); margin: 0 0.5rem 1.2rem; }
-
-.pm-options { display: flex; flex-direction: column; gap: 0.5rem; margin: 1rem 0; }
-.pm-option {
-  display: flex; align-items: center; gap: 0.8rem;
-  background: var(--bg); border: 1.5px solid rgba(255,255,255,0.06);
-  padding: 0.75rem 1rem; cursor: pointer; width: 100%;
-  transition: border-color 0.2s, background 0.2s; text-align: left;
-}
-.pm-option:hover  { border-color: rgba(232,197,71,0.4); }
-.pm-option.active { border-color: var(--yellow); background: rgba(232,197,71,0.07); }
-.pm-option-icon  { font-size: 1.3rem; flex-shrink: 0; }
-.pm-option-label {
-  flex: 1; font-family: var(--font-sub); font-size: 0.88rem;
-  font-weight: 600; letter-spacing: 0.06em; color: var(--text);
-}
-.pm-option-moneda {
-  font-family: var(--font-sub); font-size: 0.68rem; font-weight: 700;
-  letter-spacing: 0.12em; color: var(--muted);
-  background: rgba(255,255,255,0.06); padding: 2px 7px;
-}
-
-.pm-detail-box {
-  background: rgba(232,197,71,0.05); border: 1px solid rgba(232,197,71,0.2);
-  border-left: 3px solid var(--yellow); padding: 1rem 1.2rem;
-  margin: 0.8rem 0; animation: fadeUp 0.2s ease;
-}
-.pm-detail-monto {
-  font-family: var(--font-sub); font-size: 0.78rem; letter-spacing: 0.1em;
-  text-transform: uppercase; color: var(--muted);
-  margin-bottom: 0.8rem; padding-bottom: 0.6rem;
-  border-bottom: 1px solid rgba(232,197,71,0.15);
-}
-.pm-detail-monto strong { color: var(--yellow); font-size: 1rem; }
-.pm-detail-row {
-  display: flex; justify-content: space-between;
-  align-items: center; padding: 0.4rem 0; gap: 1rem;
-}
-.pm-detail-row > span {
-  font-family: var(--font-sub); font-size: 0.7rem; font-weight: 600;
-  letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); flex-shrink: 0;
-}
-.pm-detail-row strong {
-  font-family: var(--font-body); font-size: 0.85rem; color: var(--text);
-  display: flex; align-items: center; gap: 0.5rem; text-align: right;
-}
-.pm-detail-row strong.mono { font-family: monospace; font-size: 0.75rem; word-break: break-all; }
-.pm-nota {
-  font-size: 0.78rem; color: var(--muted); line-height: 1.55;
-  margin-top: 0.8rem; padding-top: 0.6rem;
-  border-top: 1px solid rgba(232,197,71,0.1);
-}
-.copy-btn {
-  background: none; border: 1px solid rgba(232,197,71,0.3);
-  color: var(--yellow); font-family: var(--font-sub); font-size: 0.6rem;
-  font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
-  padding: 2px 6px; cursor: pointer; transition: background 0.2s; flex-shrink: 0;
-}
-.copy-btn:hover { background: var(--yellow); color: var(--accent-dark); }
-
-.upload-area {
-  border: 2px dashed rgba(232,197,71,0.3); padding: 2rem;
-  text-align: center; cursor: pointer;
-  transition: border-color 0.2s, background 0.2s; margin: 1rem 0;
-}
-.upload-area:hover, .upload-area.drag { border-color: var(--yellow); background: rgba(232,197,71,0.04); }
-.upload-icon  { font-size: 2rem; margin-bottom: 0.5rem; }
-.upload-text  { font-family: var(--font-sub); font-size: 0.88rem; font-weight: 600; letter-spacing: 0.06em; color: var(--text); margin-bottom: 0.3rem; }
-.upload-formats { font-size: 0.72rem; color: var(--muted); letter-spacing: 0.08em; }
-.upload-preview-row {
-  display: flex; align-items: center; justify-content: space-between;
-  background: rgba(232,197,71,0.06); border: 1px solid rgba(232,197,71,0.2);
-  padding: 0.6rem 1rem; margin-top: 0.5rem;
-}
-.upload-preview-name {
-  font-family: var(--font-sub); font-size: 0.82rem; font-weight: 600;
-  color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
-}
-.modal-nav { display: flex; gap: 0.8rem; align-items: center; margin-top: 1.2rem; }
-.wa-cta {
-  display: flex; align-items: center; justify-content: center; gap: 0.5rem;
-  width: 100%; margin-top: 0.9rem; padding: 10px;
-  background: transparent; border: 1.5px solid rgba(37,211,102,0.35);
-  color: #25d366; font-family: var(--font-sub); font-size: 0.78rem;
-  font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
-  cursor: pointer; text-decoration: none;
-  transition: background 0.2s, border-color 0.2s, color 0.2s;
-}
-.wa-cta:hover { background: rgba(37,211,102,0.08); border-color: #25d366; }
-.wa-cta-icon { font-size: 1rem; }
-
-/* ─── POPUP CUPOS ────────────────────────────────────── */
-.cupos-overlay {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.88);
-  z-index: 300;
-  align-items: center;
-  justify-content: center;
-  padding: 2rem;
-  backdrop-filter: blur(4px);
-}
-.cupos-overlay.open { display: flex; }
-.cupos-popup {
-  background: var(--surface);
-  max-width: 460px;
-  width: 100%;
-  position: relative;
-  border-top: 4px solid var(--yellow);
-  animation: fadeUp 0.4s cubic-bezier(0.22,1,0.36,1) both;
-  overflow: hidden;
-}
-.cupos-popup::before {
-  content: '5';
-  position: absolute;
-  bottom: -1.5rem;
-  right: -1rem;
-  font-family: var(--font-display);
-  font-size: 14rem;
-  color: rgba(232,197,71,0.045);
-  line-height: 1;
-  pointer-events: none;
-  letter-spacing: -0.04em;
-}
-.cupos-close {
-  position: absolute;
-  top: 0.9rem;
-  right: 1.1rem;
-  background: none;
-  border: none;
-  color: var(--muted);
-  font-size: 1.3rem;
-  cursor: pointer;
-  transition: color 0.2s;
-  z-index: 2;
-  line-height: 1;
-  padding: 4px;
-}
-.cupos-close:hover { color: var(--yellow); }
-.cupos-body {
-  padding: 2.4rem 2.4rem 2rem;
-  position: relative;
-  z-index: 2;
-}
-.cupos-tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  background: var(--yellow);
-  color: var(--accent-dark);
-  font-family: var(--font-sub);
-  font-weight: 700;
-  font-size: 0.68rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  padding: 5px 12px;
-  margin-bottom: 1.2rem;
-}
-.cupos-tag::before {
-  content: '';
-  display: inline-block;
-  width: 7px;
-  height: 7px;
-  background: var(--accent-dark);
-  border-radius: 50%;
-  animation: cupos-pulse 1.4s ease-in-out infinite;
-}
-@keyframes cupos-pulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50%       { opacity: 0.5; transform: scale(0.75); }
-}
-.cupos-title {
-  font-family: var(--font-display);
-  font-size: clamp(2.8rem, 7vw, 4.2rem);
-  line-height: 0.95;
-  letter-spacing: 0.02em;
-  color: var(--text);
-  margin-bottom: 0.3em;
-}
-.cupos-title em {
-  font-style: normal;
-  color: var(--yellow);
-  display: block;
-}
-.cupos-bar { width: 56px; height: 3px; background: var(--yellow); margin: 1rem 0 1.1rem; }
-.cupos-desc {
-  font-size: 0.9rem;
-  color: var(--muted);
-  line-height: 1.7;
-  margin-bottom: 1.8rem;
-  max-width: 340px;
-}
-.cupos-desc strong { color: var(--text); }
-.cupos-btns {
-  display: flex;
-  gap: 0.75rem;
-  flex-wrap: wrap;
-}
-.cupos-btn-primary {
-  flex: 1;
-  min-width: 140px;
-  background: var(--yellow);
-  color: var(--accent-dark);
-  font-family: var(--font-sub);
-  font-weight: 700;
-  font-size: 0.85rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  padding: 13px 20px;
-  border: none;
-  cursor: pointer;
-  transition: background 0.2s, transform 0.15s;
-  text-align: center;
-}
-.cupos-btn-primary:hover { background: var(--yellow-soft); transform: translateY(-2px); }
-.cupos-btn-secondary {
-  background: transparent;
-  color: var(--muted);
-  font-family: var(--font-sub);
-  font-weight: 600;
-  font-size: 0.78rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  padding: 12px 16px;
-  border: 1.5px solid rgba(255,255,255,0.1);
-  cursor: pointer;
-  transition: border-color 0.2s, color 0.2s;
-  white-space: nowrap;
-}
-.cupos-btn-secondary:hover { border-color: var(--muted); color: var(--text); }
-.cupos-slots {
-  display: flex;
-  gap: 5px;
-  margin-bottom: 1.4rem;
-  align-items: center;
-}
-.cupos-slot {
-  width: 28px;
-  height: 6px;
-  background: var(--yellow);
-  border-radius: 2px;
-}
-.cupos-slot.empty {
-  background: rgba(232,197,71,0.18);
-}
-.cupos-slots-label {
-  font-family: var(--font-sub);
-  font-size: 0.65rem;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin-left: 6px;
-}
-
+/* TERMS MODAL */
+.terms-modal-body{font-size:13px;color:var(--ink-dim);line-height:1.75;}
+.terms-modal-body h3{font-size:13px;font-weight:700;color:var(--ink);margin:16px 0 4px;}
+.terms-modal-body p{margin:0 0 8px;}
+.terms-modal-body ol{padding-left:20px;margin:0 0 12px;}
+.terms-modal-body li{margin-bottom:10px;}
 </style>
 </head>
 <body>
 
-<!-- ─── NAV ─────────────────────────────────────────────── -->
-<nav id="navbar">
-  <div class="nav-logo">CALI<span>P</span>ush</div>
-  <ul class="nav-links">
-    <li><a href="#about">Sobre mí</a></li>
-    <li><a href="#servicios">Servicios</a></li>
-    <li><a href="#ebooks">Ebooks</a></li>
-    <li><a href="#proceso">Cómo funciona</a></li>
-    <li><a href="#faq-section">FAQ</a></li>
-  </ul>
-  <button class="nav-cta" onclick="openModal('general')">Consulta gratuita</button>
-  <div class="hamburger" id="hamburger" onclick="toggleMenu()">
-    <span></span><span></span><span></span>
-  </div>
-</nav>
-<div class="mobile-menu" id="mobileMenu">
-  <a href="#about" onclick="toggleMenu()">Sobre mí</a>
-  <a href="#servicios" onclick="toggleMenu()">Servicios</a>
-  <a href="#ebooks" onclick="toggleMenu()">Ebooks</a>
-  <a href="#proceso" onclick="toggleMenu()">Cómo funciona</a>
-  <a href="#faq-section" onclick="toggleMenu()">FAQ</a>
-  <a href="#" onclick="openModal('general'); toggleMenu()">→ Consulta gratuita</a>
-</div>
-
-<!-- ─── HERO ─────────────────────────────────────────────── -->
-<section class="hero" id="home">
-  <div class="hero-bg-text">CaliPush</div>
-  <div class="hero-content">
-    <div class="tag">Coach · Calistenia · Buenos Aires Y Todo el Mundo</div>
-    <h1>COACHING ONLINE<em> PUSH THE LIMITS</em></h1>
-    <div class="hero-bar"></div>
-    <p>Asesorías online personalizadas y recursos de entrenamiento para llevar tu cuerpo al siguiente nivel — desde principiante hasta avanzados.</p>
-    <div class="hero-btns">
-      <button class="btn-primary" onclick="document.getElementById('servicios').scrollIntoView({behavior:'smooth'})">Ver servicios</button>
-      <button class="btn-outline" onclick="document.getElementById('ebooks').scrollIntoView({behavior:'smooth'})">Ver ebooks</button>
+<!-- CATEGORY PARAMS MODAL -->
+<div class="modal-overlay" id="catModal">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div>
+        <p class="modal-tag" id="catModalTag"></p>
+        <h2 class="modal-title" id="catModalTitle"></h2>
+      </div>
+      <button class="modal-close" onclick="closeCatModal()">✕</button>
+    </div>
+    <div class="modal-body" id="catModalBody"></div>
+    <div class="modal-actions">
+      <button class="modal-btn-primary" id="catModalSelectBtn" onclick="selectFromModal()">Inscribirme en esta categoría</button>
+      <button class="modal-btn-secondary" onclick="closeCatModal()">Ver otra categoría</button>
     </div>
   </div>
-  <div class="hero-visual">
-    <div class="hero-card-stack">
-      <div class="card-bg"></div>
-      <div class="card-main">
-        <div class="card-image card-image--small">
-          <img src="Imagenes/Flag.webp" alt="Presentacion Atleta">
-        </div>
-        <div class="card-label">Coaching online</div>
-        <div class="card-title">STREET<br>WORKOUT</div>
-        <div class="hero-stats">
-          <div class="num">6+</div>
-          <div class="lbl">Años de<br>experiencia</div>
+</div>
+
+<!-- TERMS MODAL -->
+<div class="modal-overlay" id="termsModal">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h2 class="modal-title">Declaración Jurada</h2>
+      <button class="modal-close" onclick="closeTermsModal()">✕</button>
+    </div>
+    <div class="terms-modal-body">
+      <p>Yo, quien completa este formulario, en pleno uso de mis facultades, por mi propia voluntad y bajo carácter de declaración jurada, manifiesto y acepto lo siguiente:</p>
+      <ol>
+        <li>
+          <h3>Reconocimiento del riesgo</h3>
+          <p>Declaro que soy consciente de que la práctica de la calistenia y la participación en competencias deportivas implica riesgos físicos inherentes, que pueden derivar en lesiones, accidentes, o, en casos extremos, consecuencias graves para la salud o la vida.</p>
+        </li>
+        <li>
+          <h3>Responsabilidad personal</h3>
+          <p>Asumo plena y exclusiva responsabilidad sobre mi integridad física y mi salud durante el desarrollo del evento organizado por ALZA, eximiendo a la organización, sus representantes, jueces, voluntarios, sponsors y cualquier persona vinculada al evento de toda responsabilidad civil, penal, contractual o extracontractual por cualquier daño, lesión, accidente o perjuicio que pudiera sufrir antes, durante o después de la competencia.</p>
+        </li>
+        <li>
+          <h3>Condición física y aptitud</h3>
+          <p>Declaro que me encuentro en condiciones físicas y de salud adecuadas para participar, y que lo hago bajo mi propio riesgo y decisión. Asimismo, manifiesto que, en caso de tener una condición médica, la misma es de mi exclusiva responsabilidad y no constituye obligación de la organización su control, atención ni supervisión.</p>
+        </li>
+        <li>
+          <h3>Renuncia a reclamos</h3>
+          <p>Renuncio expresamente a iniciar cualquier tipo de acción legal, reclamo administrativo o judicial contra ALZA o cualquier persona física o jurídica vinculada a la organización del evento, por hechos derivados directa o indirectamente de mi participación.</p>
+        </li>
+        <li>
+          <h3>Aceptación de bases y reglamento</h3>
+          <p>Declaro haber leído, comprendido y aceptado las bases, condiciones y reglamento de la competencia, comprometiéndome a respetarlos en su totalidad.</p>
+        </li>
+      </ol>
+      <p>En prueba de conformidad, firmo la presente en carácter de declaración jurada.</p>
+    </div>
+    <div class="modal-actions">
+      <button class="modal-btn-primary" onclick="acceptTermsFromModal()">Acepto la declaración jurada</button>
+      <button class="modal-btn-secondary" onclick="closeTermsModal()">Cerrar</button>
+    </div>
+  </div>
+</div>
+
+<div class="hero">
+  <div class="hero-logo">
+    <img src="CATLogo.webp" alt="CAT — Calisthenics Alza Tournament">
+  </div>
+  <h2 class="event-name">Formulario de inscripción</h2>
+  <div class="meta-row">
+    <div class="meta-chip">📅 <b>Domingo 2 de agosto</b></div>
+    <div class="meta-chip">📍 <b>Av. Caseros 1712, CABA</b></div>
+    <div class="meta-chip"><b>Femenino &amp; Masculino</b></div>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="top-error" id="topError"></div>
+
+  <form id="regForm">
+
+    <!-- CATEGORÍA -->
+    <div class="section">
+      <div class="section-title"><span class="section-num">1</span>Categoría</div>
+      <p class="section-sub">Podés anotarte en más de una categoría. El precio de inscripción aplica por categoría.</p>
+      <div class="card">
+        <div class="cat-grid" id="catGrid"></div>
+        <div class="err-msg" id="catErr" style="margin-top:12px;">Seleccioná al menos una categoría</div>
+        <div class="cat-open-notice">
+          <p><strong>ALZA llevará a cabo un Open:</strong> Jornada de testeo y asignación de categorías.</p>
+          <button type="button" class="toggle-btn" style="max-width:340px;" onclick="selectUnsure()">No estoy seguro de en qué categoría anotarme</button>
         </div>
       </div>
     </div>
-  </div>
-</section>
 
-<!-- ─── MARQUEE ───────────────────────────────────────────── -->
-<div class="marquee-wrap">
-  <div class="marquee-track">
-    <div class="marquee-item">Calistenia <span class="marquee-dot"></span></div>
-    <div class="marquee-item">Street Workout <span class="marquee-dot"></span></div>
-    <div class="marquee-item">Fuerza relativa <span class="marquee-dot"></span></div>
-    <div class="marquee-item">Planche <span class="marquee-dot"></span></div>
-    <div class="marquee-item">Front Lever <span class="marquee-dot"></span></div>
-    <div class="marquee-item">Musculatura <span class="marquee-dot"></span></div>
-    <div class="marquee-item">Movilidad <span class="marquee-dot"></span></div>
-    <div class="marquee-item">Progresiones <span class="marquee-dot"></span></div>
-    <div class="marquee-item">Calistenia <span class="marquee-dot"></span></div>
-    <div class="marquee-item">Street Workout <span class="marquee-dot"></span></div>
-    <div class="marquee-item">Fuerza relativa <span class="marquee-dot"></span></div>
-    <div class="marquee-item">Planche <span class="marquee-dot"></span></div>
-    <div class="marquee-item">Front Lever <span class="marquee-dot"></span></div>
-    <div class="marquee-item">Musculatura <span class="marquee-dot"></span></div>
-    <div class="marquee-item">Movilidad <span class="marquee-dot"></span></div>
-    <div class="marquee-item">Progresiones <span class="marquee-dot"></span></div>
-  </div>
-</div>
-
-<!-- ─── ABOUT ────────────────────────────────────────────── -->
-<section id="about">
-  <div class="about-grid reveal">
-    <div class="about-img-wrap">
-      <div class="about-img-box">
-        <div class="carousel" id="aboutCarousel">
-            <div class="carousel-top-bar"></div>
-            <div class="carousel-track" id="carouselTrack">
-          
-              <div class="carousel-slide">
-                <div class="carousel-slide-pattern"></div>
-                <div class="carousel-slide-bg" style="background-image: url('Imagenes/Plancha.webp');"></div>
-                <div class="carousel-slide-overlay"></div>
-                <div class="carousel-slide-content">
-                  <div class="carousel-slide-cat">Entrenamiento</div>
-                  <div class="carousel-slide-title">STREET<br>WORKOUT</div>
-                </div>
-              </div>
-          
-              <div class="carousel-slide">
-                <div class="carousel-slide-pattern"></div>
-                <div class="carousel-slide-bg" style="background-image: url('Imagenes/Epdrago.webp');"></div>
-                <div class="carousel-slide-overlay"></div>
-                <div class="carousel-slide-content">
-                  <div class="carousel-slide-cat">Competencia</div>
-                  <div class="carousel-slide-title">Epdrago Championship<br>2024</div>
-                </div>
-              </div>
-          
-              <div class="carousel-slide">
-                <div class="carousel-slide-pattern"></div>
-                <div class="carousel-slide-bg" style="background-image: url('Imagenes/PlanchaDedos.webp');"></div>
-                <div class="carousel-slide-overlay"></div>
-                <div class="carousel-slide-content">
-                  <div class="carousel-slide-cat">Skill — Logro</div>
-                  <div class="carousel-slide-title">PLANCHE<br>COMPLETO</div>
-                </div>
-              </div>
-          
-              <div class="carousel-slide">
-                <div class="carousel-slide-pattern"></div>
-                <div class="carousel-slide-bg" style="background-image: url('Imagenes/alumnos.webp');"></div>
-                <div class="carousel-slide-overlay"></div>
-                <div class="carousel-slide-icon">👥</div>
-                <div class="carousel-slide-content">
-                  <div class="carousel-slide-cat">Coaching</div>
-                  <div class="carousel-slide-title">100+<br>ALUMNOS</div>
-                </div>
-              </div>
-          
-              <div class="carousel-slide">
-                <div class="carousel-slide-pattern"></div>
-                <div class="carousel-slide-bg" style="background-image: url('Imagenes/frontlever.webp');"></div>
-                <div class="carousel-slide-overlay"></div>
-                <div class="carousel-slide-icon">🤸</div>
-                <div class="carousel-slide-content">
-                  <div class="carousel-slide-cat">Skill — Logro</div>
-                  <div class="carousel-slide-title">FRONT<br>LEVER</div>
-                </div>
-              </div>
-          
-            </div>
-            <button class="carousel-btn carousel-btn--prev" onclick="carouselMove(-1)">&#8249;</button>
-            <button class="carousel-btn carousel-btn--next" onclick="carouselMove(1)">&#8250;</button>
-            <div class="carousel-dots" id="carouselDots"></div>
-            <div class="carousel-counter" id="carouselCounter">1 / 5</div>
+    <!-- DATOS PERSONALES -->
+    <div class="section">
+      <div class="section-title"><span class="section-num">2</span>Datos personales</div>
+      <div class="card">
+        <div class="field">
+          <label class="field-label" for="nombre">Nombre completo <span class="req">*</span></label>
+          <input type="text" id="nombre" placeholder="Ej: Juan Pérez" autocomplete="name">
+          <div class="err-msg">Completá tu nombre completo</div>
+        </div>
+        <div class="two-col">
+          <div class="field">
+            <label class="field-label" for="dni">DNI <span class="req">*</span></label>
+            <input type="text" id="dni" placeholder="Sin puntos" inputmode="numeric">
+            <div class="err-msg">Ingresá un DNI válido</div>
           </div>
-      </div>
-      <div class="about-accent-box">
-        <div class="num">100+</div>
-        <div class="lbl">Alumnos<br>entrenados</div>
-      </div>
-    </div>
-    <div class="about-text">
-      <div class="section-label">Sobre mí</div>
-      <h2>ATLETA,<br>INSTRUCTOR<br>& <span>COACH</span></h2>
-      <div class="divider"></div>
-      <p>Soy instructor de calistenia con más de 6 años de entrenamiento y competición a nivel nacional en powerfreestyle. Entreno grupos e individuos en plaza y ofrezco asesorías online para alumnos de todo el mundo.</p>
-      <p>Mi enfoque combina la técnica deportiva con la progresión inteligente — cada alumno tiene un camino diferente y yo te ayudo a construir el tuyo.</p>
-      <div class="chips">
-        <span class="chip">Powerfreestyle</span>
-        <span class="chip">Planche</span>
-        <span class="chip">Front Lever</span>
-        <span class="chip">Handstand</span>
-        <span class="chip">Fuerza</span>
-        <span class="chip">Nutrición</span>
-        <span class="chip">Movilidad</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ─── SERVICIOS ─────────────────────────────────────────── -->
-<section id="servicios">
-  <div class="services-header reveal">
-    <div>
-      <div class="section-label">Lo que ofrezco</div>
-      <h2 class="section-title">ASESORÍAS<br>ONLINE</h2>
-    </div>
-    <p class="section-sub">Elegí el nivel de acompañamiento que más se adapta a tus objetivos y disponibilidad.</p>
-  </div>
-  <div class="services-grid reveal">
-
-    <!-- Starter -->
-    <div class="service-card">
-      <div class="service-num">01</div>
-      <div class="service-icon">⚡</div>
-      <div class="service-badge">Principiante</div>
-      <h3>STARTER</h3>
-      <p>Ideal para ordenar tu entrenamiento y ver resultados en las primeras 4 semanas.</p>
-      <ul class="service-list">
-        <li>Rutina mensual personalizada</li>
-        <li>Video-análisis inicial</li>
-        <li>1 ajuste durante el mes</li>
-        <li>Acceso a grupo de alumnos</li>
-        <li>Soporte por WhatsApp</li>
-      </ul>
-      <div class="service-price">USD 30<span> 45000 ARS /mes</span></div>
-      <button class="service-btn" onclick="openModal('starter')">Contratar</button>
-    </div>
-
-    <!-- Pro (featured) -->
-    <div class="service-card featured">
-      <div class="service-num">02</div>
-      <div class="service-icon">🔥</div>
-      <div class="service-badge">Más popular</div>
-      <h3>PRO</h3>
-      <p>Seguimiento cercano con ajustes semanales. Para quienes quieren resultados reales y consistentes.</p>
-      <ul class="service-list">
-        <li>Rutina semanal personalizada</li>
-        <li>Video-análisis semanal</li>
-        <li>Ajustes y feedback continuo</li>
-        <li>Plan de nutrición básico</li>
-        <li>Videollamada mensual (30 min)</li>
-        <li>Soporte directo prioritario</li>
-      </ul>
-      <div class="service-price">USD 60<span> 75000 ARS /mes</span></div>
-      <button class="service-btn" onclick="openModal('pro')">Contratar</button>
-    </div>
-
-    <!-- Elite -->
-    <div class="service-card">
-      <div class="service-num">03</div>
-      <div class="service-icon">👑</div>
-      <div class="service-badge">Competición</div>
-      <h3>ELITE</h3>
-      <p>Para atletas avanzados o en preparación para competencia. Máximo nivel de personalización.</p>
-      <ul class="service-list">
-        <li>Todo lo incluido en Pro</li>
-        <li>Periodización por macrociclos</li>
-        <li>Prep específica para skills</li>
-        <li>2 videollamadas / mes</li>
-        <li>Análisis biomecánico avanzado</li>
-        <li>Contacto directo sin límites</li>
-      </ul>
-      <div class="service-price">USD 100<span> 135000 ARS /mes</span></div>
-      <button class="service-btn" onclick="openModal('elite')">Contratar</button>
-    </div>
-
-  </div>
-</section>
-
-<!-- ─── PROCESO ───────────────────────────────────────────── -->
-<section id="proceso">
-  <div class="reveal" style="text-align:center; margin-bottom:1rem;">
-    <div class="section-label" style="justify-content:center;">Cómo funciona</div>
-    <h2 class="section-title">EL PROCESO</h2>
-    <div class="divider" style="margin:1rem auto 0;"></div>
-  </div>
-  <div class="process-steps reveal">
-    <div class="step">
-      <div class="step-num"><span>01</span></div>
-      <h4>Elegís tu plan</h4>
-      <p>Seleccionás el nivel de asesoría según tus objetivos y completás el formulario inicial.</p>
-    </div>
-    <div class="step">
-      <div class="step-num"><span>02</span></div>
-      <h4>Evaluación</h4>
-      <p>Enviás videos de tus movimientos actuales para que pueda evaluar tu nivel real.</p>
-    </div>
-    <div class="step">
-      <div class="step-num"><span>03</span></div>
-      <h4>Tu rutina</h4>
-      <p>Armo tu plan personalizado basado en tus objetivos, disponibilidad y nivel actual.</p>
-    </div>
-    <div class="step">
-      <div class="step-num"><span>04</span></div>
-      <h4>Seguimiento</h4>
-      <p>Ajustes continuos, feedback de tus videos y evolución mes a mes hacia tus metas.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ─── EBOOKS ────────────────────────────────────────────── -->
-<section id="ebooks" style="background:var(--surface);">
-  <div class="reveal">
-    <div class="section-label">Recursos digitales</div>
-    <h2 class="section-title">EBOOKS &<br>GUÍAS</h2>
-    <div class="divider"></div>
-    <p class="section-sub">Material descargable para que tengas las bases del entrenamiento y la nutrición en tus manos.</p>
-  </div>
-  <div class="ebooks-grid reveal">
-
-    <div class="ebook-card">
-      <div class="ebook-cover">
-        <div class="ebook-cover-pattern"></div>
-        <div class="ebook-icon">🤸</div>
-        <div class="ebook-cover-bar"></div>
-        <div class="ebook-cover-content">
-          <div class="ebook-cover-tag">MOVILIDAD</div>
-          <div class="ebook-cover-title">ENTRENAMIENTO DE OFICINA</div>
-        </div>
-      </div>
-      <div class="ebook-body">
-        <p>Guía completa de ejercicios para mejorar tu movilidad y flexibilidad, ideal para quienes pasan la mayor parte del día sentados.</p>
-        <div class="ebook-footer">
-          <div class="ebook-price">$9.99 <sub>USD</sub></div>
-          <button class="btn-buy btn-buy--disabled" disabled>Próximamente</button>
+          <div class="field">
+            <label class="field-label" for="tel">Teléfono <span class="req">*</span></label>
+            <input type="tel" id="tel" placeholder="Ej: 11 2345 6789" autocomplete="tel">
+            <div class="err-msg">Ingresá un teléfono válido</div>
+          </div>
         </div>
       </div>
     </div>
 
-    <div class="ebook-card">
-      <div class="ebook-cover">
-        <div class="ebook-cover-pattern"></div>
-        <div class="card-image card-image--medium">
-          <img src="Imagenes/GuiaNutricion.webp" alt="Ebook nutricion para transformar tu salud" loading="lazy">
+    <!-- TEAM -->
+    <div class="section">
+      <div class="section-title"><span class="section-num">3</span>Team</div>
+      <div class="card">
+        <div class="field">
+          <label class="field-label">¿Representás algún team de calistenia? <span class="req">*</span></label>
+          <div class="toggle-row">
+            <div class="toggle-btn" data-val="SI">Sí</div>
+            <div class="toggle-btn active" data-val="NO">No</div>
+          </div>
         </div>
-        <div class="ebook-cover-bar"></div>
-        <div class="ebook-cover-content">
-          <div class="ebook-cover-tag">Nutrición</div>
-          <div class="ebook-cover-title">GUÍA PARA TRANSFORMAR TU SALUD</div>
-        </div>
-      </div>
-      <div class="ebook-body">
-        <p>Principios claros de alimentación para optimizar tu rendimiento, recuperación y composición corporal sin complicarte la vida.
-        </p>
-        <div class="ebook-footer">
-          <div class="ebook-price">$12.99<sub>USD</sub></div>
-          <a href="https://hotmart.com/es/marketplace/productos/deja-de-empezar-dietas/O104843438E" target="_blank" class="btn-buy"
-          onclick="track('click_ebook', { titulo: 'Guia Nutricion' })">Comprar</a>
+        <div class="field" id="teamNameField" style="display:none;margin-bottom:0;">
+          <label class="field-label" for="teamName">Nombre del team <span class="req">*</span></label>
+          <input type="text" id="teamName" placeholder="Ej: Dominico">
         </div>
       </div>
     </div>
 
-    <div class="ebook-card">
-      <div class="ebook-cover">
-        <div class="ebook-cover-pattern"></div>
-        <div class="card-image card-image--medium">
-          <img src="Imagenes/30Dias.webp" alt="Reto 30 días para principiantes" loading="lazy">
+    <!-- PRESENTACIÓN -->
+    <div class="section">
+      <div class="section-title"><span class="section-num">4</span>Presentación</div>
+      <div class="card">
+        <div class="field">
+          <label class="field-label" for="ig">Instagram</label>
+          <input type="text" id="ig" placeholder="@tu.usuario">
         </div>
-        <div class="ebook-cover-bar"></div>
-        <div class="ebook-cover-content">
-          <div class="ebook-cover-tag">Entrenamiento</div>
-          <div class="ebook-cover-title">RETO 30 DIAS PARA PRINCIPIANTES</div>
+        <label class="field-label" style="margin-bottom:12px;">Foto de presentación <span class="req">*</span></label>
+        <div class="upload-box" id="fotoBox">
+          <div class="upload-icon">↑</div>
+          <div class="upload-text" id="fotoText">Tocá para subir una imagen</div>
         </div>
+        <input type="file" id="fotoInput" accept="image/*">
+        <div class="err-msg" id="fotoErr">Subí tu foto de presentación</div>
+        <p class="hint" style="margin-top:10px;">¡Queremos anunciarte como atleta confirmado! Esta foto se usará para tu presentación. Intentá subir la mejor calidad posible — se va a publicar en nuestras redes.</p>
       </div>
-      <div class="ebook-body">
-        <p>Convertite en tu mejor versión con este reto de 30 días, la guía definitiva para dominar tu cuerpo desde cero con rutinas progresivas, sin equipo y con resultados garantizados desde la comodidad de tu casa</p>
-        <div class="ebook-footer">
-          <div class="ebook-price">$14.99<sub>USD</sub></div>
-          <a href="https://go.hotmart.com/Q105891123H" target="_blank" class="btn-buy"
-          onclick="track('click_ebook', { titulo: 'Guia Nutricion' })">Comprar</a>
+    </div>
+
+    <!-- ABONO -->
+    <div class="section">
+      <div class="section-title"><span class="section-num">5</span>Abono de la inscripción</div>
+      <div class="card">
+        <div class="presale-banner">
+          <p>Precio de preventa — válido hasta el <strong>10 de julio</strong></p>
+          <span class="price-big">$45.000 <span style="font-size:14px;font-weight:500;color:var(--ink-dim);">por categoría</span></span>
+          <p class="price-note">⚠️ A partir del 10 de julio el valor de inscripción aumenta. ¡No te quedés afuera!</p>
+        </div>
+        <div class="payment-info">
+          <p><strong>Transferí al alias:</strong></p>
+          <div class="alias-row">
+            <span class="alias">alza.calistenia</span>
+            <button type="button" class="copy-btn" id="copyAliasBtn" onclick="copyAlias()">Copiar alias</button>
+          </div>
+          <p style="font-size:12px;color:var(--ink-faint);">Ignacio Armando Repetto</p>
+        </div>
+        <a class="mp-btn" id="mpBtn" href="https://link.mercadopago.com.ar/alzacalistenia" target="_blank" rel="noopener">
+          <span class="mp-logo">💳</span> Transferir por Mercado Pago
+        </a>
+        <p class="hint" style="text-align:center;margin-bottom:14px;">Al volver de la app, tu formulario seguirá guardado.</p>
+        <div class="or-divider">o adjuntá el comprobante directamente</div>
+        <div style="margin-top:16px;">
+          <label class="field-label" style="margin-bottom:12px;">Comprobante de transferencia <span class="req">*</span></label>
+          <div class="upload-box" id="compBox">
+            <div class="upload-icon">↑</div>
+            <div class="upload-text" id="compText">Tocá para subir el comprobante</div>
+          </div>
+          <input type="file" id="compInput" accept="image/*">
+          <div class="err-msg" id="compErr">Adjuntá el comprobante de pago</div>
         </div>
       </div>
     </div>
 
-  </div>
-</section>
+    <!-- TÉRMINOS -->
+    <div class="section">
+      <div class="card">
+        <label class="terms-check-row" for="terms">
+          <input type="checkbox" id="terms">
+          <span class="terms-text">
+            Acepto los términos y condiciones de la
+            <button type="button" class="terms-link" onclick="openTermsModal(event)">Declaración Jurada</button>
+            y asumo plena responsabilidad sobre mi participación en el CANT organizado por ALZA.
+          </span>
+        </label>
+        <div class="err-msg" id="termsErr" style="margin-top:10px;">Tenés que aceptar la declaración jurada para inscribirte</div>
+      </div>
+    </div>
 
-<!-- ─── TRANSFORMACIONES ──────────────────────────────────── -->
-<section id="testimonios">
-  <div class="reveal" style="text-align:center;">
-    <div class="section-label" style="justify-content:center;">Transformaciones reales de alumnos CaliPush</div>
-    <h2 class="section-title">ANTES &<br>DESPUÉS</h2>
-    <div class="divider" style="margin:1rem auto 0;"></div>
+    <button type="submit" class="submit-btn" id="submitBtn">Confirmar inscripción</button>
+    </p>
+  </form>
+
+  <div class="success-screen" id="successScreen">
+    <div class="success-icon">✓</div>
+    <h2>¡Inscripción confirmada!</h2>
+    <p>Gracias por anotarte al CANT.</p>
+    <p style="margin-top:8px;">Te vamos a anunciar como atleta confirmado en Instagram.</p>
+    <p style="margin-top:16px;font-size:12px;color:var(--ink-faint);">
+      Revisá tu DM en <a href="https://www.instagram.com/alza.organizacion/" target="_blank" style="color:var(--teal-light);text-decoration:none;">@alza.organizacion</a>
+    </p>
   </div>
 
-  <div class="transform-list reveal">
-
-    <!-- Transformación 1 -->
-    <div class="transform-card">
-      <div class="transform-video-pair">
-
-        <div class="transform-video-wrap">
-          <video 
-            src="https://res.cloudinary.com/dq17gampr/video/upload/v1779282681/BrunoAAntes_tw3fiw.mp4"
-            autoplay muted loop playsinline preload="metadata">
-          </video>
-          <div class="transform-label transform-label--antes">ANTES</div>
-        </div>
-
-        <div class="transform-divider">
-          <div class="transform-vs-line"></div>
-          <div class="transform-arrow">→</div>
-          <div class="transform-vs-line"></div>
-        </div>
-
-        <div class="transform-video-wrap">
-          <video
-            src="https://res.cloudinary.com/dq17gampr/video/upload/v1779282683/BrunoADespues_v8joeu.mp4"
-            autoplay muted loop playsinline preload="metadata">
-          </video>
-          <div class="transform-label transform-label--despues">DESPUÉS</div>
-        </div>
-
-      </div>
-      <div class="transform-info">
-        <div class="transform-badge">
-          <div class="transform-badge-num">7</div>
-          <div class="transform-badge-unit">meses</div>
-        </div>
-        <div class="transform-meta">
-          <div class="transform-name">Bruno Azzareti</div>
-          <div class="transform-plan">Plan Pro — Asesoría Plancha y Front</div>
-        </div>
-        <div class="transform-quote">
-          "En 7 meses pasamos de no aguantar una straddle a realizar combos en full planche."
-        </div>
-      </div>
-    </div>
-
-    <!-- Transformación 2 -->
-    <div class="transform-card">
-      <div class="transform-video-pair">
-
-        <div class="transform-video-wrap">
-          <video
-            src="https://res.cloudinary.com/dq17gampr/video/upload/v1779282683/PatoAntes_nijdvg.mp4"
-            autoplay muted loop playsinline preload="metadata">
-          </video>
-          <div class="transform-label transform-label--antes">ANTES</div>
-        </div>
-
-        <div class="transform-divider">
-          <div class="transform-vs-line"></div>
-          <div class="transform-arrow">→</div>
-          <div class="transform-vs-line"></div>
-        </div>
-
-        <div class="transform-video-wrap">
-          <video
-            src="https://res.cloudinary.com/dq17gampr/video/upload/v1779282682/PatoDespues_i6zuhg.mp4"
-            autoplay muted loop playsinline preload="metadata">
-          </video>
-          <div class="transform-label transform-label--despues">DESPUÉS</div>
-        </div>
-
-      </div>
-      <div class="transform-info">
-        <div class="transform-badge">
-          <div class="transform-badge-num">5</div>
-          <div class="transform-badge-unit">meses</div>
-        </div>
-        <div class="transform-meta">
-          <div class="transform-name">Francisco P. Jorge</div>
-          <div class="transform-plan">Plan Pro — Asesoría Front y Plancha</div>
-        </div>
-        <div class="transform-quote">
-          "Empecé sin poder hacer un Front de manera correcta. Ahora tengo touch, press y pullups."
-        </div>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<!-- ─── PAGO ───────────────────────────────────────────────── -->
-<section id="pago">
-  <div class="pago-inner reveal">
-    <div class="section-label" style="justify-content:center;">Métodos de pago</div>
-    <h2>PAGÁ COMO<br><span>MÁS TE CONVIENE</span></h2>
-    <p>Aceptamos múltiples métodos de pago locales e internacionales para que nada te frene a empezar.</p>
-    <div class="pago-cta-group">
-      <button class="btn-primary" onclick="openModal('general')">Empezar ahora</button>
-      <a class="btn-outline" href="#servicios">Ver todos los planes</a>
-    </div>
-    <div class="payment-methods">
-      <div class="pm-badge"><span class="pm-icon">💳</span> MercadoPago</div>
-      <div class="pm-badge"><span class="pm-icon">🏦</span> Transferencia bancaria</div>
-      <div class="pm-badge"><span class="pm-icon">💵</span> PayPal</div>
-      <div class="pm-badge"><span class="pm-icon">₿</span> Crypto (USDT)</div>
-      <div class="pm-badge"><span class="pm-icon">💲</span> Wise (International) </div>
-    </div>
-  </div>
-</section>
-
-<!-- ─── FAQ ────────────────────────────────────────────────── -->
-<section id="faq-section">
-  <div style="max-width:800px;margin:0 auto;" class="reveal">
-    <div class="section-label">Preguntas frecuentes</div>
-    <h2 class="section-title">FAQ</h2>
-    <div class="divider"></div>
-    <div id="faq">
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">¿Necesito equipamiento para las asesorías? <span class="arrow">+</span></button>
-        <div class="faq-a">No es obligatorio. Trabajo con lo que tenés disponible — barras de parque, bandas, anillas o solo el piso. Mi metodología se adapta a tu contexto real.</div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">¿Cómo se hace el seguimiento online? <span class="arrow">+</span></button>
-        <div class="faq-a">Toda la comunicación es por WhatsApp o Telegram. Me mandás videos de tus series, yo los analizo y te doy feedback detallado. Los planes Pro y Elite tienen además videollamadas periódicas.</div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">¿Puedo empezar si soy principiante absoluto? <span class="arrow">+</span></button>
-        <div class="faq-a">Por supuesto. El plan Starter está pensado exactamente para eso. Empezamos con una evaluación inicial y construimos desde tu nivel actual, sin importar cuál sea.</div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">¿Los ebooks tienen actualización? <span class="arrow">+</span></button>
-        <div class="faq-a">Sí. Cada compra de ebook te da acceso a las futuras actualizaciones de ese mismo título sin costo adicional. Te llega el link de descarga por correo.</div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">¿Cómo son los pagos? ¿Se renuevan automáticamente? <span class="arrow">+</span></button>
-        <div class="faq-a">No hay renovación automática. Cada mes acordamos la continuidad y el pago se hace de forma manual. Así tenés control total sin compromisos forzados.</div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">¿Puedo cambiar de plan durante el proceso? <span class="arrow">+</span></button>
-        <div class="faq-a">Sí, podés subir o ajustar tu plan en cualquier momento. Muchos alumnos empiezan en Starter y pasan a Pro cuando sienten que quieren más acompañamiento.</div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">¿Hay garantía o política de devolución? <span class="arrow">+</span></button>
-        <div class="faq-a">Sí. Si en los primeros 7 días sentís que el plan no es lo que esperabas, te devuelvo el dinero sin preguntas. Mi objetivo es que empieces con confianza y que el resultado hable por sí solo.</div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">¿Cómo pago si soy de México, Colombia, España u otro país? <span class="arrow">+</span></button>
-        <div class="faq-a">Sin problema. Para clientes internacionales los métodos más usados son PayPal (seleccionando "Amigos y familia" para evitar comisiones) y Wise, enviando al email federicom8@yahoo.com.ar. También aceptamos USDT por red TRC-20 para quienes prefieren crypto. El precio siempre es en USD y no hay costos extra de tu parte.</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ─── FOOTER ────────────────────────────────────────────── -->
-<footer>
-  <div class="footer-grid">
-    <div class="footer-brand">
-      <div class="logo">CALI<span>P</span>ush</div>
-      <p>Coaching online de calistenia y recursos de entrenamiento para llevar tu cuerpo más lejos.</p>
-      <div class="footer-socials">
-        <a href="https://www.instagram.com/cplus_sw/" target="_blank" class="social-btn">📸</a>
-        <a href="https://open.spotify.com/playlist/7KbanDUxTmLBz2VU0R9e8R?si=d251916cb8724721" target="_blank" class="social-btn">🎵</a>    
-        <a href="https://kick.com/alza-calistenia" target="_blank" class="social-btn">🟢K</a>  
-      </div>
-    </div>
-    <div class="footer-col">
-      <h4>Servicios</h4>
-      <ul>
-        <li><a href="#servicios">Plan Starter</a></li>
-        <li><a href="#servicios">Plan Pro</a></li>
-        <li><a href="#servicios">Plan Elite</a></li>
-        <li><a href="#" onclick="openModal('general')">Consulta gratuita</a></li>
-      </ul>
-    </div>
-    <div class="footer-col">
-      <h4>Recursos</h4>
-      <ul>
-        <li><a href="#ebooks">Ebooks</a></li>
-        <li><a href="#proceso">Cómo funciona</a></li>
-        <li><a href="#testimonios">Testimonios</a></li>
-        <li><a href="#faq-section">FAQ</a></li>
-      </ul>
-    </div>
-    <div class="footer-col">
-      <h4>Contacto</h4>
-      <ul>
-        <li><a href="https://wa.me/5492976216161" onclick="track('click_whatsapp')">WhatsApp</a></li>
-        <li><a href="https://www.instagram.com/cplus_sw/">Instagram</a></li>
-        <li><a href="#" onclick="openModal('general')">Email</a></li>
-        <li><a href="https://www.tiktok.com/@cplus_sw?is_from_webapp=1&sender_device=pc">TikTok</a></li>
-        <li><a href="https://maps.app.goo.gl/pmsfeqY8Cw38cfUh9">Buenos Aires, ARG</a></li>
-      </ul>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <span>© 2026 CaliPush — Todos los derechos reservados</span>
-    <span>Hecho con 🔥 en Buenos Aires</span>
-  </div>
-</footer>
-
-<!-- ─── POPUP CUPOS ──────────────────────────────────── -->
-<div class="cupos-overlay" id="cuposOverlay">
-  <div class="cupos-popup" role="dialog" aria-modal="true" aria-labelledby="cuposTitle">
-    <button class="cupos-close" onclick="closeCuposPopup()" aria-label="Cerrar">✕</button>
-    <div class="cupos-body">
-      <div class="cupos-tag">Cupos limitados</div>
-      <h2 class="cupos-title" id="cuposTitle">SOLO <em>5 CUPOS</em>DISPONIBLES</h2>
-      <div class="cupos-bar"></div>
-      <div class="cupos-slots">
-        <div class="cupos-slot"></div>
-        <div class="cupos-slot"></div>
-        <div class="cupos-slot"></div>
-        <div class="cupos-slot"></div>
-        <div class="cupos-slot"></div>
-        <div class="cupos-slot empty"></div>
-        <div class="cupos-slot empty"></div>
-        <div class="cupos-slot empty"></div>
-        <span class="cupos-slots-label">10 de 15 ocupados</span>
-      </div>
-      <p class="cupos-desc">Para garantizar atención personalizada. Acepto un <strong>Cupo limitado de alumnos.</strong>  ¡Asegurá tu lugar antes de que se llenen!</p>
-      <div class="cupos-btns">
-        <button class="cupos-btn-primary" onclick="closeCuposPopup(); document.getElementById('servicios').scrollIntoView({behavior:'smooth'})">
-          Conseguir mi lugar →
-        </button>
-        <button class="cupos-btn-secondary" onclick="closeCuposPopup()">
-          Ver más tarde
-        </button>
-      </div>
-    </div>
-  </div>
+  <footer>
+    <img class="footer-logo" src="Logo_ORG.webp" alt="ALZA">
+    <a href="https://www.instagram.com/alza.organizacion/" target="_blank" rel="noopener">@alza.organizacion</a>
+  </footer>
 </div>
 
-<!-- ─── MODAL ──────────────────────────────────────────────── -->
-<div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
-  <div class="modal">
-    <button class="modal-close" onclick="closeModalDirect()">✕</button>
-    <div id="modalContent"></div>
-  </div>
-</div>
-
-<!-- ─── SCRIPTS ───────────────────────────────────────────── -->
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script>
-/* ══════════════════════════════════════════════════════
-   CONFIGURACIÓN — COMPLETAR CON TUS DATOS
-══════════════════════════════════════════════════════ */
-const EMAILJS_PUBLIC_KEY  = 'VURmDHGbXNngv68ew';
-const EMAILJS_SERVICE_ID  = 'service_r4wcppm';
-const EMAILJS_TEMPLATE_ID = 'template_g7adi3g';
-const EMAIL_DESTINO       = 'cpluscoach@gmail.com';
-const SHEETS_WEBHOOK_URL  = 'https://script.google.com/macros/s/AKfycbw3ieTcGh7OK-gZs_Rg8QiD7nUZdmCBqPuDKl1KT5Azz4XBCkcyhHooBnV9rOP8yKF4/exec';
-const IMGBB_API_KEY       = '183c1473911df7ba7e38955c9fbb66b8'; // ← imgbb.com → API → Add API key
+// ---- CONFIGURACIÓN ----
+const IMGBB_API_KEY    = '76ac15632c87c6943ddd0da958594073';
+const SHEETS_WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbxoXBTo0tuvrv2Y-Kg-5qnWqJVyR65HJGC6ghU16wfxuD7no-e1wsHcZ0padXW6E8quKw/exec';
 
-/* ── Tus datos bancarios / de pago ── */
-const METODOS_PAGO = {
-  transferencia: {
-    icon: '🏦', label: 'Transferencia bancaria', moneda: 'ARS',
-    campos: [
-      { label: 'CBU',     valor: '4150999718004680470022' },
-      { label: 'Alias',   valor: 'cplus.ars' },
-      { label: 'Titular', valor: 'Federico Fanara' },
-    ],
-    nota: 'Realizá la transferencia y guardá el comprobante (captura de pantalla o PDF).',
+// ---- CATEGORY DATA ----
+const CATEGORIES = [
+  {
+    id:'fs_int_m', tag:'Freestyle', name:'Intermedios', sex:'Masculino', fem:false,
+    params:`
+      <p>Categoría orientada a atletas masculinos con bases sólidas en movimientos de freestyle. Se evaluarán ejecución técnica, creatividad y fluidez de la rutina.</p>
+      <p><strong>Ejercicios de referencia:</strong></p>
+      <ul>
+        <li>[Ejercicio 1 — completar]</li>
+        <li>[Ejercicio 2 — completar]</li>
+        <li>[Ejercicio 3 — completar]</li>
+      </ul>
+      <p style="font-size:12px;color:var(--ink-faint);">[Completar con parámetros reales de la categoría]</p>
+    `
   },
-  mercadopago: {
-    icon: '💳', label: 'MercadoPago', moneda: 'ARS',
-    campos: [
-      { label: 'Alias MP', valor: 'cplus44.mp' },
-      { label: 'CVU',      valor: '0000003100098095210707' },
-    ],
-    nota: 'Enviá el dinero desde la app de MP como transferencia y guardá el comprobante.',
+  {
+    id:'fs_adv_m', tag:'Freestyle', name:'Avanzado', sex:'Masculino', fem:false,
+    params:`
+      <p>Categoría para atletas masculinos con alto nivel de dominio corporal. Se requiere manejo de elementos de alto riesgo y combinaciones complejas.</p>
+      <p><strong>Ejercicios de referencia:</strong></p>
+      <ul>
+        <li>[Ejercicio 1 — completar]</li>
+        <li>[Ejercicio 2 — completar]</li>
+        <li>[Ejercicio 3 — completar]</li>
+      </ul>
+      <p style="font-size:12px;color:var(--ink-faint);">[Completar con parámetros reales de la categoría]</p>
+    `
   },
-  paypal: {
-    icon: '💵', label: 'PayPal', moneda: 'USD',
-    campos: [
-      { label: 'Email PayPal', valor: 'federicom8@yahoo.com.ar' },
-    ],
-    nota: '⚠ Seleccioná "Amigos y familia" para evitar descuento de comisiones.',
+  {
+    id:'pf_int_m', tag:'Powerfree', name:'Intermedios', sex:'Masculino', fem:false,
+    params:`
+      <p>Categoría masculina que combina fuerza y control estático. Se evaluarán elementos de fuerza y la correcta ejecución de posiciones estáticas básicas.</p>
+      <p><strong>Ejercicios de referencia:</strong></p>
+      <ul>
+        <li>[Ejercicio 1 — completar]</li>
+        <li>[Ejercicio 2 — completar]</li>
+        <li>[Ejercicio 3 — completar]</li>
+      </ul>
+      <p style="font-size:12px;color:var(--ink-faint);">[Completar con parámetros reales de la categoría]</p>
+    `
   },
-  crypto: {
-    icon: '₿', label: 'Crypto (USDT)', moneda: 'USD',
-    campos: [
-      { label: 'Red',    valor: 'TRC-20 (Tron)' },
-      { label: 'Wallet', valor: 'TJ8cP53Ph7afjpFNnHi3mV4zNDzzJFtR5X', mono: true },
-    ],
-    nota: '⚠ Usá únicamente la red TRC-20. Otra red puede resultar en pérdida de fondos.',
+  {
+    id:'pf_adv_m', tag:'Powerfree', name:'Avanzados', sex:'Masculino', fem:false,
+    params:`
+      <p>Nivel elite masculino en Powerfree. Se esperan elementos de fuerza de alta dificultad, combinados con fluidez y ejecución limpia.</p>
+      <p><strong>Ejercicios de referencia:</strong></p>
+      <ul>
+        <li>[Ejercicio 1 — completar]</li>
+        <li>[Ejercicio 2 — completar]</li>
+        <li>[Ejercicio 3 — completar]</li>
+      </ul>
+      <p style="font-size:12px;color:var(--ink-faint);">[Completar con parámetros reales de la categoría]</p>
+    `
   },
-  wise: {
-    icon: '🌍', label: 'Wise', moneda: 'USD',
-    campos: [
-      { label: 'Email Wise', valor: 'federicom8@yahoo.com.ar' },
-    ],
-    nota: 'Iniciá el envío desde tu cuenta Wise al email indicado.',
+  {
+    id:'fs_adv_f', tag:'Freestyle', name:'Avanzado / Elite', sex:'Femenino', fem:true,
+    params:`
+      <p>Categoría femenina de mayor exigencia en Freestyle. Se evaluará técnica, expresión artística y dificultad de los movimientos encadenados.</p>
+      <p><strong>Ejercicios de referencia:</strong></p>
+      <ul>
+        <li>[Ejercicio 1 — completar]</li>
+        <li>[Ejercicio 2 — completar]</li>
+        <li>[Ejercicio 3 — completar]</li>
+      </ul>
+      <p style="font-size:12px;color:var(--ink-faint);">[Completar con parámetros reales de la categoría]</p>
+    `
   },
+  {
+    id:'pf_int_f', tag:'Powerfree', name:'Intermedio', sex:'Femenino', fem:true,
+    params:`
+      <p>Categoría femenina que evalúa la combinación de fuerza y estética en movimientos de Powerfree. Nivel intermedio con buenas bases de fuerza.</p>
+      <p><strong>Ejercicios de referencia:</strong></p>
+      <ul>
+        <li>[Ejercicio 1 — completar]</li>
+        <li>[Ejercicio 2 — completar]</li>
+        <li>[Ejercicio 3 — completar]</li>
+      </ul>
+      <p style="font-size:12px;color:var(--ink-faint);">[Completar con parámetros reales de la categoría]</p>
+    `
+  },
+];
+
+const UNSURE = {
+  id:'unsure', tag:'Open ALZA', name:'No estoy seguro', sex:'Jornada de testeo y asignación', fem:false, unsure:true,
+  params:`<p>Vas a participar en la <strong>Jornada Open de ALZA</strong>: un espacio de testeo donde el equipo técnico te va a evaluar y asignar la categoría más adecuada para vos.</p><p>No necesitás saber tu nivel exacto. El equipo de ALZA te orienta el día del evento.</p>`
 };
 
-const PLAN_INFO = {
-  starter: { label: 'Starter', usd: 30,  ars: 45000  },
-  pro:     { label: 'Pro',     usd: 60,  ars: 75000  },
-  elite:   { label: 'Elite',   usd: 100, ars: 135000 },
-};
+let selectedCategories = new Set();
+let currentModalCat = null;
 
-/* ══════════════════════════════════════════════════════
-   ESTADO GLOBAL DEL MODAL
-══════════════════════════════════════════════════════ */
-let _ms = {}; // modal state
-let _archivo = null;
-
-emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
-
-function track(evento, params = {}) {
-  if (typeof gtag !== 'undefined') gtag('event', evento, params);
-}
-
-/* ── Navbar scroll ── */
-window.addEventListener('scroll', () => {
-  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 30);
+// Build category grid
+const catGrid = document.getElementById('catGrid');
+[...CATEGORIES, UNSURE].forEach(cat => {
+  const div = document.createElement('div');
+  div.className = 'cat-card' + (cat.fem ? ' fem' : '') + (cat.unsure ? ' unsure' : '');
+  div.dataset.id = cat.id;
+  // Unsure spans full width
+  if(cat.unsure) div.style.gridColumn = '1 / -1';
+  div.innerHTML = `
+    <div class="cat-check" id="check_${cat.id}"></div>
+    <p class="cat-tag">${cat.tag}</p>
+    <p class="cat-name">${cat.name}</p>
+    <p class="cat-sex">${cat.sex}</p>
+    <button type="button" class="cat-info-btn" data-id="${cat.id}">Ver parámetros →</button>
+  `;
+  // Toggle selection on card click (but not info btn)
+  div.addEventListener('click', (e) => {
+    if(e.target.classList.contains('cat-info-btn')) return;
+    toggleCat(cat.id);
+  });
+  div.querySelector('.cat-info-btn').addEventListener('click', (e) => {
+    e.stopPropagation();
+    openCatModal(cat.id);
+  });
+  catGrid.appendChild(div);
 });
 
-/* ── Mobile menu ── */
-function toggleMenu() {
-  document.getElementById('mobileMenu').classList.toggle('open');
-}
-
-/* ── Reveal on scroll ── */
-const revealEls = document.querySelectorAll('.reveal');
-const io = new IntersectionObserver((entries) => {
-  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-}, { threshold: 0.12 });
-revealEls.forEach(el => io.observe(el));
-
-/* ── FAQ ── */
-function toggleFaq(btn) {
-  const answer = btn.nextElementSibling;
-  const isOpen = answer.classList.contains('open');
-  document.querySelectorAll('.faq-a').forEach(a => a.classList.remove('open'));
-  document.querySelectorAll('.faq-q').forEach(b => b.classList.remove('open'));
-  if (!isOpen) { answer.classList.add('open'); btn.classList.add('open'); }
-}
-
-/* ══════════════════════════════════════════════════════
-   MODAL — APERTURA Y CIERRE
-══════════════════════════════════════════════════════ */
-function openModal(type) {
-  _archivo = null;
-
-  const _valores = { starter: 30, pro: 60, elite: 100 };
-  if (PLAN_INFO[type]) {
-    track('ver_plan', { plan: type, value: _valores[type] || 0, currency: 'USD' });
-  }
-
-  if (type === 'general') {
-    _renderConsulta();
-  } else if (PLAN_INFO[type]) {
-    _ms = { plan: type, paso: 1, datos: {}, metodo: null };
-    _renderPaso1();
+function toggleCat(id) {
+  if(selectedCategories.has(id)) {
+    selectedCategories.delete(id);
   } else {
-    _renderConsulta();
+    selectedCategories.add(id);
   }
-  document.getElementById('modalOverlay').classList.add('open');
+  refreshCatUI();
+  clearTopError();
+}
+
+function refreshCatUI() {
+  [...CATEGORIES, UNSURE].forEach(cat => {
+    const card = catGrid.querySelector(`[data-id="${cat.id}"]`);
+    const check = document.getElementById('check_' + cat.id);
+    if(selectedCategories.has(cat.id)) {
+      card.classList.add('selected');
+      check.textContent = '✓';
+    } else {
+      card.classList.remove('selected');
+      check.textContent = '';
+    }
+  });
+}
+
+function selectUnsure() {
+  toggleCat('unsure');
+}
+
+// Cat modal
+function openCatModal(id) {
+  const cat = [...CATEGORIES, UNSURE].find(c => c.id === id);
+  if(!cat) return;
+  currentModalCat = cat;
+  document.getElementById('catModalTag').textContent = cat.tag;
+  document.getElementById('catModalTag').className = 'modal-tag' + (cat.fem ? ' fem-tag' : '');
+  document.getElementById('catModalTitle').textContent = cat.name + ' — ' + cat.sex;
+  document.getElementById('catModalBody').innerHTML = cat.params;
+  const btn = document.getElementById('catModalSelectBtn');
+  btn.className = 'modal-btn-primary' + (cat.fem ? ' fem-primary' : '');
+  const isSelected = selectedCategories.has(id);
+  btn.textContent = isSelected ? '✓ Categoría seleccionada' : 'Inscribirme en esta categoría';
+  document.getElementById('catModal').classList.add('open');
   document.body.style.overflow = 'hidden';
 }
 
-function closeModalDirect() {
-  document.getElementById('modalOverlay').classList.remove('open');
+function closeCatModal() {
+  document.getElementById('catModal').classList.remove('open');
   document.body.style.overflow = '';
-  _ms = {}; _archivo = null;
+  currentModalCat = null;
 }
 
-function closeModal(e) {
-  if (e.target === document.getElementById('modalOverlay')) closeModalDirect();
-}
-
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModalDirect(); });
-
-/* ── Indicador de pasos ── */
-function _stepIndicator(current) {
-  const labels = ['Datos', 'Pago', 'Comprobante'];
-  return `<div class="step-indicator">
-    ${[1,2,3].map((n, i) => `
-      <div class="step-ind-item ${n === current ? 'active' : n < current ? 'done' : ''}">
-        <div class="step-ind-num">${n < current ? '✓' : n}</div>
-        <div class="step-ind-label">${labels[i]}</div>
-      </div>
-      ${n < 3 ? '<div class="step-ind-line"></div>' : ''}
-    `).join('')}
-  </div>`;
-}
-
-/* ══════════════════════════════════════════════════════
-   PASO 1 — DATOS PERSONALES
-══════════════════════════════════════════════════════ */
-function _renderPaso1() {
-  const plan = PLAN_INFO[_ms.plan];
-  const d = _ms.datos;
-  document.getElementById('modalContent').innerHTML = `
-    ${_stepIndicator(1)}
-    <div class="tag">Plan ${plan.label}</div>
-    <h3>TUS DATOS</h3>
-    <p>Completá estos datos para registrar tu lugar.</p>
-    <div class="form-group">
-      <label>Nombre completo</label>
-      <input id="f-nombre" type="text" placeholder="Tu nombre" value="${d.nombre || ''}"/>
-    </div>
-    <div class="form-group">
-      <label>Email</label>
-      <input id="f-email" type="email" placeholder="tu@email.com" value="${d.email || ''}"/>
-    </div>
-    <div class="form-group">
-      <label>Teléfono / WhatsApp</label>
-      <input id="f-telefono" type="text" placeholder="+54 9 ..." value="${d.telefono || ''}"/>
-    </div>
-    <div class="form-group">
-      <label>¿Cuál es tu objetivo?</label>
-      <select id="f-objetivo">
-        <option>Ganar fuerza y músculo</option>
-        <option>Aprender skills (planche, front lever, etc.)</option>
-        <option>Competir en calistenia</option>
-        <option>Perder peso</option>
-        <option>Otro</option>
-      </select>
-    </div>
-    <div class="form-feedback" id="f-feedback"></div>
-    <button class="form-submit" onclick="_irPaso2()">Elegir método de pago →</button>
-    <a class="wa-cta" href="https://wa.me/5492976216161" target="_blank" onclick="track('click_whatsapp_modal')">
-      <span class="wa-cta-icon">💬</span> ¿Tenés dudas? Escribime por WhatsApp
-    </a>
-  `;
-}
-
-function _irPaso2() {
-  const nombre   = document.getElementById('f-nombre').value.trim();
-  const email    = document.getElementById('f-email').value.trim();
-  const telefono = document.getElementById('f-telefono').value.trim();
-  const objetivo = document.getElementById('f-objetivo').value;
-  const fb = document.getElementById('f-feedback');
-
-  if (!nombre || !email) {
-    fb.textContent = '⚠ Completá tu nombre y email.';
-    fb.className = 'form-feedback error'; return;
+function selectFromModal() {
+  if(!currentModalCat) return;
+  if(!selectedCategories.has(currentModalCat.id)) {
+    selectedCategories.add(currentModalCat.id);
+    refreshCatUI();
   }
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    fb.textContent = '⚠ El email no parece válido.';
-    fb.className = 'form-feedback error'; return;
-  }
-
-  _ms.datos = { nombre, email, telefono, objetivo };
-  _ms.paso  = 2;
-  _renderPaso2();
+  closeCatModal();
 }
 
-/* ══════════════════════════════════════════════════════
-   PASO 2 — MÉTODO DE PAGO
-══════════════════════════════════════════════════════ */
-function _renderPaso2() {
-  const plan     = PLAN_INFO[_ms.plan];
-  const selected = _ms.metodo;
-
-  const methodBtns = Object.entries(METODOS_PAGO).map(([key, m]) => `
-    <button class="pm-option ${selected === key ? 'active' : ''}" onclick="_selectMetodo('${key}')">
-      <span class="pm-option-icon">${m.icon}</span>
-      <span class="pm-option-label">${m.label}</span>
-      <span class="pm-option-moneda">${m.moneda}</span>
-    </button>
-  `).join('');
-
-  let detailHtml = '';
-  if (selected) {
-    const m      = METODOS_PAGO[selected];
-    const monto  = m.moneda === 'USD'
-      ? `USD ${plan.usd}`
-      : `ARS ${plan.ars.toLocaleString('es-AR')}`;
-    const campos = m.campos.map(c => `
-      <div class="pm-detail-row">
-        <span>${c.label}</span>
-        <strong class="${c.mono ? 'mono' : ''}">
-          ${c.valor}
-          <button class="copy-btn" onclick="navigator.clipboard.writeText('${c.valor}')">copiar</button>
-        </strong>
-      </div>
-    `).join('');
-    detailHtml = `
-      <div class="pm-detail-box">
-        <div class="pm-detail-monto">Monto: <strong>${monto}</strong></div>
-        ${campos}
-        <p class="pm-nota">${m.nota}</p>
-      </div>`;
-  }
-
-  document.getElementById('modalContent').innerHTML = `
-    ${_stepIndicator(2)}
-    <h3>MÉTODO DE PAGO</h3>
-    <p style="margin-bottom:0.2rem">Plan <strong style="color:var(--yellow)">${plan.label}</strong> —
-      USD ${plan.usd} / ARS ${plan.ars.toLocaleString('es-AR')} por mes</p>
-    <div class="pm-options">${methodBtns}</div>
-    ${detailHtml}
-    <div class="modal-nav">
-      <button class="btn-outline" onclick="_renderPaso1()" style="font-size:0.8rem;padding:10px 18px;">← Volver</button>
-      ${selected
-        ? `<button class="form-submit" style="flex:1;margin-top:0" onclick="_irPaso3()">Ya pagué →</button>`
-        : ''}
-    </div>
-    <a class="wa-cta" href="https://wa.me/5492976216161" target="_blank" onclick="track('click_whatsapp_modal')">
-      <span class="wa-cta-icon">💬</span> ¿Tenés dudas? Escribime por WhatsApp
-    </a>
-  `;
+// Terms modal
+function openTermsModal(e) {
+  if(e) e.preventDefault();
+  document.getElementById('termsModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeTermsModal() {
+  document.getElementById('termsModal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function acceptTermsFromModal() {
+  document.getElementById('terms').checked = true;
+  document.getElementById('termsErr').style.display = 'none';
+  closeTermsModal();
 }
 
-function _selectMetodo(key) {
-  _ms.metodo = key;
-  _renderPaso2();
+// Close modals on overlay click
+document.getElementById('catModal').addEventListener('click', function(e){ if(e.target===this) closeCatModal(); });
+document.getElementById('termsModal').addEventListener('click', function(e){ if(e.target===this) closeTermsModal(); });
+
+// Team toggle
+document.querySelectorAll('.toggle-btn').forEach(btn => {
+  if(!btn.dataset.val) return;
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.toggle-btn[data-val]').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('teamNameField').style.display = btn.dataset.val === 'SI' ? 'block' : 'none';
+  });
+});
+
+// Upload handlers
+function setupUpload(boxId, inputId, textId, errId, onSet) {
+  const box = document.getElementById(boxId);
+  const input = document.getElementById(inputId);
+  box.addEventListener('click', () => input.click());
+  input.addEventListener('change', () => {
+    const f = input.files[0];
+    if(!f) return;
+    if(f.size > 10 * 1024 * 1024) { alert('El archivo es muy grande. Máximo 10MB.'); input.value=''; return; }
+    box.classList.add('has-file');
+    document.getElementById(textId).textContent = f.name;
+    document.getElementById(textId).className = 'upload-filename';
+    if(errId) document.getElementById(errId).style.display = 'none';
+    onSet(f);
+  });
+}
+let fotoFile = null, compFile = null;
+setupUpload('fotoBox','fotoInput','fotoText','fotoErr', f => { fotoFile = f; });
+setupUpload('compBox','compInput','compText','compErr', f => { compFile = f; });
+
+// Copy alias
+function copyAlias() {
+  navigator.clipboard.writeText('alza.calistenia').then(() => {
+    const btn = document.getElementById('copyAliasBtn');
+    btn.textContent = '✓ Copiado';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Copiar alias'; btn.classList.remove('copied'); }, 2500);
+  }).catch(() => {
+    alert('Alias: alza.calistenia');
+  });
 }
 
-function _irPaso3() {
-  _ms.paso = 3;
-  _renderPaso3();
+// Helpers
+function clearTopError() {
+  const el = document.getElementById('topError');
+  el.style.display = 'none'; el.textContent = '';
 }
-
-/* ══════════════════════════════════════════════════════
-   PASO 3 — SUBIR COMPROBANTE
-══════════════════════════════════════════════════════ */
-function _renderPaso3() {
-  document.getElementById('modalContent').innerHTML = `
-    ${_stepIndicator(3)}
-    <h3>COMPROBANTE</h3>
-    <p>Subí la captura o foto de tu pago. Te confirmamos a la brevedad.</p>
-    <div class="upload-area" id="uploadArea"
-         onclick="document.getElementById('fileInput').click()"
-         ondragover="event.preventDefault();this.classList.add('drag')"
-         ondragleave="this.classList.remove('drag')"
-         ondrop="_handleDrop(event)">
-      <div class="upload-icon">📎</div>
-      <div class="upload-text">Arrastrá el comprobante acá o hacé click</div>
-      <div class="upload-formats">JPG · PNG · PDF · Máx 5 MB</div>
-      <input type="file" id="fileInput" accept="image/*,application/pdf"
-             style="display:none" onchange="_handleFile(this.files[0])"/>
-    </div>
-    <div id="uploadPreview" style="display:none">
-      <div class="upload-preview-row">
-        <span class="upload-preview-name" id="uploadFileName"></span>
-        <button class="copy-btn" onclick="_clearFile()">✕ Quitar</button>
-      </div>
-      <img id="uploadThumb" style="max-height:120px;margin-top:0.8rem;display:none;border:1px solid rgba(232,197,71,0.3);width:100%;object-fit:contain"/>
-    </div>
-    <div class="form-feedback" id="f-feedback"></div>
-    <div class="modal-nav">
-      <button class="btn-outline" onclick="_renderPaso2()" style="font-size:0.8rem;padding:10px 18px;">← Volver</button>
-      <button class="form-submit" id="f-submit" style="flex:1;margin-top:0" onclick="_confirmarPago()">Confirmar pago →</button>
-    </div>
-    <a class="wa-cta" href="https://wa.me/5492976216161" target="_blank" onclick="track('click_whatsapp_modal')">
-      <span class="wa-cta-icon">💬</span> ¿Tenés dudas? Escribime por WhatsApp
-    </a>
-  `;
+function showTopError(msg) {
+  const el = document.getElementById('topError');
+  el.textContent = msg; el.style.display = 'block';
+  el.scrollIntoView({behavior:'smooth', block:'center'});
 }
-
-function _handleDrop(e) {
-  e.preventDefault();
-  document.getElementById('uploadArea').classList.remove('drag');
-  if (e.dataTransfer.files[0]) _handleFile(e.dataTransfer.files[0]);
+function showFieldError(inputEl, show) {
+  if(!inputEl) return;
+  inputEl.classList.toggle('invalid', show);
+  const err = inputEl.parentElement.querySelector('.err-msg');
+  if(err) err.style.display = show ? 'block' : 'none';
 }
-
-function _handleFile(file) {
-  if (!file) return;
-  const fb = document.getElementById('f-feedback');
-  if (file.size > 5 * 1024 * 1024) {
-    fb.textContent = '⚠ El archivo supera los 5 MB.';
-    fb.className = 'form-feedback error'; return;
-  }
-  _archivo = file;
-  document.getElementById('uploadFileName').textContent = file.name;
-  document.getElementById('uploadPreview').style.display = 'block';
-  if (file.type.startsWith('image/')) {
-    const reader = new FileReader();
-    reader.onload = ev => {
-      const thumb = document.getElementById('uploadThumb');
-      thumb.src = ev.target.result;
-      thumb.style.display = 'block';
-    };
-    reader.readAsDataURL(file);
-  }
-}
-
-function _clearFile() {
-  _archivo = null;
-  document.getElementById('uploadPreview').style.display = 'none';
-  document.getElementById('fileInput').value = '';
-  const t = document.getElementById('uploadThumb');
-  if (t) t.style.display = 'none';
-}
-
-async function _confirmarPago() {
-  const fb     = document.getElementById('f-feedback');
-  const submit = document.getElementById('f-submit');
-
-  if (!_archivo) {
-    fb.textContent = '⚠ Subí el comprobante antes de confirmar.';
-    fb.className = 'form-feedback error'; return;
-  }
-
-  submit.disabled = true;
-  submit.textContent = 'Subiendo comprobante…';
-  submit.classList.add('loading');
-  fb.className = 'form-feedback';
-
-  try {
-    /* 1. Subir imagen a imgbb */
-    const base64 = await _toBase64(_archivo);
-    const formData = new FormData();
-    formData.append('image', base64.split(',')[1]);
-
-    const imgRes  = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, {
-      method: 'POST', body: formData,
-    });
-    const imgData = await imgRes.json();
-    if (!imgData.success) throw new Error('Error imgbb');
-
-    const comprobanteUrl = imgData.data.url;
-    const plan   = PLAN_INFO[_ms.plan];
-    const metodo = METODOS_PAGO[_ms.metodo];
-
-    /* 2. EmailJS + Sheets en paralelo */
-    const payload = {
-      plan:        `${plan.label} — USD ${plan.usd}/mes`,
-      from_name:   _ms.datos.nombre,
-      nombre:      _ms.datos.nombre,
-      email:       _ms.datos.email,
-      reply_to:    _ms.datos.email,
-      numero:      _ms.datos.telefono || '—',
-      metodo_pago: metodo.label,
-      objetivo:    _ms.datos.objetivo,
-      mensaje:     `✅ COMPROBANTE: ${comprobanteUrl}`,
-      to_email:    EMAIL_DESTINO,
-    };
-
-    await Promise.all([
-      emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, payload),
-      (SHEETS_WEBHOOK_URL && SHEETS_WEBHOOK_URL !== 'TU_APPS_SCRIPT_URL')
-        ? fetch(SHEETS_WEBHOOK_URL, {
-            method: 'POST', mode: 'no-cors',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ ...payload, comprobante_url: comprobanteUrl }),
-          })
-        : Promise.resolve(),
-    ]);
-
-    track('pago_completado', {
-  plan:        PLAN_INFO[_ms.plan].label,
-  value:       PLAN_INFO[_ms.plan].usd,
-  currency:    'USD',
-  metodo_pago: METODOS_PAGO[_ms.metodo].label,
-      });
-
-    /* 3. Pantalla de éxito */
-    const waMsg = encodeURIComponent(
-      `Hola Fede! Contraté el Plan ${plan.label} y subí el comprobante. Soy ${_ms.datos.nombre}.`
-    );
-    document.getElementById('modalContent').innerHTML = `
-      <div class="form-success-screen">
-        <div class="success-icon">✅</div>
-        <h3>¡COMPROBANTE ENVIADO!</h3>
-        <p>Recibí tu pago para el <strong style="color:var(--yellow)">Plan ${plan.label}</strong>.<br>
-           Te confirmo a <strong>${_ms.datos.email}</strong> en menos de 24 hs.</p>
-        <a href="https://wa.me/5492976216161?text=${waMsg}"
-           target="_blank" class="btn-close-modal"
-           style="display:inline-block;text-decoration:none;margin-bottom:0.8rem">
-          Confirmar por WhatsApp →
-        </a><br>
-        <button class="btn-outline" onclick="closeModalDirect()"
-                style="font-size:0.8rem;padding:10px 24px;margin-top:0.5rem">Cerrar</button>
-      </div>`;
-
-  } catch (err) {
-    console.error(err);
-    submit.disabled = false;
-    submit.textContent = 'Reintentar →';
-    submit.classList.remove('loading');
-    fb.textContent = '✕ Error al enviar. Intentá de nuevo o escribime por WhatsApp.';
-    fb.className = 'form-feedback error';
-  }
-}
-
-function _toBase64(file) {
+function fileToBase64(file) {
   return new Promise((res, rej) => {
     const r = new FileReader();
     r.onload = () => res(r.result);
@@ -2715,150 +681,119 @@ function _toBase64(file) {
   });
 }
 
-/* ══════════════════════════════════════════════════════
-   CONSULTA GRATUITA (sin pago)
-══════════════════════════════════════════════════════ */
-function _renderConsulta() {
-  document.getElementById('modalContent').innerHTML = `
-    <div class="tag">Consulta gratuita</div>
-    <h3>HABLEMOS</h3>
-    <p>Contame tu situación y te cuento cómo puedo ayudarte. Sin compromiso.</p>
-    <div class="form-group"><label>Nombre</label><input id="f-nombre" type="text" placeholder="Tu nombre"/></div>
-    <div class="form-group"><label>Teléfono / WhatsApp</label><input id="f-numero" type="text" placeholder="+54 9 ..."/></div>
-    <div class="form-group"><label>Email</label><input id="f-email" type="email" placeholder="tu@email.com"/></div>
-    <div class="form-group"><label>¿Cuál es tu objetivo?</label>
-      <select id="f-objetivo">
-        <option>Ganar fuerza y músculo</option>
-        <option>Aprender skills (planche, etc.)</option>
-        <option>Perder peso</option>
-        <option>Competir en calistenia</option>
-        <option>Otro</option>
-      </select>
-    </div>
-    <div class="form-group"><label>Mensaje</label>
-      <textarea id="f-mensaje" placeholder="Contame tu nivel actual y qué querés lograr..."></textarea>
-    </div>
-    <div class="form-feedback" id="f-feedback"></div>
-    <button class="form-submit" id="f-submit" onclick="enviarFormulario('general')">Enviar consulta →</button>
-    <a class="wa-cta" href="https://wa.me/5492976216161" target="_blank" onclick="track('click_whatsapp_modal')">
-      <span class="wa-cta-icon">💬</span> ¿Tenés dudas? Escribime por WhatsApp
-    </a>
-  `;
-}
-
-/* ── Envío consulta gratuita (EmailJS + Sheets) ── */
-function enviarFormulario(plan) {
-  const nombre   = document.getElementById('f-nombre')?.value.trim();
-  const numero   = document.getElementById('f-numero')?.value.trim() || '—';
-  const email    = document.getElementById('f-email')?.value.trim();
-  const objetivo = document.getElementById('f-objetivo')?.value || '—';
-  const mensaje  = document.getElementById('f-mensaje')?.value.trim() || '—';
-  const fb       = document.getElementById('f-feedback');
-  const submit   = document.getElementById('f-submit');
-
-  if (!nombre || !email) {
-    fb.textContent = '⚠ Completá tu nombre y email.';
-    fb.className = 'form-feedback error'; return;
-  }
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    fb.textContent = '⚠ El email no parece válido.';
-    fb.className = 'form-feedback error'; return;
-  }
-
-  submit.disabled = true;
-  submit.textContent = 'Enviando…';
-  submit.classList.add('loading');
-  fb.className = 'form-feedback';
-
-  const datos = {
-    plan: 'Consulta gratuita', from_name: nombre, nombre, numero,
-    email, reply_to: email, metodo_pago: '—', objetivo, mensaje, to_email: EMAIL_DESTINO,
-  };
-
-  Promise.all([
-    emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, datos),
-    (SHEETS_WEBHOOK_URL && SHEETS_WEBHOOK_URL !== 'TU_APPS_SCRIPT_URL')
-      ? fetch(SHEETS_WEBHOOK_URL, { method:'POST', mode:'no-cors', headers:{'Content-Type':'application/json'}, body:JSON.stringify(datos) })
-      : Promise.resolve(),
-  ])
-    .then(() => {
-      track('consulta_enviada', { objetivo });
-      document.getElementById('modalContent').innerHTML = `
-        <div class="form-success-screen">
-          <div class="success-icon">✅</div>
-          <h3>¡MENSAJE ENVIADO!</h3>
-          <p>Recibí tu consulta.<br>Te respondo a <strong>${email}</strong> en menos de 24 hs.</p>
-          <button class="btn-close-modal" onclick="closeModalDirect()">Cerrar</button>
-        </div>`;
-    })
-    .catch(err => {
-      console.error(err);
-      submit.disabled = false;
-      submit.textContent = 'Reintentar →';
-      submit.classList.remove('loading');
-      fb.textContent = '✕ Error al enviar. Escribime por WhatsApp.';
-      fb.className = 'form-feedback error';
-    });
-}
-
-/* ── Carousel ── */
-(function() {
-  const track = document.getElementById('carouselTrack');
-  const dotsContainer = document.getElementById('carouselDots');
-  const counter = document.getElementById('carouselCounter');
-  if (!track) return;
-  const slides = track.querySelectorAll('.carousel-slide');
-  const total = slides.length;
-  let current = 0, timer;
-
-  slides.forEach((_, i) => {
-    const dot = document.createElement('button');
-    dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
-    dot.onclick = () => goTo(i);
-    dotsContainer.appendChild(dot);
+async function uploadToImgbb(file) {
+  const base64 = await fileToBase64(file);
+  const formData = new FormData();
+  formData.append('image', base64.split(',')[1]);
+  const res = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, {
+    method: 'POST',
+    body: formData,
   });
-
-  function goTo(index) {
-    current = (index + total) % total;
-    track.style.transform = `translateX(-${current * 100}%)`;
-    dotsContainer.querySelectorAll('.carousel-dot').forEach((d, i) => d.classList.toggle('active', i === current));
-    counter.textContent = `${current + 1} / ${total}`;
-    resetTimer();
-  }
-
-  function resetTimer() {
-    clearInterval(timer);
-    timer = setInterval(() => goTo(current + 1), 4500);
-  }
-
-  window.carouselMove = dir => goTo(current + dir);
-  resetTimer();
-})();
-
-(function() {
-  const marcas = [25, 50, 75, 100];
-  const vistas = new Set();
-  window.addEventListener('scroll', () => {
-    const pct = (window.scrollY + window.innerHeight) / document.documentElement.scrollHeight * 100;
-    marcas.forEach(m => {
-      if (pct >= m && !vistas.has(m)) { vistas.add(m); track('scroll_profundidad', { porcentaje: m }); }
-    });
-  }, { passive: true });
-})();
-
-/* ── Popup cupos ── */
-function closeCuposPopup() {
-  document.getElementById('cuposOverlay').classList.remove('open');
-  document.body.style.overflow = '';
+  const data = await res.json();
+  if (!data.success) throw new Error('imgbb: ' + (data.error?.message || 'upload failed'));
+  return data.data.url;
 }
-(function() {
-  // Delay de 5s para que el hero cargue primero
-  setTimeout(function() {
-    document.getElementById('cuposOverlay').classList.add('open');
-    document.body.style.overflow = 'hidden';
-  }, 5000);
-})();
 
+// SUBMIT
+document.getElementById('regForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  clearTopError();
+
+  const nombre = document.getElementById('nombre');
+  const dni = document.getElementById('dni');
+  const tel = document.getElementById('tel');
+  const terms = document.getElementById('terms');
+  let valid = true;
+
+  if(selectedCategories.size === 0) {
+    document.getElementById('catErr').style.display = 'block';
+    valid = false;
+    showTopError('Seleccioná al menos una categoría.');
+  } else {
+    document.getElementById('catErr').style.display = 'none';
+  }
+
+  const nombreOk = nombre.value.trim().length >= 3;
+  showFieldError(nombre, !nombreOk); if(!nombreOk) valid = false;
+
+  const dniOk = /^\d{6,9}$/.test(dni.value.replace(/\./g,'').trim());
+  showFieldError(dni, !dniOk); if(!dniOk) valid = false;
+
+  const telOk = tel.value.replace(/\D/g,'').length >= 8;
+  showFieldError(tel, !telOk); if(!telOk) valid = false;
+
+  const representaTeam = document.querySelector('.toggle-btn[data-val].active')?.dataset.val || 'NO';
+  if(representaTeam === 'SI') {
+    const tn = document.getElementById('teamName');
+    const tnOk = tn.value.trim().length >= 2;
+    showFieldError(tn, !tnOk); if(!tnOk) valid = false;
+  }
+
+  const fotoErr = document.getElementById('fotoErr');
+  if(!fotoFile) { fotoErr.style.display='block'; valid=false; } else { fotoErr.style.display='none'; }
+
+  const compErr = document.getElementById('compErr');
+  if(!compFile) { compErr.style.display='block'; valid=false; } else { compErr.style.display='none'; }
+
+  const termsErr = document.getElementById('termsErr');
+  if(!terms.checked) { termsErr.style.display='block'; valid=false; } else { termsErr.style.display='none'; }
+
+  if(!valid) {
+    if(!document.getElementById('topError').textContent) showTopError('Revisá los campos marcados antes de enviar.');
+    return;
+  }
+
+  const submitBtn = document.getElementById('submitBtn');
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'Subiendo archivos...';
+
+  try {
+    // 1. Subir foto y comprobante a imgbb en paralelo
+    const [fotoUrl, compUrl] = await Promise.all([
+      uploadToImgbb(fotoFile),
+      uploadToImgbb(compFile),
+    ]);
+
+    submitBtn.textContent = 'Guardando inscripción...';
+
+    // 2. Armar payload para Google Sheets
+    const categoriasSeleccionadas = [...selectedCategories].map(id => {
+      const cat = [...CATEGORIES, UNSURE].find(c => c.id === id);
+      return cat ? cat.tag + ' ' + cat.name + ' ' + cat.sex : id;
+    });
+
+    const payload = {
+      nombre:        nombre.value.trim(),
+      dni:           dni.value.trim(),
+      telefono:      tel.value.trim(),
+      instagram:     document.getElementById('ig').value.trim(),
+      categorias:    categoriasSeleccionadas.join(' / '),
+      representaTeam,
+      teamName:      representaTeam === 'SI' ? document.getElementById('teamName').value.trim() : '',
+      foto_url:      fotoUrl,
+      comprobante_url: compUrl,
+      timestamp:     new Date().toISOString(),
+    };
+
+    // 3. Enviar a Google Sheets (no-cors: sin bloqueo por CORS, falla silenciosa si hay error de red)
+    await fetch(SHEETS_WEBHOOK_URL, {
+      method: 'POST',
+      mode:   'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body:   JSON.stringify(payload),
+    });
+
+    document.getElementById('regForm').style.display = 'none';
+    document.getElementById('successScreen').style.display = 'block';
+    window.scrollTo({top:0,behavior:'smooth'});
+
+  } catch(err) {
+    console.error(err);
+    showTopError('Hubo un error al enviar tu inscripción. Probá de nuevo o escribinos a @alza.organizacion.');
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Confirmar inscripción';
+  }
+});
 </script>
 </body>
 </html>
