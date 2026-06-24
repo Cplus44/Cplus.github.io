@@ -80,9 +80,9 @@ body{
 .cat-info-btn{font-size:11px;color:var(--teal-light);background:none;border:none;padding:0;cursor:pointer;margin-top:8px;font-family:'Poppins',sans-serif;text-decoration:underline;text-underline-offset:2px;}
 .cat-card.fem .cat-info-btn{color:var(--violet-light);}
 .cat-card.unsure .cat-info-btn{color:var(--ink-faint);}
-.cat-open-notice{margin-top:14px;background:rgba(63,167,181,0.06);border:1px solid rgba(63,167,181,0.18);border-radius:10px;padding:12px 16px;}
-.cat-open-notice p{margin:0 0 10px;font-size:13px;color:var(--ink-dim);}
-.cat-open-notice p strong{color:var(--ink);}
+.cat-open-notice{margin-top:14px;background:rgba(63,167,181,0.06);border:1px solid rgba(63,167,181,0.18);border-radius:10px;padding:12px 16px;text-align: center;}
+.cat-open-notice p{margin:0 0 10px;font-size:13px;color:var(--ink-dim);text-align: center;}
+.cat-open-notice p strong{color:var(--ink);text-align: center;}
 
 /* FIELDS */
 label.field-label{display:block;font-size:12px;letter-spacing:1px;text-transform:uppercase;color:var(--ink-dim);font-weight:600;margin:0 0 8px;}
@@ -359,12 +359,7 @@ footer a:hover{color:var(--teal-light);}
             <button type="button" class="copy-btn" id="copyAliasBtn" onclick="copyAlias()">Copiar alias</button>
           </div>
           <p style="font-size:12px;color:var(--ink-faint);">Ignacio Armando Repetto</p>
-        </div>
-        <a class="mp-btn" id="mpBtn" href="https://link.mercadopago.com.ar/alzacalistenia" target="_blank" rel="noopener">
-          <span class="mp-logo">💳</span> Transferir por Mercado Pago
-        </a>
-        <p class="hint" style="text-align:center;margin-bottom:14px;">Al volver de la app, tu formulario seguirá guardado.</p>
-        <div class="or-divider">o adjuntá el comprobante directamente</div>
+
         <div style="margin-top:16px;">
           <label class="field-label" style="margin-bottom:12px;">Comprobante de transferencia <span class="req">*</span></label>
           <div class="upload-box" id="compBox">
@@ -385,7 +380,7 @@ footer a:hover{color:var(--teal-light);}
           <span class="terms-text">
             Acepto los términos y condiciones de la
             <button type="button" class="terms-link" onclick="openTermsModal(event)">Declaración Jurada</button>
-            y asumo plena responsabilidad sobre mi participación en el CANT organizado por ALZA.
+            y asumo plena responsabilidad sobre mi participación en el CAT organizado por ALZA.
           </span>
         </label>
         <div class="err-msg" id="termsErr" style="margin-top:10px;">Tenés que aceptar la declaración jurada para inscribirte</div>
@@ -425,11 +420,8 @@ const CATEGORIES = [
       <p>Categoría orientada a atletas masculinos con bases sólidas en movimientos de freestyle. Se evaluarán ejecución técnica, creatividad y fluidez de la rutina.</p>
       <p><strong>Ejercicios de referencia:</strong></p>
       <ul>
-        <li>[Ejercicio 1 — completar]</li>
-        <li>[Ejercicio 2 — completar]</li>
-        <li>[Ejercicio 3 — completar]</li>
-      </ul>
-      <p style="font-size:12px;color:var(--ink-faint);">[Completar con parámetros reales de la categoría]</p>
+        <li>Front, plancha, backlever, handstand y fuerza dinamica de los mismos en straddle, full o regreciónes. Dinámicos basicos-avanzados; 360, 540, geinger, etc.</li>
+
     `
   },
   {
@@ -438,11 +430,8 @@ const CATEGORIES = [
       <p>Categoría para atletas masculinos con alto nivel de dominio corporal. Se requiere manejo de elementos de alto riesgo y combinaciones complejas.</p>
       <p><strong>Ejercicios de referencia:</strong></p>
       <ul>
-        <li>[Ejercicio 1 — completar]</li>
-        <li>[Ejercicio 2 — completar]</li>
-        <li>[Ejercicio 3 — completar]</li>
-      </ul>
-      <p style="font-size:12px;color:var(--ink-faint);">[Completar con parámetros reales de la categoría]</p>
+        <li>Front, plancha, handstand, backlever y fuerza dinamica de los mismos en full, dinamicos basicos, avanzados y super trucos. 360, 540, geinger, front flip, 720, etc.</li>
+        
     `
   },
   {
@@ -451,11 +440,7 @@ const CATEGORIES = [
       <p>Categoría masculina que combina fuerza y control estático. Se evaluarán elementos de fuerza y la correcta ejecución de posiciones estáticas básicas.</p>
       <p><strong>Ejercicios de referencia:</strong></p>
       <ul>
-        <li>[Ejercicio 1 — completar]</li>
-        <li>[Ejercicio 2 — completar]</li>
-        <li>[Ejercicio 3 — completar]</li>
-      </ul>
-      <p style="font-size:12px;color:var(--ink-faint);">[Completar con parámetros reales de la categoría]</p>
+        <li>Plancha, handstand, front, backlever y fuerza dinamica de los mismos en straddle/full.</li>
     `
   },
   {
@@ -464,11 +449,7 @@ const CATEGORIES = [
       <p>Nivel elite masculino en Powerfree. Se esperan elementos de fuerza de alta dificultad, combinados con fluidez y ejecución limpia.</p>
       <p><strong>Ejercicios de referencia:</strong></p>
       <ul>
-        <li>[Ejercicio 1 — completar]</li>
-        <li>[Ejercicio 2 — completar]</li>
-        <li>[Ejercicio 3 — completar]</li>
-      </ul>
-      <p style="font-size:12px;color:var(--ink-faint);">[Completar con parámetros reales de la categoría]</p>
+        <li>Plancha, front, backlever, handstand y fuerza dinámica de los mismos en full.</li>
     `
   },
   {
@@ -477,11 +458,8 @@ const CATEGORIES = [
       <p>Categoría femenina de mayor exigencia en Freestyle. Se evaluará técnica, expresión artística y dificultad de los movimientos encadenados.</p>
       <p><strong>Ejercicios de referencia:</strong></p>
       <ul>
-        <li>[Ejercicio 1 — completar]</li>
-        <li>[Ejercicio 2 — completar]</li>
-        <li>[Ejercicio 3 — completar]</li>
-      </ul>
-      <p style="font-size:12px;color:var(--ink-faint);">[Completar con parámetros reales de la categoría]</p>
+        <li>Front, plancha, backlever, handstand y fuerza dinamica de los mismos en straddle/full. Dinámicos basicos, avanzados y supertrucos.</li>
+
     `
   },
   {
@@ -490,18 +468,15 @@ const CATEGORIES = [
       <p>Categoría femenina que evalúa la combinación de fuerza y estética en movimientos de Powerfree. Nivel intermedio con buenas bases de fuerza.</p>
       <p><strong>Ejercicios de referencia:</strong></p>
       <ul>
-        <li>[Ejercicio 1 — completar]</li>
-        <li>[Ejercicio 2 — completar]</li>
-        <li>[Ejercicio 3 — completar]</li>
-      </ul>
-      <p style="font-size:12px;color:var(--ink-faint);">[Completar con parámetros reales de la categoría]</p>
+        <li>Front, plancha, backlever, handstand y fuerza dinamica de los mismos en regresiones, max straddle.</li>
+      
     `
   },
 ];
 
 const UNSURE = {
-  id:'unsure', tag:'Open ALZA', name:'No estoy seguro', sex:'Jornada de testeo y asignación', fem:false, unsure:true,
-  params:`<p>Vas a participar en la <strong>Jornada Open de ALZA</strong>: un espacio de testeo donde el equipo técnico te va a evaluar y asignar la categoría más adecuada para vos.</p><p>No necesitás saber tu nivel exacto. El equipo de ALZA te orienta el día del evento.</p>`
+  id:'unsure', tag:'Open ALZA', name:'No estoy seguro', sex:'OpenGym de testeo y asignación', fem:false, unsure:true,
+  params:`<p>Vas a participar en la <strong>OPEN de ALZA</strong>: un espacio de testeo donde el equipo técnico te va a evaluar y asignar la categoría más adecuada para vos.</p><p>No necesitás saber tu nivel exacto. El equipo de ALZA te orienta el día del evento.</p>`
 };
 
 let selectedCategories = new Set();
